@@ -24,7 +24,7 @@ var (
 					controller.Welcome,
 				)
 			})
-			s.AddStaticPath("/public", "./public")
+			s.AddStaticPath("/public", "./resource/public")
 			s.Run()
 			return nil
 		},
