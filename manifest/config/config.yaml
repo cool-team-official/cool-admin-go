@@ -1,11 +1,12 @@
 server:
-  address:     ":8000"
+  address: ":8000"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
 
 logger:
-  level : "all"
+  level: "all"
   stdout: true
 
-
+# viewer:
+#   Paths: "./resource/template" # 模板文件搜索目录路径，建议使用绝对路径。默认为当前程序工作路径
 

@@ -3,10 +3,11 @@ package cmd
 import (
 	"context"
 
+	"cool-admin-go/internal/controller"
+
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
-	"cool-admin-go/internal/controller"
 )
 
 var (
@@ -20,8 +21,10 @@ var (
 				group.Middleware(ghttp.MiddlewareHandlerResponse)
 				group.Bind(
 					controller.Hello,
+					controller.Welcome,
 				)
 			})
+			s.AddStaticPath("/public", "./public")
 			s.Run()
 			return nil
 		},
