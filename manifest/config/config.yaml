@@ -1,5 +1,5 @@
 server:
-  address:     ":8000"
+  address:     ":8001"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
 
