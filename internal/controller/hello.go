@@ -5,7 +5,7 @@ import (
 
 	"github.com/gogf/gf/v2/frame/g"
 
-	"cool-admin-go/api/v1"
+	v1 "github.com/cool-team-official/cool-admin-go/api/v1"
 )
 
 var (

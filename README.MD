@@ -1,9 +1,17 @@
-# GoFrame Template For SingleRepo
+# CoolAdminGo
+CoolAdmin的Go版本后端
 
-Project Makefile Commands: 
-- `make cli`: Install or Update to the latest GoFrame CLI tool.
-- `make dao`: Generate go files for `Entity/DAO/DO` according to the configuration file from `hack` folder.
-- `make service`: Parse `logic` folder to generate interface go files into `service` folder.
-- `make image TAG=xxx`: Run `docker build` to build image according `manifest/docker`.
-- `make image.push TAG=xxx`: Run `docker build` and `docker push` to build and push image according `manifest/docker`.
-- `make deploy TAG=xxx`: Run `kustomize build` to build and deploy deployment to kubernetes server group according `manifest/deploy`.
+开发中，未完成
+
+## TODO
+
+- [x] 基础CURD结构搭建
+- [x] model层快速生成
+- [x] service层快速生成
+- [x] controller层快速生成
+- [] 中间件错误状态及错误码与node版本统一
+- [] 全局错误码统一
+- [] controller层接口输入与node版本统一
+- [] service层逻辑补全
+- [] 其他项目需求
+

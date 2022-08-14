@@ -1,5 +1,5 @@
 server:
-  address:     ":8000"
+  address:     ":8100"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
 
@@ -7,5 +7,20 @@ logger:
   level : "all"
   stdout: true
 
+database:
+  autoMigrate: true
+  default:
+    - type: "mysql"
+      link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
+      role: "master"
+      debug: true
+    - type: "mysql"
+      link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
+      role: "slave"
+      debug: true
+  test:
+    type: "sqlite"
+    link: "./data/db.sqlite"
+    logLevel: "all"
 
 
