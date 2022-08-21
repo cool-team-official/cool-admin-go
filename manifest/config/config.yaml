@@ -15,3 +15,10 @@ database:
     link: "./data/db.sqlite"
     logLevel: "all"
 
+cool-base:
+  jwt:
+    sso: false
+    secret: "cool-base88776655"
+    token:
+      expire: 7200 # 2*3600
+      refresh: 1296000 # 24*3600*15

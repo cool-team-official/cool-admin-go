@@ -1,5 +1,6 @@
 package modules
 
 import (
-	_ "cool-admin-go-simple/modules/demo" // 引入模块 demo
+	_ "github.com/cool-team-official/cool-admin-go/modules/base"
+	_ "github.com/cool-team-official/cool-admin-go/modules/dict"
 )
