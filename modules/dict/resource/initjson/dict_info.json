@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "createTime": "2022-07-06 14:18:53.841000",
+    "updateTime": "2022-07-06 14:19:10.954000",
+    "typeId": 1,
+    "name": "衣服",
+    "orderNum": 2,
+    "remark": null,
+    "parentId": null
+  },
+  {
+    "id": 2,
+    "createTime": "2022-07-06 14:18:59.834000",
+    "updateTime": "2022-07-06 14:18:59.834000",
+    "typeId": 1,
+    "name": "裤子",
+    "orderNum": 1,
+    "remark": null,
+    "parentId": null
+  },
+  {
+    "id": 3,
+    "createTime": "2022-07-06 14:19:03.993000",
+    "updateTime": "2022-07-06 14:19:15.251000",
+    "typeId": 1,
+    "name": "鞋子",
+    "orderNum": 3,
+    "remark": null,
+    "parentId": null
+  },
+  {
+    "id": 4,
+    "createTime": "2022-07-06 14:21:47.122000",
+    "updateTime": "2022-07-06 14:22:26.131000",
+    "typeId": 2,
+    "name": "闪酷",
+    "orderNum": 2,
+    "remark": null,
+    "parentId": null
+  },
+  {
+    "id": 5,
+    "createTime": "2022-07-06 14:22:18.309000",
+    "updateTime": "2022-07-06 14:22:18.309000",
+    "typeId": 2,
+    "name": "COOL",
+    "orderNum": 1,
+    "remark": null,
+    "parentId": null
+  }
+]

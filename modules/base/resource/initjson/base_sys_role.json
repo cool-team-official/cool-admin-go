@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "createTime": "2021-02-24 21:18:39.682358",
+    "updateTime": "2021-02-24 21:18:39.682358",
+    "userId": "1",
+    "name": "超管",
+    "label": "admin",
+    "remark": "最高权限的角色",
+    "relevance": 1
+  },
+  {
+    "id": 10,
+    "createTime": "2021-02-26 14:15:38.000000",
+    "updateTime": "2021-02-26 14:15:38.000000",
+    "userId": "1",
+    "name": "系统管理员",
+    "label": "admin-sys",
+    "remark": null,
+    "relevance": 1
+  },
+  {
+    "id": 11,
+    "createTime": "2021-02-26 14:16:49.044744",
+    "updateTime": "2021-02-26 14:16:49.044744",
+    "userId": "1",
+    "name": "游客",
+    "label": "visitor",
+    "remark": null,
+    "relevance": 0
+  },
+  {
+    "id": 12,
+    "createTime": "2021-02-26 14:26:51.000000",
+    "updateTime": "2021-02-26 14:32:35.000000",
+    "userId": "1",
+    "name": "开发",
+    "label": "dev",
+    "remark": null,
+    "relevance": 0
+  },
+  {
+    "id": 13,
+    "createTime": "2021-02-26 14:27:58.000000",
+    "updateTime": "2021-02-26 14:33:49.000000",
+    "userId": "1",
+    "name": "测试",
+    "label": "test",
+    "remark": null,
+    "relevance": 0
+  }
+]

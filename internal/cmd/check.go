@@ -3,7 +3,9 @@ package cmd
 import (
 	"context"
 
+	"github.com/gogf/gf/v2/debug/gdebug"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/frame/gins"
 
 	"github.com/gogf/gf/v2/os/gcmd"
 )
@@ -14,24 +16,22 @@ var (
 		Usage: "check",
 		Brief: "check",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			g.Log().Debug(ctx, "Check controller~~~~~~~~~~")
-			group := "default"
-			var configMap map[string]interface{}
-			var configSlice []interface{}
-			if v, _ := g.Cfg().Get(ctx, "database."+group); !v.IsEmpty() {
-				if v.IsSlice() {
-					g.Log().Debug(ctx, "v.IsSlice()")
-					configSlice = v.Slice()
-					configMap = configSlice[0].(map[string]interface{})
-				} else if v.IsMap() {
-					g.Log().Debug(ctx, "v.IsMap()")
-					configMap = v.Map()
-				} else {
-					panic("无法解析数据库配置")
-				}
+			g.Log().Debug(ctx, "Check ～～～～～～～~~~~~~~~~~")
+			_, err = g.Redis().Do(ctx, "HSET", "test", "id", 10000)
+
+			if err != nil {
+				panic(err)
 			}
-			g.Dump(configMap)
-			return nil
+			// test := &gredis.Config{
+			// 	Address: "127.0.0.1:6379",
+			// 	Db:      0,
+			// }
+			redis := gins.Redis()
+			redis.Do(ctx, "HSET", "test2", "id", 10000)
+
+			println(gdebug.Caller())
+			g.Redis()
+			return
 		},
 	}
 )

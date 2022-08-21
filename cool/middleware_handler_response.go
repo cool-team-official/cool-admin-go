@@ -9,17 +9,15 @@ package cool
 import (
 	"net/http"
 
-	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/util/gconv"
 )
 
 // DefaultHandlerResponse is the default implementation of HandlerResponse.
 type DefaultHandlerResponse struct {
-	Code    int    `json:"code"    dc:"Error code"`
-	Message string `json:"message" dc:"Error message"`
-	// Data    interface{} `json:"data"    dc:"Result data for certain request according API definition"`
+	Code    int         `json:"code"    dc:"Error code"`
+	Message string      `json:"message" dc:"Error message"`
+	Data    interface{} `json:"data,omitempty"    dc:"Result data for certain request according API definition"`
 }
 
 // MiddlewareHandlerResponse is the default middleware handling handler response object and its error.
@@ -32,49 +30,51 @@ func MiddlewareHandlerResponse(r *ghttp.Request) {
 	}
 
 	var (
+		// ctx  g.Ctx
 		msg  string
 		err  = r.GetError()
 		res  = r.GetHandlerResponse()
-		code = gerror.Code(err)
+		code = gerror.Code(err).Code()
 	)
+
+	// g.Log().Debug(ctx, code, msg, res)
+	msg = "success"
+
 	if err != nil {
-		if code == gcode.CodeNil {
-			code = gcode.CodeInternalError
+		if code == -1 {
+			code = 1001
 		}
 		msg = err.Error()
 	} else if r.Response.Status > 0 && r.Response.Status != http.StatusOK {
 		msg = http.StatusText(r.Response.Status)
 		switch r.Response.Status {
 		case http.StatusNotFound:
-			code = gcode.CodeNotFound
+			code = 404
 		case http.StatusForbidden:
-			code = gcode.CodeNotAuthorized
+			code = 403
 		default:
-			code = gcode.CodeUnknown
+			code = 500
 		}
 	} else {
-		code = gcode.CodeOK
+		// code = gcode.CodeOK
+		code = 1000
 	}
-	// var ctx = r.Context()
-	// g.Log().Debug(ctx, "[HandlerResponse]", "code", code, "message", msg, "data", res)
-
-	coderes := &DefaultHandlerResponse{
-		Code:    code.Code(),
+	// 做一些code转换适配cooladmin的错误码
+	switch code {
+	case 51: // 参数错误
+		code = 51
+	case 50: // 内部错误
+		code = 1003
+	default:
+	}
+	// g.Log().Debug(ctx, code, msg, res)
+	// 如果是正常返回，直接返回res
+	if code == 1000 && r.Response.Status == 200 {
+		r.Response.WriteJsonExit(res)
+	}
+	r.Response.WriteJson(DefaultHandlerResponse{
+		Code:    code,
 		Message: msg,
-	}
-
-	type sData struct {
-		Data interface{} `json:"data"`
-	}
-	var data *sData
-	gconv.Struct(res, &data)
-	type sRes struct {
-		DefaultHandlerResponse
-		sData
-	}
-	r.Response.WriteJson(sRes{
-		DefaultHandlerResponse: *coderes,
-		sData:                  *data,
+		Data:    res,
 	})
-
 }

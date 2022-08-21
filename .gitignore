@@ -5,7 +5,6 @@
 .swp
 .idea/
 .settings/
-.vscode/
 vendor/
 composer.lock
 gitpush.sh
@@ -19,3 +18,7 @@ output/
 manifest/output/
 temp/
 data/db.sqlite
+resource/public/dist
+cool-tools/resource/cool-admin-go-simple
+cool-tools/build.sh
+cool-tools/internal/packed/cool-admin-go-simple.go

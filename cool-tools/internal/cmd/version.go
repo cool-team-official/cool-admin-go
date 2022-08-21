@@ -31,7 +31,7 @@ var (
 			// 如果data为空map
 
 			var binVersion string
-			if len(data) == 0 {
+			if len(data) == 0 || data["version"] == nil {
 				binVersion = "unknown"
 			} else {
 				binVersion = data["version"].(string)
@@ -39,7 +39,7 @@ var (
 
 			// 生成sVersion结构体
 			res := sVersion{
-				Name:     "cool-admin-go",
+				Name:     "cool-tools",
 				Homepage: "https://cool-js.com",
 				Version:  binVersion,
 				GoFrame:  info.GoFrame,

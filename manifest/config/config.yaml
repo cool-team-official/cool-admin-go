@@ -1,10 +1,11 @@
 server:
-  address:     ":8100"
+  address: ":8002"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
+  serverRoot: "./resource/public/dist"
 
 logger:
-  level : "all"
+  level: "all"
   stdout: true
 
 database:
@@ -20,7 +21,20 @@ database:
       debug: true
   test:
     type: "sqlite"
-    link: "./data/db.sqlite"
+    link: "./temp/db.sqlite"
     logLevel: "all"
 
+# Redis 配置示例
+redis:
+  default:
+    address: "127.0.0.1:6379"
+    db: 0
+
+cool-base:
+  jwt:
+    sso: false
+    secret: "cool-base88776655"
+    token:
+      expire: 7200 # 2*3600
+      refresh: 1296000 # 24*3600*15
 

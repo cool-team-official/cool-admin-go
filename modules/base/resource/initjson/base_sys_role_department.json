@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "createTime": "2021-02-26 12:00:23.787939",
+    "updateTime": "2021-02-26 12:00:23.787939",
+    "roleId": "8",
+    "departmentId": "4"
+  },
+  {
+    "id": 2,
+    "createTime": "2021-02-26 12:01:11.525205",
+    "updateTime": "2021-02-26 12:01:11.525205",
+    "roleId": "9",
+    "departmentId": "1"
+  },
+  {
+    "id": 3,
+    "createTime": "2021-02-26 12:01:11.624266",
+    "updateTime": "2021-02-26 12:01:11.624266",
+    "roleId": "9",
+    "departmentId": "4"
+  },
+  {
+    "id": 4,
+    "createTime": "2021-02-26 12:01:11.721894",
+    "updateTime": "2021-02-26 12:01:11.721894",
+    "roleId": "9",
+    "departmentId": "5"
+  },
+  {
+    "id": 5,
+    "createTime": "2021-02-26 12:01:11.823342",
+    "updateTime": "2021-02-26 12:01:11.823342",
+    "roleId": "9",
+    "departmentId": "8"
+  },
+  {
+    "id": 6,
+    "createTime": "2021-02-26 12:01:11.922873",
+    "updateTime": "2021-02-26 12:01:11.922873",
+    "roleId": "9",
+    "departmentId": "9"
+  },
+  {
+    "id": 23,
+    "createTime": "2021-02-26 14:32:40.354669",
+    "updateTime": "2021-02-26 14:32:40.354669",
+    "roleId": "12",
+    "departmentId": "11"
+  },
+  {
+    "id": 25,
+    "createTime": "2021-02-26 14:32:59.726608",
+    "updateTime": "2021-02-26 14:32:59.726608",
+    "roleId": "10",
+    "departmentId": "1"
+  },
+  {
+    "id": 27,
+    "createTime": "2021-02-26 14:33:54.579947",
+    "updateTime": "2021-02-26 14:33:54.579947",
+    "roleId": "13",
+    "departmentId": "12"
+  }
+]
