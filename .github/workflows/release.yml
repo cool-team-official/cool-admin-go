@@ -32,7 +32,7 @@ jobs:
         run: |
           cd cool-tools
           make pack
-          gf build main.go -n ${{env.BIN_NAME}} -a all -s all -p ./temp -r '{"version":"${{github.ref_name}}"}'
+          gf build main.go -n ${{env.BIN_NAME}} -a 386,amd64,arm -s linux,darwin,windows -p ./temp -r '{"version":"${{github.ref_name}}"}'
       - name: Move Files Before Release
         run: |
           cd cool-tools/temp
