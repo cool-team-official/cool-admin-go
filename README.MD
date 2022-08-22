@@ -1,9 +1,49 @@
-# GoFrame Template For SingleRepo
+# Cool Admin Go Simple
 
-Project Makefile Commands: 
-- `make cli`: Install or Update to the latest GoFrame CLI tool.
-- `make dao`: Generate go files for `Entity/DAO/DO` according to the configuration file from `hack` folder.
-- `make service`: Parse `logic` folder to generate interface go files into `service` folder.
-- `make image TAG=xxx`: Run `docker build` to build image according `manifest/docker`.
-- `make image.push TAG=xxx`: Run `docker build` and `docker push` to build and push image according `manifest/docker`.
-- `make deploy TAG=xxx`: Run `kustomize build` to build and deploy deployment to kubernetes server group according `manifest/deploy`.
+## 开发工具安装
+
+### 安装 gf 工具
+
+如果已经安装不再重复安装
+
+```bash
+make cli.install
+```
+
+### 升级 gf 工具
+
+不管是否安装都下载最新版本
+
+```bash
+make cli
+```
+
+### 安装 cool-tools
+
+如果已经安装不再重复安装
+
+```bash
+make tools.install
+```
+
+### 升级 cool-tools
+
+不管是否安装都下载最新版本
+
+```bash
+make tools
+```
+
+## 开发模式启动
+
+先执行 `go mod tidy` 来更新模块依赖
+
+```bash
+go mod tidy
+```
+
+更新完依赖后, 可以执行 `gf run main.go` 来启动开发模式
+
+```bash
+gf run main.go
+```

@@ -1,15 +1,15 @@
 ROOT_DIR    = $(shell pwd)
 NAMESPACE   = "default"
 DEPLOY_NAME = "template-single"
-DOCKER_NAME = "template-single"
+DOCKER_NAME = "cool-admin-go-simple"
 
 # Install/Update to the latest CLI tool.
 .PHONY: cli
 cli:
 	@set -e; \
-	wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	wget -O gf https://hub.fastgit.xyz/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
 	chmod +x gf && \
-	./gf install -y && \
+	./gf install && \
 	rm ./gf
 
 
@@ -22,6 +22,26 @@ cli.install:
 		make cli; \
 	fi;
 
+# Install/Update to the latest cool-tools.
+.PHONY: tools
+tools:
+	@set -e; \
+	wget -O cool-tools https://hub.fastgit.xyz/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	chmod +x cool-tools && \
+	./cool-tools install && \
+	rm ./cool-tools
+
+
+# Check and install cool-tools.
+.PHONY: tools.install
+tools.install:
+	@set -e; \
+	echo "Checking cool-tools..."; \
+	cool-tools -v > /dev/null 2>&1 || if [[ "$?" -ne "0" ]]; then \
+  		echo "cool-tools is not installed, start proceeding auto installation..."; \
+		make tools; \
+	fi;\
+	echo "cool-tools is installed.";
 
 # Generate Go files for DAO/DO/Entity.
 .PHONY: dao
