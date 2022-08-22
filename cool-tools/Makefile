@@ -12,7 +12,7 @@ pack.template-simple:
 .PHONY: cli
 cli:
 	@set -e; \
-	wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	wget -O gf https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
 	chmod +x gf && \
-	./gf install -y && \
+	./gf install  && \
 	rm ./gf

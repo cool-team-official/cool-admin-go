@@ -15,6 +15,7 @@ cbuild
 **/.DS_Store
 .test/
 main
+cool-tools
 output/
 manifest/output/
 temp/

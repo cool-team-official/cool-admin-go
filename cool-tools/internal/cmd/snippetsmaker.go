@@ -15,7 +15,7 @@ var (
 	SnippetsMaker = gcmd.Command{
 		Name:  "snippetsmaker",
 		Usage: "snippetsmaker",
-		Brief: "snippetsmaker",
+		Brief: "代码片段生成器",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			g.Log().Debug(ctx, "snippetsmaker,生成工具^.^")
 			files := garray.New(true)

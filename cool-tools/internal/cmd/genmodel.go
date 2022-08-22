@@ -13,7 +13,7 @@ var (
 	GenModel = gcmd.Command{
 		Name:  "genmodel",
 		Usage: "genmodel",
-		Brief: "genmodel",
+		Brief: "根据数据库表生成model",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			genmodel()
 			return
@@ -49,7 +49,7 @@ func genmodel() {
 		FieldWithTypeTag: true,
 		//if you need unit tests for query code, set WithUnitTest true
 		/* WithUnitTest: true, */
-		WithUnitTest: true,
+		WithUnitTest: false,
 		Mode:         gen.WithoutContext,
 	})
 

@@ -2,10 +2,7 @@
 # CLI tool, only in development environment.
 # https://goframe.org/pages/viewpage.action?pageId=3673173
 gfcli:
-  # build:
-  #   name: "cool-tools"
-  #   arch: "amd64,arm64"
-  #   system: "linux,darwin,windows"
-  #   output: "./temp"
-  #   pack: "resource"
+  build:
+    name: "cool-tools"
+    packSrc: "resource"
 

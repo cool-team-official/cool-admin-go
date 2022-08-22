@@ -21,8 +21,8 @@ type sVersion struct {
 var (
 	Version = gcmd.Command{
 		Name:  "version",
-		Usage: "version",
-		Brief: "show version",
+		Usage: "cool-tools version",
+		Brief: "查看版本信息",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			info := gbuild.Info()
 			// gutil.Dump(info)
