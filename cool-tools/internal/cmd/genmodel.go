@@ -71,7 +71,7 @@ func genmodel() {
 	// 	GroupName() string
 	// }
 	// gene.ApplyInterface(func(method Method) {}, gene.GenerateModel("base_sys_user"))
-	gene.GenerateAllTable(gen.FieldIgnore("id", "createTime", "updateTime", "deleteTime"))
+	gene.GenerateAllTable(gen.FieldIgnore("id"))
 
 	// apply diy interfaces on structs or table models
 	// 如果想给某些表或者model生成自定义方法，可以用ApplyInterface，第一个参数是方法接口，可以参考DIY部分文档定义

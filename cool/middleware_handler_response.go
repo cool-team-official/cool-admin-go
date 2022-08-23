@@ -75,6 +75,5 @@ func MiddlewareHandlerResponse(r *ghttp.Request) {
 	r.Response.WriteJson(DefaultHandlerResponse{
 		Code:    code,
 		Message: msg,
-		Data:    res,
 	})
 }

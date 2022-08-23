@@ -10,9 +10,9 @@ import (
 )
 
 type IController interface {
-	Add(ctx context.Context, req *AddReq) (res *AddRes, err error)
-	Delete(ctx context.Context, req *DeleteReq) (res *DeleteRes, err error)
-	Update(ctx context.Context, req *UpdateReq) (res *UpdateRes, err error)
+	Add(ctx context.Context, req *AddReq) (res *BaseRes, err error)
+	Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, err error)
+	Update(ctx context.Context, req *UpdateReq) (res *BaseRes, err error)
 	Info(ctx context.Context, req *InfoReq) (res *BaseRes, err error)
 	List(ctx context.Context, req *ListReq) (res *BaseRes, err error)
 	Page(ctx context.Context, req *PageReq) (res *PageRes, err error)
@@ -31,6 +31,7 @@ type AddRes struct {
 }
 type DeleteReq struct {
 	g.Meta `path:"/delete" method:"POST"`
+	Ids    []int `json:"ids" v:"required#请选择要删除的数据"`
 }
 type DeleteRes struct {
 	Data interface{} `json:"data"`
@@ -43,7 +44,7 @@ type UpdateRes struct {
 }
 type InfoReq struct {
 	g.Meta `path:"/info" method:"GET"`
-	ID     int `json:"id"`
+	ID     int `json:"id" v:"integer|required#请选择要查询的数据"`
 }
 type InfoRes struct {
 	*BaseRes
@@ -51,6 +52,8 @@ type InfoRes struct {
 }
 type ListReq struct {
 	g.Meta `path:"/list" method:"POST"`
+	Order  string `json:"order"`
+	Sort   string `json:"sort"`
 }
 
 //	type ListRes struct {
@@ -64,24 +67,26 @@ type PageRes struct {
 	Data interface{} `json:"data"`
 }
 
-func (c *Controller) Add(ctx context.Context, req *AddReq) (res *AddRes, err error) {
-	g.Log().Debug(ctx, "Cool Add controller~~~~~~~~~~")
+func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Add") {
-		return c.Service.ServiceAdd(ctx, req)
+		data, err := c.Service.ServiceAdd(ctx, req)
+		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
 	return nil, nil
 }
-func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *DeleteRes, err error) {
+func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Delete") {
-		return c.Service.ServiceDelete(ctx, req)
+		data, err := c.Service.ServiceDelete(ctx, req)
+		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
 	return nil, nil
 }
-func (c *Controller) Update(ctx context.Context, req *UpdateReq) (res *UpdateRes, err error) {
+func (c *Controller) Update(ctx context.Context, req *UpdateReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Update") {
-		return c.Service.ServiceUpdate(ctx, req)
+		data, err := c.Service.ServiceUpdate(ctx, req)
+		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
 	return nil, nil

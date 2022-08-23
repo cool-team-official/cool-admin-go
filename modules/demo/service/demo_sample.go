@@ -11,6 +11,10 @@ type DemoSampleService struct {
 
 func NewDemoSampleService() *DemoSampleService {
 	return &DemoSampleService{
-		Service: cool.NewService(model.NewDemoSample()),
+		&cool.Service{
+			Model: model.NewDemoSample(),
+		},
+
+		// Service: cool.NewService(model.NewDemoSample()),
 	}
 }

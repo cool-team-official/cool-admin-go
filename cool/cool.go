@@ -45,6 +45,7 @@ type BaseRes struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
+// 返回正常结果
 func Ok(data interface{}) *BaseRes {
 
 	return &BaseRes{
@@ -57,4 +58,18 @@ func Ok(data interface{}) *BaseRes {
 // GDBModel 数据库连接
 func GDBModel(m IModel) *gdb.Model {
 	return g.DB(m.GroupName()).Model(m.TableName()).Clone()
+}
+
+// 转换gVar值类型
+func GVartoType(GVar *g.Var, wantType string) interface{} {
+	switch wantType {
+	case "int":
+		return GVar.Int()
+	case "uint":
+		return GVar.Uint()
+	case "string":
+		return GVar.String()
+	default:
+		return GVar
+	}
 }
