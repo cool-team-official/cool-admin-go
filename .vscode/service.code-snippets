@@ -32,7 +32,11 @@
       "",
       "func New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service() *${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service {",
       "       return &${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service{",
-      "               Service: cool.NewService(model.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}()),",
+      "               &cool.Service{",
+      "                       Model: model.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(),",
+      "               },",
+      "",
+      "               // Service: cool.NewService(model.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}()),",
       "       }",
       "}",
       ]
