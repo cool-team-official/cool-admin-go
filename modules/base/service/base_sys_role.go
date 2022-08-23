@@ -26,6 +26,8 @@ func (s *BaseSysRoleService) GetByUser(userId uint) []int {
 // NewBaseSysRoleService create a new BaseSysRoleService
 func NewBaseSysRoleService() *BaseSysRoleService {
 	return &BaseSysRoleService{
-		Service: cool.NewService(model.NewBaseSysRole()),
+		Service: &cool.Service{
+			Model: model.NewBaseSysRole(),
+		},
 	}
 }

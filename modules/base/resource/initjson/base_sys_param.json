@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "createTime": "2021-02-26 13:53:05.000000",
+    "updateTime": "2021-03-03 17:50:04.000000",
+    "keyName": "text",
+    "name": "富文本参数",
+    "data": "<p><strong class=\"ql-size-huge\">111xxxxx2222<span class=\"ql-cursor\">﻿﻿</span></strong></p>",
+    "dataType": 0,
+    "remark": null
+  },
+  {
+    "id": 2,
+    "createTime": "2021-02-26 13:53:18.000000",
+    "updateTime": "2021-02-26 13:53:18.000000",
+    "keyName": "json",
+    "name": "JSON参数",
+    "data": "{\n    code: 111\n}",
+    "dataType": 0,
+    "remark": null
+  }
+]

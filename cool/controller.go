@@ -15,7 +15,7 @@ type IController interface {
 	Update(ctx context.Context, req *UpdateReq) (res *BaseRes, err error)
 	Info(ctx context.Context, req *InfoReq) (res *BaseRes, err error)
 	List(ctx context.Context, req *ListReq) (res *BaseRes, err error)
-	Page(ctx context.Context, req *PageReq) (res *PageRes, err error)
+	Page(ctx context.Context, req *PageReq) (res *BaseRes, err error)
 }
 type Controller struct {
 	Perfix  string     `json:"perfix"`
@@ -26,22 +26,16 @@ type Controller struct {
 type AddReq struct {
 	g.Meta `path:"/add" method:"POST"`
 }
-type AddRes struct {
-	Data interface{} `json:"data"`
-}
+
 type DeleteReq struct {
 	g.Meta `path:"/delete" method:"POST"`
 	Ids    []int `json:"ids" v:"required#请选择要删除的数据"`
 }
-type DeleteRes struct {
-	Data interface{} `json:"data"`
-}
+
 type UpdateReq struct {
 	g.Meta `path:"/update" method:"POST"`
 }
-type UpdateRes struct {
-	Data interface{} `json:"data"`
-}
+
 type InfoReq struct {
 	g.Meta `path:"/info" method:"GET"`
 	ID     int `json:"id" v:"integer|required#请选择要查询的数据"`
@@ -56,15 +50,10 @@ type ListReq struct {
 	Sort   string `json:"sort"`
 }
 
-//	type ListRes struct {
-//		*BaseRes
-//		Data interface{} `json:"data"`
-//	}
 type PageReq struct {
 	g.Meta `path:"/page" method:"POST"`
-}
-type PageRes struct {
-	Data interface{} `json:"data"`
+	Page   int `d:"1" json:"page"`
+	Size   int `d:"15" json:"size"`
 }
 
 func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {
@@ -107,9 +96,10 @@ func (c *Controller) List(ctx context.Context, req *ListReq) (res *BaseRes, err 
 	g.RequestFromCtx(ctx).Response.Status = 404
 	return nil, nil
 }
-func (c *Controller) Page(ctx context.Context, req *PageReq) (res *PageRes, err error) {
+func (c *Controller) Page(ctx context.Context, req *PageReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Page") {
-		return c.Service.ServicePage(ctx, req)
+		data, err := c.Service.ServicePage(ctx, req)
+		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
 	return nil, nil

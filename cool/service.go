@@ -14,7 +14,7 @@ type IService interface {
 	ServiceUpdate(ctx context.Context, req *UpdateReq) (data interface{}, err error)
 	ServiceInfo(ctx context.Context, req *InfoReq) (data interface{}, err error)
 	ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error)
-	ServicePage(ctx context.Context, req *PageReq) (res *PageRes, err error)
+	ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error)
 }
 type Service struct {
 	Model       IModel
@@ -46,16 +46,16 @@ func (s *Service) ServiceDelete(ctx context.Context, req *DeleteReq) (data inter
 	return
 }
 
-func (s *Service) ServiceUpdate(ctx context.Context, req *UpdateReq) (res interface{}, err error) {
+func (s *Service) ServiceUpdate(ctx context.Context, req *UpdateReq) (data interface{}, err error) {
 	r := g.RequestFromCtx(ctx)
 	rmap := r.GetMap()
-	g.Dump(rmap)
+	// g.Dump(rmap)
 	if rmap["id"] == nil {
 		err = gerror.New("id不能为空")
 		return
 	}
 	m := GDBModel(s.Model)
-	res, err = m.Data(rmap).Where("id", rmap["id"]).Update()
+	_, err = m.Data(rmap).Where("id", rmap["id"]).Update()
 	return
 }
 
@@ -68,6 +68,12 @@ func (s *Service) ServiceInfo(ctx context.Context, req *InfoReq) (data interface
 func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error) {
 	r := g.RequestFromCtx(ctx)
 	m := g.DB(s.Model.GroupName()).Model(s.Model.TableName())
+
+	// 如果 req.Order 和 req.Sort 均不为空 则添加排序
+	if !r.Get("order").IsEmpty() && !r.Get("sort").IsEmpty() {
+		// m.Order(r.Get("order").String() + " " + r.Get("sort").String())
+		m.OrderDesc("orderNum")
+	}
 	// 如果 ListQueryOp 不为空 则使用 ListQueryOp 进行查询
 	if s.ListQueryOp != nil {
 		// 如果fileldEQ不为空 则添加查询条件
@@ -96,14 +102,17 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 				m.Where(sql, args.Slice())
 			}
 		}
+
 		// 如果 addOrderby 不为空 则添加排序
-		if len(s.ListQueryOp.AddOrderby) > 0 {
+		if len(s.ListQueryOp.AddOrderby) > 0 && r.Get("order").IsEmpty() && r.Get("sort").IsEmpty() {
 			for field, order := range s.ListQueryOp.AddOrderby {
 				m.Order(field, order)
 			}
 		}
 	}
+
 	result, err := m.All()
+	// g.Dump(result)
 	if err != nil {
 		g.Log().Error(ctx, "ServiceList error:", err)
 	}
@@ -115,8 +124,36 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 	return
 }
 
-func (s *Service) ServicePage(ctx context.Context, req *PageReq) (res *PageRes, err error) {
-	return &PageRes{Data: "Cool Page"}, nil
+func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error) {
+	type pagination struct {
+		Page  int `json:"page"`
+		Size  int `json:"size"`
+		Total int `json:"total"`
+	}
+	if req.Size <= 0 {
+		req.Size = 10
+	}
+	if req.Page <= 0 {
+		req.Page = 1
+	}
+	m := g.DB(s.Model.GroupName()).Model(s.Model.TableName())
+	total, err := m.Clone().Count()
+	if err != nil {
+		return nil, err
+	}
+	list, err := m.Offset((req.Page - 1) * req.Size).Limit(req.Size).All()
+	if err != nil {
+		return nil, err
+	}
+	data = g.Map{
+		"list": list,
+		"pagination": pagination{
+			Page:  req.Page,
+			Size:  req.Size,
+			Total: total,
+		},
+	}
+	return
 }
 func NewService(model IModel) *Service {
 	return &Service{

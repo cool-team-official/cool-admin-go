@@ -45,6 +45,9 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []int, isAdmin bool) (re
 // NewBaseSysDepartmentService 创建一个BaseSysDepartmentService实例
 func NewBaseSysDepartmentService() *BaseSysDepartmentService {
 	return &BaseSysDepartmentService{
-		Service: cool.NewService(model.NewBaseSysDepartment()),
+		Service: &cool.Service{
+			Model:       model.NewBaseSysDepartment(),
+			ListQueryOp: &cool.ListQueryOp{},
+		},
 	}
 }

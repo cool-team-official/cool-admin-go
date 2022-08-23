@@ -29,5 +29,6 @@ func init() {
 	cool.FillInitData("base", &model.BaseSysRoleMenu{})
 	cool.FillInitData("base", &model.BaseSysDepartment{})
 	cool.FillInitData("base", &model.BaseSysRoleDepartment{})
+	cool.FillInitData("base", &model.BaseSysParam{})
 
 }

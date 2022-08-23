@@ -20,6 +20,8 @@ func (s *BaseSysUserService) Person(userId uint) (res gdb.Record, err error) {
 // NewBaseSysUserService 创建一个新的BaseSysUserService实例
 func NewBaseSysUserService() *BaseSysUserService {
 	return &BaseSysUserService{
-		Service: cool.NewService(model.NewBaseSysUser()),
+		Service: &cool.Service{
+			Model: model.NewBaseSysUser(),
+		},
 	}
 }
