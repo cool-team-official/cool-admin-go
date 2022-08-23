@@ -47,7 +47,13 @@ cd hello-world
 make cli.install
 ```
 
-### 4.启动开发环境
+### 4.安装依赖
+
+```bash
+go mod tidy
+```
+
+### 5.启动开发环境
 
 ```bash
 gf run main.go
