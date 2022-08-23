@@ -25,7 +25,7 @@ CoolAdmin 的 Go 版本后端
 安装命令
 
 ```bash
-go install github.com/cool-admin/cool-admin-go/cool-tools@latest
+go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 ```
 
 验证
