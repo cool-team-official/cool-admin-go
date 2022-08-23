@@ -19,7 +19,12 @@ func CreatModule(ctx context.Context, moduleName string) (err error) {
 	// 读取go.mod文件第一行文本
 	gfile.ReadLines("go.mod", func(text string) error {
 		if gstr.Contains(text, "module") && module == "" {
-			module = gstr.Trim(text, "module ")
+			// println("module:", text)
+			module = gstr.StrEx(text, "module")
+			// println("module:", module)
+			module = gstr.TrimAll(module)
+			// println("module:", module)
+
 			return nil
 		}
 		return nil
@@ -28,10 +33,9 @@ func CreatModule(ctx context.Context, moduleName string) (err error) {
 		err = gerror.New("go.mod文件中不存在module行")
 		return
 	}
-	println(module)
+	// println(module)
 	// 创建模块目录
 	moduleDir := gfile.Join(gfile.Pwd(), "modules", moduleName)
-	println(moduleDir)
 	if gfile.Exists(moduleDir) {
 		err = gerror.New("模块已经存在,请先删除原有模块")
 		return
@@ -52,5 +56,12 @@ func CreatModule(ctx context.Context, moduleName string) (err error) {
 	if err != nil {
 		return
 	}
+
+	// 重命名demo.go 为 moduleName.go
+	err = gfile.Rename(gfile.Join(moduleDir, "demo.go"), gfile.Join(moduleDir, moduleName+".go"))
+	if err != nil {
+		return
+	}
+	println("创建模块成功:", moduleDir)
 	return nil
 }

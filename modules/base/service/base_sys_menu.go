@@ -50,6 +50,9 @@ func (s *BaseSysMenuService) GetMenus(roleIds []int, isAdmin bool) (result gdb.R
 // NewBaseSysMenuService 创建一个BaseSysMenuService实例
 func NewBaseSysMenuService() *BaseSysMenuService {
 	return &BaseSysMenuService{
-		Service: cool.NewService(model.NewBaseSysMenu()),
+		&cool.Service{
+			Model: model.NewBaseSysMenu(),
+		},
+		// 	Service: cool.NewService(model.NewBaseSysMenu()),
 	}
 }
