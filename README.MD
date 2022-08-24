@@ -40,16 +40,12 @@ go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 cool-tools version
 ```
 
-如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中,我们可以进入 GOPATH 目录下的 bin 目录下执行命令
+如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中,我们可以进入 GOPATH 目录下的 bin 目录下执行命令来将`cool-tools`安装到系统中
 
 ```bash
 cd $(go env GOPATH)/bin
-```
 
-如果可以正确看到版本号输出,执行自安装命令
-
-```
-cool-tools install
+./cool-tools install
 ```
 
 ### 2.创建新项目
