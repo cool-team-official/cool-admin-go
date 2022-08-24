@@ -1,6 +1,6 @@
 module github.com/cool-team-official/cool-admin-go
 
-go 1.19
+go 1.18
 
 require (
 	github.com/glebarez/sqlite v1.4.6
