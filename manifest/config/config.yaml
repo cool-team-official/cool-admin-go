@@ -17,6 +17,8 @@ database:
     type: "sqlite"
     link: "./data/db.sqlite"
     logLevel: "all"
+    createdAt: "createTime"
+    updatedAt: "updateTime"
 
 cool-base:
   jwt:
