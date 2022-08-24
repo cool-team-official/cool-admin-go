@@ -32,7 +32,7 @@ var (
 
 			var binVersion string
 			if len(data) == 0 || data["version"] == nil {
-				binVersion = "v0.0.12-dev"
+				binVersion = "v0.0.13-dev"
 			} else {
 				binVersion = data["version"].(string)
 			}

@@ -16,3 +16,11 @@ cli:
 	chmod +x gf && \
 	./gf install  && \
 	rm ./gf
+
+pack.ssh:
+	@rm -fr temp
+	@mkdir temp || exit 0
+	@cd temp && git clone -b simple  git@github.com:cool-team-official/cool-admin-go.git cool-admin-go-simple
+	@rm -fr temp/cool-admin-go-simple/.git
+	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
+	@rm -fr temp
