@@ -20,3 +20,4 @@ output/
 manifest/output/
 temp/
 data/db.sqlite
+logs/

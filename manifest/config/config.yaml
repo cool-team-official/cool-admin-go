@@ -2,8 +2,11 @@ server:
   address:     ":8300"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
+  serverRoot: "coolweb"
 
 logger:
+  path: "./logs/"
+  file: "{Y-m-d}.log"
   level : "all"
   stdout: true
 
@@ -18,7 +21,7 @@ database:
 cool-base:
   jwt:
     sso: false
-    secret: "cool-base88776655"
+    secret: "cool-admin-go-simple-secret"
     token:
       expire: 7200 # 2*3600
       refresh: 1296000 # 24*3600*15

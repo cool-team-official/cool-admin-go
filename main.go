@@ -13,5 +13,6 @@ import (
 )
 
 func main() {
+	// gres.Dump()
 	cmd.Main.Run(gctx.New())
 }

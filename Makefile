@@ -7,7 +7,7 @@ DOCKER_NAME = "cool-admin-go-simple"
 .PHONY: cli
 cli:
 	@set -e; \
-	wget -O gf https://hub.fastgit.xyz/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	curl -L https://hub.fastgit.xyz/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) -o ./gf && \
 	chmod +x gf && \
 	./gf install && \
 	rm ./gf
@@ -26,7 +26,7 @@ cli.install:
 .PHONY: tools
 tools:
 	@set -e; \
-	wget -O cool-tools https://hub.fastgit.xyz/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	curl -L https://hub.fastgit.xyz/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(shell go env GOOS)_$(shell go env GOARCH) -o ./cool-tools && \
 	chmod +x cool-tools && \
 	./cool-tools install && \
 	rm ./cool-tools
