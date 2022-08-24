@@ -44,7 +44,7 @@ cool-tools version
 
 ```bash
 # 本命令仅在当前终端窗口生效
-export GOPATH=$HOME/go
+export PATH=$PATH:$(go env GOPATH)/bin
 ```
 
 然后再次执行命令
