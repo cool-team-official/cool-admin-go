@@ -4,6 +4,12 @@ CoolAdmin 的 Go 版本后端
 
 开发中，未完成
 
+- [github](https://github.com/cool-team-official/cool-admin-go) cool-admin-go仓库
+- [release](https://github.com/cool-team-official/cool-admin-go/releases) cool-tools 编译版本下载
+- [issues](https://github.com/cool-team-official/cool-admin-go/issues) 问答区
+- [CoolAdmin](https://coo-js.com) CoolAdmin 官网
+- [GoFrame](https://goframe.com) GoFrame 官网
+
 ## TODO
 
 - [x] 基础 CURD 结构搭建
@@ -32,6 +38,25 @@ go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 
 ```bash
 cool-tools version
+```
+
+如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中
+
+```bash
+# 本命令仅在当前终端窗口生效
+export GOPATH=$HOME/go
+```
+
+然后再次执行命令
+
+```bash
+cool-tools version
+```
+
+如果可以正确看到版本号输出,执行自安装命令
+
+```
+cool-tools install
 ```
 
 ### 2.创建新项目
