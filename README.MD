@@ -4,7 +4,7 @@ CoolAdmin 的 Go 版本后端
 
 开发中，未完成
 
-- [github](https://github.com/cool-team-official/cool-admin-go) cool-admin-go仓库
+- [github](https://github.com/cool-team-official/cool-admin-go) cool-admin-go 仓库
 - [release](https://github.com/cool-team-official/cool-admin-go/releases) cool-tools 编译版本下载
 - [issues](https://github.com/cool-team-official/cool-admin-go/issues) 问答区
 - [CoolAdmin](https://cool-js.com) CoolAdmin 官网
@@ -40,17 +40,10 @@ go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 cool-tools version
 ```
 
-如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中
+如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中,我们可以进入 GOPATH 目录下的 bin 目录下执行命令
 
 ```bash
-# 本命令仅在当前终端窗口生效
-export PATH=$PATH:$(go env GOPATH)/bin
-```
-
-然后再次执行命令
-
-```bash
-cool-tools version
+cd $(go env GOPATH)/bin
 ```
 
 如果可以正确看到版本号输出,执行自安装命令
@@ -67,9 +60,11 @@ cool-tools init hello-world
 
 ### 3.安装`gf`工具
 
+这一步需要有 wget 命令,晚点再调整成 curl 命令
+
 ```bash
 cd hello-world
-make cli.install
+make cli
 ```
 
 ### 4.安装依赖
