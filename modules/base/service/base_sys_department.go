@@ -4,6 +4,7 @@ import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type BaseSysDepartmentService struct {
@@ -24,7 +25,7 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []int, isAdmin bool) (re
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["id"] != nil {
-					res = append(res, vmap["id"].(int64))
+					res = append(res, gconv.Int64(vmap["id"]))
 				}
 			}
 		} else {
