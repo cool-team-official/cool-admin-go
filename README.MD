@@ -1,14 +1,18 @@
 # CoolAdminGo
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/cool-team-official/cool-admin-go.svg)](https://pkg.go.dev/github.com/cool-team-official/cool-admin-go)
+[![Build Release](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml/badge.svg)](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml)
+
 CoolAdmin 的 Go 版本后端
 
 开发中，未完成
 
-- [github](https://github.com/cool-team-official/cool-admin-go) cool-admin-go 仓库
-- [release](https://github.com/cool-team-official/cool-admin-go/releases) cool-tools 编译版本下载
-- [issues](https://github.com/cool-team-official/cool-admin-go/issues) 问答区
-- [CoolAdmin](https://cool-js.com) CoolAdmin 官网
-- [GoFrame](https://goframe.org) GoFrame 官网
+- [docs](https://pkg.go.dev/github.com/cool-team-official/cool-admin-go) - 开发文档
+- [github](https://github.com/cool-team-official/cool-admin-go) - cool-admin-go 仓库
+- [release](https://github.com/cool-team-official/cool-admin-go/releases) - cool-tools 编译版本下载
+- [issues](https://github.com/cool-team-official/cool-admin-go/issues) - 问答区
+- [CoolAdmin](https://cool-js.com) - CoolAdmin 官网
+- [GoFrame](https://goframe.org) - GoFrame 官网
 
 ## TODO
 
@@ -19,8 +23,9 @@ CoolAdmin 的 Go 版本后端
 - [x] 中间件错误状态及错误码与 node 版本统一
 - [x] 全局错误码统一
 - [x] controller 层接口输入与 node 版本统一
-- [] service 层逻辑补全
-- [] 其他项目需求
+- [ ] 优化开发工具安装体验
+- [ ] service 层逻辑补全
+- [ ] 其他项目需求
 
 ## 使用说明
 
