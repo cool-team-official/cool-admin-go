@@ -8,7 +8,7 @@ CoolAdmin 的 Go 版本后端
 - [release](https://github.com/cool-team-official/cool-admin-go/releases) cool-tools 编译版本下载
 - [issues](https://github.com/cool-team-official/cool-admin-go/issues) 问答区
 - [CoolAdmin](https://cool-js.com) CoolAdmin 官网
-- [GoFrame](https://goframe.com) GoFrame 官网
+- [GoFrame](https://goframe.org) GoFrame 官网
 
 ## TODO
 

@@ -30,11 +30,13 @@ jobs:
 
       - name: Build CLI Binary For All Platform
         run: |
+          pwd
           cd cool-tools
           make pack
           gf build main.go -n ${{env.BIN_NAME}} -a 386,amd64,arm,arm64 -s linux,darwin,windows -p ./temp -r '{"version":"${{github.ref_name}}"}'
       - name: Move Files Before Release
         run: |
+          pwd
           cd cool-tools/temp
           for OS in *;do for FILE in $OS/*;\
           do if [[ ${OS} =~ 'windows' ]];\
