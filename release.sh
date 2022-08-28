@@ -7,10 +7,17 @@ if [ -z "$TAG" ]; then
     exit 1
 fi
 # 判断是否是tag
-if ! [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+if ! echo "$TAG" | grep -q '^v[0-9]\+\.[0-9]\+\.[0-9]\+$'; then
     echo "Invalid tag: $TAG, must be in the form of vMAJOR.MINOR.PATCH,example: v1.0.0"
     exit 1
 fi
+
+
+# if ! [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]; then
+#     echo "Invalid tag: $TAG, must be in the form of vMAJOR.MINOR.PATCH,example: v1.0.0"
+#     exit 1
+# fi
+
 # 检查当前是否为master分支
 if [ "$(git rev-parse --abbrev-ref HEAD)" != "master" ]; then
     echo "You must be on the master branch to release"
