@@ -3,16 +3,21 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/glebarez/sqlite v1.4.6
+	github.com/cool-team-official/cool-admin-go/modules/base v0.0.14
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.0.14
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.0.14
+	github.com/cool-team-official/cool-admin-go/modules/space v0.0.14
 	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.1.2
 	github.com/gogf/gf/v2 v2.1.2
-	gorm.io/driver/mysql v1.3.6
-	gorm.io/gorm v1.23.9-0.20220713102635-3262daf8d468
 )
 
 require (
+	github.com/cool-team-official/cool-admin-go/cool v0.0.14 // indirect
+	github.com/glebarez/sqlite v1.4.6 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gorm.io/driver/mysql v1.3.6 // indirect
+	gorm.io/gorm v1.23.9-0.20220713102635-3262daf8d468 // indirect
 )
 
 require (
@@ -28,7 +33,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.1.2
-	github.com/golang-jwt/jwt/v4 v4.4.2
+	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect

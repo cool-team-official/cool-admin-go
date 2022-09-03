@@ -9,7 +9,7 @@ cli:
 	@set -e; \
 	wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
 	chmod +x gf && \
-	./gf install -y && \
+	./gf install  && \
 	rm ./gf
 
 
@@ -72,3 +72,11 @@ deploy:
 	kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}";
 
 
+# 复制前端文件到指定目录并打包
+.PHONY: build.frontend
+build.frontend:
+	@set -e; \
+	rm -rf $(ROOT_DIR)/temp/frontend;\
+	mkdir -p $(ROOT_DIR)/temp/frontend;\
+	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/frontend;\
+	gf pack ./temp/frontend ./internal/packed/frontend.go

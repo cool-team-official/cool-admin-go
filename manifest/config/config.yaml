@@ -2,7 +2,7 @@ server:
   address: ":8002"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
-  serverRoot: "./resource/public/dist"
+  serverRoot: "frontend"
 
 logger:
   level: "all"

@@ -10,6 +10,16 @@ github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMn
 github.com/clbanning/mxj/v2 v2.5.5/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
 github.com/clbanning/mxj/v2 v2.5.6 h1:Jm4VaCI/+Ug5Q57IzEoZbwx4iQFA6wkXv72juUSeK+g=
 github.com/clbanning/mxj/v2 v2.5.6/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
+github.com/cool-team-official/cool-admin-go/cool v0.0.14 h1:z3EmQQonrZQWe2PlPAHaJXsbxBLgaaAeLLYfBI66VAI=
+github.com/cool-team-official/cool-admin-go/cool v0.0.14/go.mod h1:u+mcYxs4mdsguS9dhYLv4NTnLobq4Ttgbtb8T8pO6ck=
+github.com/cool-team-official/cool-admin-go/modules/base v0.0.14 h1:qIaaIg5lvnRIhWKAUGjaDilvCwjGf0wnucvHWqkhjV4=
+github.com/cool-team-official/cool-admin-go/modules/base v0.0.14/go.mod h1:xlhqRnvk4Ryhz2OG2FICR2/j+F+wIy/+uKArL7iJr+k=
+github.com/cool-team-official/cool-admin-go/modules/demo v0.0.14 h1:1F1//l8P4pFVnIysV95aXFyriM8dJzwOo1PAqs4Oy8U=
+github.com/cool-team-official/cool-admin-go/modules/demo v0.0.14/go.mod h1:/F9Jepc+XkJmRGPr3YTeR6JVH2qe3bS+ZYkLBXApjH8=
+github.com/cool-team-official/cool-admin-go/modules/dict v0.0.14 h1:TuF+tnuZIqpKtKkQAUt67e4ceNHaBtSu5nvfqWt2gmE=
+github.com/cool-team-official/cool-admin-go/modules/dict v0.0.14/go.mod h1:FQ0/+0nfLP6oVHzBF7SrUXQiohm/o4m72WnoVIG0mcQ=
+github.com/cool-team-official/cool-admin-go/modules/space v0.0.14 h1:7B17YbVLCYElyZWYXi0ItTYkFHu9rXYMQRjb3NrWreY=
+github.com/cool-team-official/cool-admin-go/modules/space v0.0.14/go.mod h1:oPr+cWpvqIMzqR5TwxIKHYihP7suBx4DqvlI1c20FRI=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
