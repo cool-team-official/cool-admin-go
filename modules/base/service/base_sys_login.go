@@ -6,6 +6,7 @@ import (
 
 	"github.com/cool-team-official/cool-admin-go/cool"
 	v1 "github.com/cool-team-official/cool-admin-go/modules/base/api/v1"
+	"github.com/cool-team-official/cool-admin-go/modules/base/config"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/crypto/gmd5"
 	"github.com/gogf/gf/v2/encoding/gbase64"
@@ -24,9 +25,9 @@ type BaseSysLoginService struct {
 // login
 func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginReq) (data interface{}, err error) {
 	type Result struct {
-		Expire         int64  `json:"expire"`
+		Expire         uint   `json:"expire"`
 		Token          string `json:"token"`
-		RefreshExpires int64  `json:"refreshExpires"`
+		RefreshExpires uint   `json:"refreshExpires"`
 		RefreshToken   string `json:"refreshToken"`
 	}
 
@@ -63,8 +64,8 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 		return
 	}
 	// 生成token
-	result.Expire = g.Cfg().MustGet(ctx, "cool-base.jwt.token.expire").Int64()
-	result.RefreshExpires = g.Cfg().MustGet(ctx, "cool-base.jwt.token.refresh").Int64()
+	result.Expire = config.Config.Jwt.Token.Expire
+	result.RefreshExpires = config.Config.Jwt.Token.RefreshExpire
 	result.Token = s.GenerateToken(ctx, user, roleIds, result.Expire, false)
 	result.RefreshToken = s.GenerateToken(ctx, user, roleIds, result.RefreshExpires, true)
 	// 将用户相关信息保存到缓存
@@ -103,7 +104,7 @@ func (*BaseSysLoginService) Captcha(req *v1.BaseOpenCaptchaReq) (interface{}, er
 }
 
 // generateToken 生成token
-func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseSysUser, roleIds []int, exprire int64, isRefresh bool) (token string) {
+func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseSysUser, roleIds []int, exprire uint, isRefresh bool) (token string) {
 	err := cool.Cache.Set(ctx, "admin:passwordVersion:"+gconv.String(user.ID), gconv.String(user.PasswordV), 0)
 	if err != nil {
 		g.Log().Error(ctx, "生成token失败", err)
@@ -128,10 +129,20 @@ func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseS
 	}
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	token, err = tokenClaims.SignedString(g.Cfg().MustGet(ctx, "cool-base.jwt.secret").Bytes())
+	token, err = tokenClaims.SignedString([]byte(config.Config.Jwt.Secret))
 	if err != nil {
 		g.Log().Error(ctx, "生成token失败", err)
 	}
+	return
+}
+
+// logout 退出登录
+func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
+	userId := cool.GetAdmin(ctx).UserId
+	cool.Cache.Remove(ctx, "admin:department:"+gconv.String(userId))
+	cool.Cache.Remove(ctx, "admin:perms:"+gconv.String(userId))
+	cool.Cache.Remove(ctx, "admin:token:"+gconv.String(userId))
+	cool.Cache.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
 	return
 }
 

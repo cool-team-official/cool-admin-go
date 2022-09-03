@@ -76,7 +76,7 @@ func AdminEps() (eps interface{}) {
 		g.Log().Debug(ctx, "EPS", err)
 		return
 	}
-	g.DumpWithType("epskey:", epskey, epskey.String())
+	// g.DumpWithType("epskey:", epskey, epskey.String())
 	if epskey.IsEmpty() {
 		g.Log().Debug(ctx, "eps缓存未命中")
 		eps = creatAdminEps()

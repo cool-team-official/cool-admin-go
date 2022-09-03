@@ -3,6 +3,7 @@ server:
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
   serverRoot: "frontend"
+  clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
 
 logger:
   level: "all"
@@ -36,11 +37,21 @@ redis:
     address: "127.0.0.1:6379"
     db: 0
 
-cool-base:
-  jwt:
-    sso: false
-    secret: "cool-base88776655"
-    token:
-      expire: 7200 # 2*3600
-      refresh: 1296000 # 24*3600*15
+
+cool:
+  file:
+    mode: "local"
+    domain: "http://127.0.0.1:8002"
+
+modules:
+  base:
+    enabled: true
+    path: "github.com/cool2645/cool-base"
+    jwt:
+      sso: false
+      secret: "cool-base88776655"
+      token:
+        expire: 7200 # 2*3600
+        refreshExpire: 1296000 # 24*3600*15
+
 

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/cool-team-official/cool-admin-go/cool"
+	"github.com/cool-team-official/cool-admin-go/modules/base/config"
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -49,7 +50,8 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	}
 	tokenString := r.GetHeader("Authorization")
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(g.Cfg().MustGet(ctx, "cool-base.jwt.secret").Bytes()), nil
+
+		return []byte(config.Config.Jwt.Secret), nil
 	})
 	if err != nil {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", err)
@@ -77,7 +79,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	rtoken := cachetoken.String()
 	// 超管拥有所有权限
 	if admin.UserId == 1 && !admin.IsRefresh {
-		if tokenString != rtoken && g.Cfg().MustGet(ctx, "cool-base.jwt.sso").Bool() {
+		if tokenString != rtoken && config.Config.Jwt.Sso {
 			g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 			statusCode = 401
 			r.Response.WriteStatus(statusCode)
@@ -129,7 +131,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		})
 	}
 	// 如果rtoken不等于token 且 sso 未开启
-	if tokenString != rtoken && !g.Cfg().MustGet(ctx, "cool-base.jwt.sso").Bool() {
+	if tokenString != rtoken && !config.Config.Jwt.Sso {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 		statusCode = 401
 		r.Response.WriteStatus(statusCode)

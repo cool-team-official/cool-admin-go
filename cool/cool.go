@@ -60,16 +60,16 @@ func GDBModel(m IModel) *gdb.Model {
 	return g.DB(m.GroupName()).Model(m.TableName()).Clone()
 }
 
-// 转换gVar值类型
-func GVartoType(GVar *g.Var, wantType string) interface{} {
-	switch wantType {
-	case "int":
-		return GVar.Int()
-	case "uint":
-		return GVar.Uint()
-	case "string":
-		return GVar.String()
-	default:
-		return GVar
-	}
-}
+// // 转换gVar值类型
+// func GVartoType(GVar *g.Var, wantType string) interface{} {
+// 	switch wantType {
+// 	case "int":
+// 		return GVar.Int()
+// 	case "uint":
+// 		return GVar.Uint()
+// 	case "string":
+// 		return GVar.String()
+// 	default:
+// 		return GVar
+// 	}
+// }

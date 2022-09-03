@@ -18,4 +18,4 @@ output/
 manifest/output/
 temp/
 data/db.sqlite
-resource/public/dist
+public/
