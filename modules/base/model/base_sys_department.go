@@ -8,7 +8,7 @@ const TableNameBaseSysDepartment = "base_sys_department"
 type BaseSysDepartment struct {
 	*cool.Model
 	Name     string `gorm:"column:name;type:varchar(255);not null" json:"name"` // 部门名称
-	ParentID *int64 `gorm:"column:parentId;type:bigint" json:"parentId"`        // 上级部门ID
+	ParentID uint   `gorm:"column:parentId;type:bigint" json:"parentId"`        // 上级部门ID
 	OrderNum int32  `gorm:"column:orderNum;type:int;not null" json:"orderNum"`  // 排序
 }
 

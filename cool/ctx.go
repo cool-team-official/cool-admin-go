@@ -9,7 +9,7 @@ import (
 
 type Admin struct {
 	IsRefresh       bool   `json:"isRefresh"`
-	RoleIds         []int  `json:"roleIds"`
+	RoleIds         []uint `json:"roleIds"`
 	Username        string `json:"username"`
 	UserId          uint   `json:"userId"`
 	PasswordVersion *int32 `json:"passwordVersion"`

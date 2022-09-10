@@ -42,7 +42,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	}
 	type Claims struct {
 		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []int  `json:"roleIds"`
+		RoleIds         []uint `json:"roleIds"`
 		Username        string `json:"username"`
 		UserId          uint   `json:"userId"`
 		PasswordVersion *int32 `json:"passwordVersion"`
@@ -75,7 +75,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	// 将用户信息放入上下文
 	r.SetCtxVar("admin", admin)
 
-	cachetoken, _ := cool.Cache.Get(ctx, "admin:token:"+gconv.String(admin.UserId))
+	cachetoken, _ := cool.CacheManager.Get(ctx, "admin:token:"+gconv.String(admin.UserId))
 	rtoken := cachetoken.String()
 	// 超管拥有所有权限
 	if admin.UserId == 1 && !admin.IsRefresh {
@@ -110,7 +110,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		})
 	}
 	// 判断密码版本是否正确
-	passwordV, _ := cool.Cache.Get(ctx, "admin:passwordVersion:"+gconv.String(admin.UserId))
+	passwordV, _ := cool.CacheManager.Get(ctx, "admin:passwordVersion:"+gconv.String(admin.UserId))
 	if passwordV.Int32() != *admin.PasswordVersion {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "passwordV invalid")
 		statusCode = 401
@@ -141,7 +141,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		})
 	}
 	// 从缓存获取perms
-	permsCache, _ := cool.Cache.Get(ctx, "admin:perms:"+gconv.String(admin.UserId))
+	permsCache, _ := cool.CacheManager.Get(ctx, "admin:perms:"+gconv.String(admin.UserId))
 	// 转换为数组
 	permsVar := permsCache.Strings()
 	// 转换为garray

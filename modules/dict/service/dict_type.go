@@ -11,6 +11,11 @@ type DictTypeService struct {
 
 func NewDictTypeService() *DictTypeService {
 	return &DictTypeService{
-		Service: cool.NewService(model.NewDictType()),
+		Service: &cool.Service{
+			Model: model.NewDictType(),
+			ListQueryOp: &cool.ListQueryOp{
+				KeyWorkField: []string{"name"},
+			},
+		},
 	}
 }

@@ -7,7 +7,7 @@ const TableNameBaseSysUser = "base_sys_user"
 // BaseSysUser mapped from table <base_sys_user>
 type BaseSysUser struct {
 	*cool.Model
-	DepartmentID *int64  `gorm:"column:departmentId;type:bigint;index:IDX_0cf944da378d70a94f5fefd803,priority:1" json:"departmentId"`              // 部门ID
+	DepartmentID uint    `gorm:"column:departmentId;type:bigint;index:IDX_0cf944da378d70a94f5fefd803,priority:1" json:"departmentId"`              // 部门ID
 	Name         *string `gorm:"column:name;type:varchar(255)" json:"name"`                                                                        // 姓名
 	Username     string  `gorm:"column:username;type:varchar(100);not null;uniqueIndex:IDX_469ad55973f5b98930f6ad627b,priority:1" json:"username"` // 用户名
 	Password     string  `gorm:"column:password;type:varchar(255);not null" json:"password"`                                                       // 密码

@@ -9,20 +9,19 @@ import (
 )
 
 var (
-	GromDBS MGromDBS // 定义全局gorm.DB对象集合
-	// CacheEPS *gcache.Cache // 定义全局缓存对象	供EPS使用
-	CacheEPS = gcache.New() // 定义全局缓存对象	供EPS使用
-	Cache    = gcache.New() // 定义全局缓存对象	供其他业务使用
+	GormDBS      map[string]*gorm.DB // 定义全局gorm.DB对象集合 仅供内部使用
+	CacheEPS     = gcache.New()      // 定义全局缓存对象	供EPS使用
+	CacheManager = gcache.New()      // 定义全局缓存对象	供其他业务使用
 )
 
-type MGromDBS map[string]*gorm.DB
+type MgormDBS map[string]*gorm.DB
 
 func init() {
 	var (
 		ctx         g.Ctx
 		redisConfig = &gredis.Config{}
 	)
-	GromDBS = make(MGromDBS)
+	GormDBS = make(MgormDBS)
 	g.Log().Debug(ctx, "cool init,初始化核心模块,请等待...")
 	redisVar, err := g.Cfg().Get(ctx, "redis.default")
 	if err != nil {
@@ -34,7 +33,7 @@ func init() {
 		if err != nil {
 			panic(err)
 		}
-		Cache.SetAdapter(gcache.NewAdapterRedis(redis))
+		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
 	}
 }
 
@@ -55,21 +54,15 @@ func Ok(data interface{}) *BaseRes {
 	}
 }
 
-// GDBModel 数据库连接
-func GDBModel(m IModel) *gdb.Model {
-	return g.DB(m.GroupName()).Model(m.TableName()).Clone()
+// 失败返回结果
+func Fail(message string) *BaseRes {
+	return &BaseRes{
+		Code:    1001,
+		Message: message,
+	}
 }
 
-// // 转换gVar值类型
-// func GVartoType(GVar *g.Var, wantType string) interface{} {
-// 	switch wantType {
-// 	case "int":
-// 		return GVar.Int()
-// 	case "uint":
-// 		return GVar.Uint()
-// 	case "string":
-// 		return GVar.String()
-// 	default:
-// 		return GVar
-// 	}
-// }
+// GDBM 数据库连接
+func GDBM(m IModel) *gdb.Model {
+	return g.DB(m.GroupName()).Model(m.TableName()).Clone()
+}

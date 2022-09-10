@@ -3,6 +3,7 @@ package cool
 import (
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
@@ -50,9 +51,15 @@ func NewFile() *sFile {
 		Mode:   Config.File.Mode,
 		Domain: Config.File.Domain,
 	}
-	// g.Cfg().MustGet(ctx, "cool.file").Struct(file)
 	if file.Mode == "local" {
+		var ctx g.Ctx
 		s := g.Server()
+		if !gfile.Exists("./public/uploads") {
+			err := gfile.Mkdir("./public/uploads")
+			if err != nil {
+				s.Logger().Error(ctx, err)
+			}
+		}
 		s.AddStaticPath("/public", "./public")
 
 	}

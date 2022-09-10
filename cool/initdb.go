@@ -51,7 +51,7 @@ func initDB(group string) (*gorm.DB, error) {
 		g.Log().Error(ctx, configMap["type"], "为未知数据库类型")
 		panic("cooldatabase type not found")
 	}
-	GromDBS[group] = db
+	GormDBS[group] = db
 	return db, nil
 }
 
@@ -107,17 +107,17 @@ func mysqlInit(link string) (*gorm.DB, error) {
 func GetDBbyModel(model IModel) *gorm.DB {
 
 	group := model.GroupName()
-	// 判断是否存在 GromDBS[group] 字段，如果存在，则使用该字段的值作为DB，否则初始化DB
-	if _, ok := GromDBS[group]; ok {
-		return GromDBS[group]
+	// 判断是否存在 GormDBS[group] 字段，如果存在，则使用该字段的值作为DB，否则初始化DB
+	if _, ok := GormDBS[group]; ok {
+		return GormDBS[group]
 	} else {
 
 		db, err := initDB(group)
 		if err != nil {
 			panic("failed to connect database")
 		}
-		// 把重新初始化的GromDBS存入全局变量中
-		GromDBS[group] = db
+		// 把重新初始化的GormDBS存入全局变量中
+		GormDBS[group] = db
 		return db
 	}
 }
@@ -125,14 +125,13 @@ func GetDBbyModel(model IModel) *gorm.DB {
 // 根据entity结构体创建表
 func CreateTable(model IModel) error {
 	var ctx g.Ctx
-	autoMigrate, _ := g.Cfg().Get(ctx, "database.autoMigrate")
-	if autoMigrate.Bool() {
-		g.Log().Debug(ctx, "start autoMigrate! database.autoMigrate", autoMigrate.Bool())
+	if Config.AutoMigrate {
+		g.Log().Debug(ctx, "start autoMigrate! database.autoMigrate")
 		g.Log().Debug(ctx, "开始在分组", model.GroupName(), "创建表", model.TableName())
 		db := GetDBbyModel(model)
 		return db.AutoMigrate(model)
 	}
-	g.Log().Info(ctx, "autoMigrate skiped! database.autoMigrate is ", autoMigrate.Bool())
+	g.Log().Info(ctx, "autoMigrate skiped! cool.autoMigrate=false")
 	return nil
 }
 
@@ -142,7 +141,7 @@ func FillInitData(moduleName string, model IModel) error {
 	mInit := g.DB("default").Model("base_sys_init")
 	n, err := mInit.Clone().Where("group", model.GroupName()).Where("table", model.TableName()).Count()
 	if err != nil {
-		g.Log().Error(ctx, "读取表 base_sys_init 失败 ", err)
+		g.Log().Error(ctx, "读取表 base_sys_init 失败 ", err.Error())
 		return err
 	}
 	if n > 0 {

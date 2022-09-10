@@ -5,6 +5,7 @@ import (
 
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type BaseSysPermsService struct {
@@ -15,7 +16,7 @@ func NewBaseSysPermsService() *BaseSysPermsService {
 }
 
 // permmenu 方法
-func (c *BaseSysPermsService) Permmenu(ctx context.Context, roleIds []int) (res interface{}) {
+func (c *BaseSysPermsService) Permmenu(ctx context.Context, roleIds []uint) (res interface{}) {
 	type permmenu struct {
 		Perms []string   `json:"perms"`
 		Menus gdb.Result `json:"menus"`
@@ -32,4 +33,21 @@ func (c *BaseSysPermsService) Permmenu(ctx context.Context, roleIds []int) (res 
 
 	return
 
+}
+
+// refreshPerms(userId)
+func (c *BaseSysPermsService) RefreshPerms(ctx context.Context, userId uint) (err error) {
+	var (
+		baseSysUserRoleService   = NewBaseSysRoleService()
+		baseSysMenuService       = NewBaseSysMenuService()
+		baseSysDepartmentService = NewBaseSysDepartmentService()
+		roleIds                  = baseSysUserRoleService.GetByUser(userId)
+		perms                    = baseSysMenuService.GetPerms(roleIds)
+	)
+	cool.CacheManager.Set(ctx, "admin:perms:"+gconv.String(userId), perms, 0)
+	// 更新部门权限
+	departments := baseSysDepartmentService.GetByRoleIds(roleIds, userId == 1)
+	cool.CacheManager.Set(ctx, "admin:department:"+gconv.String(userId), departments, 0)
+
+	return
 }

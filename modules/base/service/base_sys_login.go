@@ -43,7 +43,7 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 		result                   = &Result{}
 	)
 
-	vcode, _ := cool.Cache.Get(ctx, captchaId)
+	vcode, _ := cool.CacheManager.Get(ctx, captchaId)
 	if vcode.String() != verifyCode {
 		err = gerror.New("验证码错误")
 		return
@@ -51,7 +51,7 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 	md5password, _ := gmd5.Encrypt(password)
 
 	var user *model.BaseSysUser
-	cool.GDBModel(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user)
+	cool.GDBM(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user)
 	if user == nil {
 		err = gerror.New("账户或密码不正确~")
 		return
@@ -71,10 +71,10 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 	// 将用户相关信息保存到缓存
 	perms := baseSysMenuService.GetPerms(roleIds)
 	departments := baseSysDepartmentService.GetByRoleIds(roleIds, user.Username == "admin")
-	cool.Cache.Set(ctx, "admin:department:"+gconv.String(user.ID), departments, 0)
-	cool.Cache.Set(ctx, "admin:perms:"+gconv.String(user.ID), perms, 0)
-	cool.Cache.Set(ctx, "admin:token:"+gconv.String(user.ID), result.Token, 0)
-	cool.Cache.Set(ctx, "admin:token:refresh:"+gconv.String(user.ID), result.RefreshToken, 0)
+	cool.CacheManager.Set(ctx, "admin:department:"+gconv.String(user.ID), departments, 0)
+	cool.CacheManager.Set(ctx, "admin:perms:"+gconv.String(user.ID), perms, 0)
+	cool.CacheManager.Set(ctx, "admin:token:"+gconv.String(user.ID), result.Token, 0)
+	cool.CacheManager.Set(ctx, "admin:token:refresh:"+gconv.String(user.ID), result.RefreshToken, 0)
 
 	data = result
 	return
@@ -98,20 +98,20 @@ func (*BaseSysLoginService) Captcha(req *v1.BaseOpenCaptchaReq) (interface{}, er
 
 	result.Data = `data:image/svg+xml;base64,` + svgbase64
 	result.CaptchaId = guid.S()
-	cool.Cache.Set(ctx, result.CaptchaId, captchaText, 1800*time.Second)
+	cool.CacheManager.Set(ctx, result.CaptchaId, captchaText, 1800*time.Second)
 	g.Log().Debug(ctx, "验证码", result.CaptchaId, captchaText)
 	return result, err
 }
 
 // generateToken 生成token
-func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseSysUser, roleIds []int, exprire uint, isRefresh bool) (token string) {
-	err := cool.Cache.Set(ctx, "admin:passwordVersion:"+gconv.String(user.ID), gconv.String(user.PasswordV), 0)
+func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseSysUser, roleIds []uint, exprire uint, isRefresh bool) (token string) {
+	err := cool.CacheManager.Set(ctx, "admin:passwordVersion:"+gconv.String(user.ID), gconv.String(user.PasswordV), 0)
 	if err != nil {
 		g.Log().Error(ctx, "生成token失败", err)
 	}
 	type Claims struct {
 		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []int  `json:"roleIds"`
+		RoleIds         []uint `json:"roleIds"`
 		Username        string `json:"username"`
 		UserId          uint   `json:"userId"`
 		PasswordVersion *int32 `json:"passwordVersion"`
@@ -139,10 +139,10 @@ func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseS
 // logout 退出登录
 func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
 	userId := cool.GetAdmin(ctx).UserId
-	cool.Cache.Remove(ctx, "admin:department:"+gconv.String(userId))
-	cool.Cache.Remove(ctx, "admin:perms:"+gconv.String(userId))
-	cool.Cache.Remove(ctx, "admin:token:"+gconv.String(userId))
-	cool.Cache.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:department:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:perms:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:token:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
 	return
 }
 

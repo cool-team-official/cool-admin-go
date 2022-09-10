@@ -12,7 +12,7 @@ type BaseSysDepartmentService struct {
 }
 
 // GetByRoleIds 获取部门
-func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []int, isAdmin bool) (res []int64) {
+func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (res []uint) {
 	var (
 		result                gdb.Result
 		BaseSysRoleDepartment = model.NewBaseSysRoleDepartment()
@@ -21,20 +21,20 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []int, isAdmin bool) (re
 	if len(roleIds) > 0 {
 		// 如果是超级管理员，则返回所有部门
 		if isAdmin {
-			result, _ = cool.GDBModel(s.Model).Fields("id").All()
+			result, _ = cool.GDBM(s.Model).Fields("id").All()
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["id"] != nil {
-					res = append(res, gconv.Int64(vmap["id"]))
+					res = append(res, gconv.Uint(vmap["id"]))
 				}
 			}
 		} else {
 			// 如果不是超级管理员，则返回角色所在部门
-			result, _ = cool.GDBModel(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
+			result, _ = cool.GDBM(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["departmentId"] != nil {
-					res = append(res, vmap["departmentId"].(int64))
+					res = append(res, vmap["departmentId"].(uint))
 				}
 			}
 		}

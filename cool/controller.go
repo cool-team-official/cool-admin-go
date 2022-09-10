@@ -38,7 +38,7 @@ type UpdateReq struct {
 
 type InfoReq struct {
 	g.Meta `path:"/info" method:"GET"`
-	ID     int `json:"id" v:"integer|required#请选择要查询的数据"`
+	Id     int `json:"id" v:"integer|required#请选择要查询的数据"`
 }
 type InfoRes struct {
 	*BaseRes
@@ -52,13 +52,19 @@ type ListReq struct {
 
 type PageReq struct {
 	g.Meta `path:"/page" method:"POST"`
-	Page   int `d:"1" json:"page"`
-	Size   int `d:"15" json:"size"`
+	Page   int    `d:"1" json:"page"`
+	Size   int    `d:"15" json:"size"`
+	Order  string `json:"order"`
+	Sort   string `json:"sort"`
 }
 
 func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Add") {
 		data, err := c.Service.ServiceAdd(ctx, req)
+		if err != nil {
+			return Fail(err.Error()), err
+		}
+		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
@@ -67,6 +73,10 @@ func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err er
 func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Delete") {
 		data, err := c.Service.ServiceDelete(ctx, req)
+		if err != nil {
+			return Fail(err.Error()), err
+		}
+		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
@@ -75,6 +85,10 @@ func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, 
 func (c *Controller) Update(ctx context.Context, req *UpdateReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Update") {
 		data, err := c.Service.ServiceUpdate(ctx, req)
+		if err != nil {
+			return Fail(err.Error()), err
+		}
+		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404

@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type BaseSysMenuService struct {
@@ -13,14 +14,14 @@ type BaseSysMenuService struct {
 }
 
 // GetPerms 获取菜单的权限
-func (s *BaseSysMenuService) GetPerms(roleIds []int) []string {
+func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
 	var (
 		perms  []string
 		result gdb.Result
 	)
-	m := cool.GDBModel(s.Model).As("a")
+	m := cool.GDBM(s.Model).As("a")
 	// 如果roldIds 包含 1 则表示是超级管理员，则返回所有权限
-	if garray.NewIntArrayFrom(roleIds).Contains(1) {
+	if garray.NewIntArrayFrom(gconv.Ints(roleIds)).Contains(1) {
 		result, _ = m.Fields("a.perms").All()
 	} else {
 		result, _ = m.InnerJoin("base_sys_role_menu b", "a.id=b.menuId").InnerJoin("base_sys_role c", "b.roleId=c.id").Where("c.id IN (?)", roleIds).Fields("a.perms").All()
@@ -36,8 +37,8 @@ func (s *BaseSysMenuService) GetPerms(roleIds []int) []string {
 }
 
 // GetMenus 获取菜单
-func (s *BaseSysMenuService) GetMenus(roleIds []int, isAdmin bool) (result gdb.Result) {
-	m := cool.GDBModel(s.Model).As("a")
+func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.Result) {
+	m := cool.GDBM(s.Model).As("a")
 	if isAdmin {
 		result, _ = m.Group("a.id").Order("a.orderNum asc").All()
 	} else {

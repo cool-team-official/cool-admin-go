@@ -7,8 +7,8 @@ const TableNameBaseSysUserRole = "base_sys_user_role"
 // BaseSysUserRole mapped from table <base_sys_user_role>
 type BaseSysUserRole struct {
 	*cool.Model
-	UserID int64 `gorm:"column:userId;type:bigint;not null" json:"userId"` // 用户ID
-	RoleID int64 `gorm:"column:roleId;type:bigint;not null" json:"roleId"` // 角色ID
+	UserID uint `gorm:"column:userId;type:bigint;not null" json:"userId"` // 用户ID
+	RoleID uint `gorm:"column:roleId;type:bigint;not null" json:"roleId"` // 角色ID
 }
 
 // TableName BaseSysUserRole's table name

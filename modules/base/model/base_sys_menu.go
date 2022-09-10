@@ -7,7 +7,7 @@ const TableNameBaseSysMenu = "base_sys_menu"
 // BaseSysMenu mapped from table <base_sys_menu>
 type BaseSysMenu struct {
 	*cool.Model
-	ParentID  *int64  `gorm:"column:parentId;type:bigint" json:"parentId"`                       // 父菜单ID
+	ParentID  uint    `gorm:"column:parentId;type:bigint" json:"parentId"`                       // 父菜单ID
 	Name      string  `gorm:"column:name;type:varchar(255);not null" json:"name"`                // 菜单名称
 	Router    *string `gorm:"column:router;type:varchar(255)" json:"router"`                     // 菜单地址
 	Perms     *string `gorm:"column:perms;type:varchar(255)" json:"perms"`                       // 权限标识

@@ -10,7 +10,6 @@ logger:
   stdout: true
 
 database:
-  autoMigrate: true
   default:
     - type: "mysql"
       link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
@@ -39,6 +38,7 @@ redis:
 
 
 cool:
+  autoMigrate: true
   file:
     mode: "local"
     domain: "http://127.0.0.1:8002"

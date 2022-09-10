@@ -33,6 +33,8 @@ type DictInfoDataReq struct {
 
 // Data 方法 获得字典数据
 func (c *DictInfoController) Data(ctx context.Context, req *DictInfoDataReq) (res *cool.BaseRes, err error) {
-	res = cool.Ok(g.Map{})
+	service := service.NewDictInfoService()
+	data, err := service.Data(ctx, req.Types)
+	res = cool.Ok(data)
 	return
 }
