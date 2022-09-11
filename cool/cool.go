@@ -1,7 +1,6 @@
 package cool
 
 import (
-	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/database/gredis"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcache"
@@ -60,9 +59,4 @@ func Fail(message string) *BaseRes {
 		Code:    1001,
 		Message: message,
 	}
-}
-
-// GDBM 数据库连接
-func GDBM(m IModel) *gdb.Model {
-	return g.DB(m.GroupName()).Model(m.TableName()).Clone()
 }

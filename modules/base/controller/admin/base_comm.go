@@ -9,12 +9,17 @@ import (
 )
 
 type BaseCommController struct {
+	*cool.ControllerSimple
 }
 
 func init() {
-	var base_comm_controller = &BaseCommController{}
+	var base_comm_controller = &BaseCommController{
+		ControllerSimple: &cool.ControllerSimple{
+			Perfix: "/admin/base/comm",
+		},
+	}
 	// 注册路由
-	cool.RegisterControllerSimple("/admin/base/comm", base_comm_controller)
+	cool.RegisterControllerSimple(base_comm_controller)
 }
 
 // BaseCommPersonReq 接口请求参数

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/gogf/gf/v2/container/garray"
+	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
@@ -121,18 +122,13 @@ func (c *Controller) Page(ctx context.Context, req *PageReq) (res *BaseRes, err 
 
 // 注册控制器到路由
 func RegisterController(c IController) {
-	var ctx g.Ctx
+	var ctx = context.Background()
 	var sController = &Controller{}
-	var sService = &Service{}
 	gconv.Struct(c, &sController)
-	gconv.Struct(sController.Service, &sService)
-	// fields, _ := gstructs.Fields(gstructs.FieldsInput{
-	// 	Pointer:         sService.Model,
-	// 	RecursiveOption: 1,
-	// })
-	// g.Dump(fields)
-	g.Log().Debug(ctx, "RegisterController", c, sController, sService.Model.TableName())
-	// g.Server().BindMiddlewareDefault()
+	model := sController.Service.GetModel()
+
+	columns := getModelInfo(ctx, sController.Perfix, model)
+	ModelInfo[sController.Perfix] = columns
 	g.Server().Group(
 		sController.Perfix, func(group *ghttp.RouterGroup) {
 			group.Middleware(MiddlewareHandlerResponse)
@@ -141,4 +137,42 @@ func RegisterController(c IController) {
 			)
 		})
 
+}
+
+// ColumnInfo 表字段信息
+type ColumnInfo struct {
+	Comment      string `json:"comment"`
+	Length       string `json:"length"`
+	Nullable     bool   `json:"nullable"`
+	PropertyName string `json:"propertyName"`
+	Type         string `json:"type"`
+}
+
+// ModelInfo 路由perfix	对应的model信息
+var ModelInfo = make(map[string][]*ColumnInfo)
+
+// getModelInfo 获取模型信息
+func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo) {
+	fields, err := g.DB(model.GroupName()).TableFields(ctx, model.TableName())
+	if err != nil {
+		panic(err)
+	}
+	g.Log().Info(ctx, "fields", fields)
+	sortedFields := garray.NewArraySize(len(fields), len(fields))
+	for k, field := range fields {
+		g.DumpWithType(k, field)
+		sortedFields.Set(field.Index, field)
+	}
+	for _, field := range sortedFields.Slice() {
+		column := &ColumnInfo{
+			Comment:      field.(*gdb.TableField).Comment,
+			Length:       "",
+			Nullable:     field.(*gdb.TableField).Null,
+			PropertyName: field.(*gdb.TableField).Name,
+			Type:         field.(*gdb.TableField).Type,
+		}
+		columns = append(columns, column)
+	}
+
+	return
 }

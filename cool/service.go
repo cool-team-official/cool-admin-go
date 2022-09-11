@@ -10,14 +10,14 @@ import (
 )
 
 type IService interface {
-	ServiceAdd(ctx context.Context, req *AddReq) (data interface{}, err error)
-	ServiceDelete(ctx context.Context, req *DeleteReq) (data interface{}, err error)
-	ServiceUpdate(ctx context.Context, req *UpdateReq) (data interface{}, err error)
-	ServiceInfo(ctx context.Context, req *InfoReq) (data interface{}, err error)
-	ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error)
-	ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error)
-	// 新增|删除|修改后的操作
-	ModifyAfter(ctx context.Context, param g.MapStrAny) (err error)
+	ServiceAdd(ctx context.Context, req *AddReq) (data interface{}, err error)       // 新增
+	ServiceDelete(ctx context.Context, req *DeleteReq) (data interface{}, err error) // 删除
+	ServiceUpdate(ctx context.Context, req *UpdateReq) (data interface{}, err error) // 修改
+	ServiceInfo(ctx context.Context, req *InfoReq) (data interface{}, err error)     // 详情
+	ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error)     // 列表
+	ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error)     // 分页
+	ModifyAfter(ctx context.Context, param g.MapStrAny) (err error)                  // 新增|删除|修改后的操作
+	GetModel() IModel                                                                // 获取model
 }
 type Service struct {
 	Model       IModel
@@ -270,6 +270,11 @@ func (s *Service) ModifyAfter(ctx context.Context, param g.MapStrAny) (err error
 	g.Log().Debug(ctx, param, "2222222")
 
 	return
+}
+
+// GetModel 获取model
+func (s *Service) GetModel() IModel {
+	return s.Model
 }
 
 // NewService 新建一个service
