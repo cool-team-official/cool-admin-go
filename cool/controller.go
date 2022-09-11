@@ -2,11 +2,13 @@ package cool
 
 import (
 	"context"
+	"strings"
 
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -125,10 +127,11 @@ func RegisterController(c IController) {
 	var ctx = context.Background()
 	var sController = &Controller{}
 	gconv.Struct(c, &sController)
-	model := sController.Service.GetModel()
-
-	columns := getModelInfo(ctx, sController.Perfix, model)
-	ModelInfo[sController.Perfix] = columns
+	if Config.Eps {
+		model := sController.Service.GetModel()
+		columns := getModelInfo(ctx, sController.Perfix, model)
+		ModelInfo[sController.Perfix] = columns
+	}
 	g.Server().Group(
 		sController.Perfix, func(group *ghttp.RouterGroup) {
 			group.Middleware(MiddlewareHandlerResponse)
@@ -164,12 +167,27 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 		sortedFields.Set(field.Index, field)
 	}
 	for _, field := range sortedFields.Slice() {
+		if field.(*gdb.TableField).Name == "deleted_at" {
+			continue
+		}
+		var comment string
+		if field.(*gdb.TableField).Comment != "" {
+			comment = field.(*gdb.TableField).Comment
+		} else {
+			comment = field.(*gdb.TableField).Name
+		}
+		// 去除 type中的长度
+		var length string
+		if strings.Contains(field.(*gdb.TableField).Type, "(") {
+			length = field.(*gdb.TableField).Type[strings.Index(field.(*gdb.TableField).Type, "(")+1 : strings.Index(field.(*gdb.TableField).Type, ")")]
+		}
+		columnType := gstr.Replace(field.(*gdb.TableField).Type, "("+length+")", "")
 		column := &ColumnInfo{
-			Comment:      field.(*gdb.TableField).Comment,
+			Comment:      comment,
 			Length:       "",
 			Nullable:     field.(*gdb.TableField).Null,
 			PropertyName: field.(*gdb.TableField).Name,
-			Type:         field.(*gdb.TableField).Type,
+			Type:         columnType,
 		}
 		columns = append(columns, column)
 	}

@@ -39,14 +39,13 @@ redis:
 
 cool:
   autoMigrate: true
+  eps: true
   file:
     mode: "local"
     domain: "http://127.0.0.1:8002"
 
 modules:
   base:
-    enabled: true
-    path: "github.com/cool2645/cool-base"
     jwt:
       sso: false
       secret: "cool-base88776655"

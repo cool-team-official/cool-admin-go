@@ -39,7 +39,10 @@ type BaseOpenEpsReq struct {
 
 // eps 接口
 func (c *BaseOpen) Eps(ctx context.Context, req *BaseOpenEpsReq) (res *cool.BaseRes, err error) {
-	// res = cool.Ok(service.AdminEps())
+	if !cool.Config.Eps {
+		res = cool.Ok(nil)
+		return
+	}
 	data, err := c.baseOpenService.AdminEPS(ctx)
 	if err != nil {
 		return cool.Fail(err.Error()), err
