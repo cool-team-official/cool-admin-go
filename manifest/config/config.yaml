@@ -2,7 +2,8 @@ server:
   address:     ":8300"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
-  serverRoot: "coolweb"
+  serverRoot: "frontend"
+  clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
 
 logger:
   path: "./logs/"
@@ -12,7 +13,6 @@ logger:
 
 
 database:
-  autoMigrate: true
   default:
     type: "sqlite"
     link: "./data/db.sqlite"
@@ -20,10 +20,8 @@ database:
     createdAt: "createTime"
     updatedAt: "updateTime"
 
-cool-base:
-  jwt:
-    sso: false
-    secret: "cool-admin-go-simple-secret"
-    token:
-      expire: 7200 # 2*3600
-      refresh: 1296000 # 24*3600*15
+cool:
+  autoMigrate: true
+  file:
+    mode: "local"
+    domain: "http://127.0.0.1:8300"

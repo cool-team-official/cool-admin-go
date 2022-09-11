@@ -5,7 +5,6 @@
 .swp
 .idea/
 .settings/
-.vscode/
 vendor/
 composer.lock
 gitpush.sh
@@ -21,3 +20,5 @@ manifest/output/
 temp/
 data/db.sqlite
 logs/
+public/uploads/
+gf

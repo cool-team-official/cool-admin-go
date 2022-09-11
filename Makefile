@@ -7,7 +7,7 @@ DOCKER_NAME = "cool-admin-go-simple"
 .PHONY: cli
 cli:
 	@set -e; \
-	curl -L https://hub.fastgit.xyz/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) -o ./gf && \
+	curl -L https://download.fastgit.org/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) -o ./gf && \
 	chmod +x gf && \
 	./gf install && \
 	rm ./gf
@@ -26,7 +26,7 @@ cli.install:
 .PHONY: tools
 tools:
 	@set -e; \
-	curl -L https://hub.fastgit.xyz/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(shell go env GOOS)_$(shell go env GOARCH) -o ./cool-tools && \
+	curl -L https://download.fastgit.org/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(shell go env GOOS)_$(shell go env GOARCH) -o ./cool-tools && \
 	chmod +x cool-tools && \
 	./cool-tools install && \
 	rm ./cool-tools
@@ -92,3 +92,11 @@ deploy:
 	kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}";
 
 
+# 复制前端文件到指定目录并打包
+.PHONY: build.frontend
+build.frontend:
+	@set -e; \
+	rm -rf $(ROOT_DIR)/temp/frontend;\
+	mkdir -p $(ROOT_DIR)/temp/frontend;\
+	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/frontend;\
+	gf pack ./temp/frontend ./internal/packed/frontend.go
