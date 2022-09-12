@@ -42,11 +42,14 @@ type QueryOp struct {
 
 // JoinOp 关联查询
 type JoinOp struct {
-	Model     IModel // 关联的model
-	Alias     string // 别名
-	Condition string // 关联条件
-	Type      string // 关联类型
+	Model     IModel   // 关联的model
+	Alias     string   // 别名
+	Condition string   // 关联条件
+	Type      JoinType // 关联类型  LeftJoin RightJoin InnerJoin
 }
+
+// JoinType 关联类型
+type JoinType string
 
 func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}, err error) {
 	if s.Before != nil {
@@ -146,6 +149,20 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 		if Select := s.ListQueryOp.Select; Select != "" {
 			m.Fields(Select)
 		}
+		// 如果Join不为空 则添加Join
+		if len(s.ListQueryOp.Join) > 0 {
+			for _, join := range s.ListQueryOp.Join {
+				switch join.Type {
+				case LeftJoin:
+					m.LeftJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				case RightJoin:
+					m.RightJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				case InnerJoin:
+					m.InnerJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				}
+			}
+		}
+
 		// 如果fileldEQ不为空 则添加查询条件
 		if len(s.ListQueryOp.FieldEQ) > 0 {
 			for _, field := range s.ListQueryOp.FieldEQ {
@@ -175,7 +192,12 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 			where := s.ListQueryOp.Where(ctx)
 			if len(where) > 0 {
 				for _, v := range where {
-					if gconv.Bool(v[2]) {
+					if len(v) == 3 {
+						if gconv.Bool(v[2]) {
+							m.Where(v[0], v[1])
+						}
+					}
+					if len(v) == 2 {
 						m.Where(v[0], v[1])
 					}
 				}
@@ -230,6 +252,19 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 		if Select := s.PageQueryOp.Select; Select != "" {
 			m.Fields(Select)
 		}
+		// 如果Join不为空 则添加Join
+		if len(s.PageQueryOp.Join) > 0 {
+			for _, join := range s.PageQueryOp.Join {
+				switch join.Type {
+				case LeftJoin:
+					m.LeftJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				case RightJoin:
+					m.RightJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				case InnerJoin:
+					m.InnerJoin(join.Model.TableName(), join.Condition).As(join.Alias)
+				}
+			}
+		}
 		// 如果fileldEQ不为空 则添加查询条件
 		if len(s.PageQueryOp.FieldEQ) > 0 {
 			for _, field := range s.PageQueryOp.FieldEQ {
@@ -260,7 +295,12 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 			where := s.PageQueryOp.Where(ctx)
 			if len(where) > 0 {
 				for _, v := range where {
-					if gconv.Bool(v[2]) {
+					if len(v) == 3 {
+						if gconv.Bool(v[2]) {
+							m.Where(v[0], v[1])
+						}
+					}
+					if len(v) == 2 {
 						m.Where(v[0], v[1])
 					}
 				}
@@ -319,7 +359,7 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 
 // 新增|删除|修改后的操作
 func (s *Service) ModifyAfter(ctx context.Context, param g.MapStrAny) (err error) {
-	g.Log().Debug(ctx, param, "2222222")
+	// g.Log().Debug(ctx, param, "2222222")
 
 	return
 }

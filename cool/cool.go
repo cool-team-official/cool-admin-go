@@ -4,6 +4,7 @@ import (
 	"github.com/gogf/gf/v2/database/gredis"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/util/guid"
 	"gorm.io/gorm"
 )
 
@@ -11,6 +12,7 @@ var (
 	GormDBS      map[string]*gorm.DB // 定义全局gorm.DB对象集合 仅供内部使用
 	CacheEPS     = gcache.New()      // 定义全局缓存对象	供EPS使用
 	CacheManager = gcache.New()      // 定义全局缓存对象	供其他业务使用
+	ProcessFlag  = guid.S()          // 定义全局进程标识
 )
 
 type MgormDBS map[string]*gorm.DB
