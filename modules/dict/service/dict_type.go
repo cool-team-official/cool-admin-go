@@ -13,8 +13,8 @@ func NewDictTypeService() *DictTypeService {
 	return &DictTypeService{
 		Service: &cool.Service{
 			Model: model.NewDictType(),
-			ListQueryOp: &cool.ListQueryOp{
-				KeyWorkField: []string{"name"},
+			ListQueryOp: &cool.QueryOp{
+				KeyWordField: []string{"name"},
 			},
 		},
 	}

@@ -48,7 +48,7 @@ func NewBaseSysDepartmentService() *BaseSysDepartmentService {
 	return &BaseSysDepartmentService{
 		Service: &cool.Service{
 			Model:       model.NewBaseSysDepartment(),
-			ListQueryOp: &cool.ListQueryOp{},
+			ListQueryOp: &cool.QueryOp{},
 		},
 	}
 }

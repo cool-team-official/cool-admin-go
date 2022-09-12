@@ -6,7 +6,7 @@ import (
 )
 
 type Eps struct {
-	gmeta.Meta `group:"default" tableName:"base_eps"`
+	gmeta.Meta `group:"default" tableName:"base_eps_admin"`
 	Id         int    `json:"id"`
 	Module     string `json:"module" field:"module"`
 	Method     string // 请求方法 例如：GET
