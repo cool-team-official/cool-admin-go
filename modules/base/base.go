@@ -1,7 +1,6 @@
 package base
 
 import (
-	"github.com/cool-team-official/cool-admin-go/modules/base/config"
 	_ "github.com/cool-team-official/cool-admin-go/modules/base/packed"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
@@ -17,9 +16,6 @@ func init() {
 	)
 	g.Log().Info(ctx, "modules/base init")
 
-	config := config.Config
-
-	g.Dump("111111config", config)
 	cool.FillInitData("base", &model.BaseSysMenu{})
 	cool.FillInitData("base", &model.BaseSysUser{})
 	cool.FillInitData("base", &model.BaseSysUserRole{})

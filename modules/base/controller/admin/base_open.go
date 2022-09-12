@@ -10,20 +10,24 @@ import (
 )
 
 type BaseOpen struct {
+	*cool.ControllerSimple
+	baseSysLoginService *service.BaseSysLoginService
+	baseOpenService     *service.BaseOpenService
 }
 
 func init() {
-	var open = &BaseOpen{}
+	var open = &BaseOpen{
+		ControllerSimple:    &cool.ControllerSimple{Perfix: "/admin/base/open"},
+		baseSysLoginService: service.NewBaseSysLoginService(),
+		baseOpenService:     service.NewBaseOpenService(),
+	}
 	// 注册路由
-	cool.RegisterControllerSimple("/admin/base/open", open)
+	cool.RegisterControllerSimple(open)
 }
 
 // 验证码接口
 func (c *BaseOpen) BaseOpenCaptcha(ctx context.Context, req *v1.BaseOpenCaptchaReq) (res *cool.BaseRes, err error) {
-	var (
-		baseSysLoginService = service.NewBaseSysLoginService()
-	)
-	data, err := baseSysLoginService.Captcha(req)
+	data, err := c.baseSysLoginService.Captcha(req)
 	res = cool.Ok(data)
 	return
 }
@@ -35,16 +39,21 @@ type BaseOpenEpsReq struct {
 
 // eps 接口
 func (c *BaseOpen) Eps(ctx context.Context, req *BaseOpenEpsReq) (res *cool.BaseRes, err error) {
-	res = cool.Ok(service.AdminEps())
+	if !cool.Config.Eps {
+		res = cool.Ok(nil)
+		return
+	}
+	data, err := c.baseOpenService.AdminEPS(ctx)
+	if err != nil {
+		return cool.Fail(err.Error()), err
+	}
+	res = cool.Ok(data)
 	return
 }
 
 // login 接口
 func (c *BaseOpen) Login(ctx context.Context, req *v1.BaseOpenLoginReq) (res *cool.BaseRes, err error) {
-	var (
-		baseSysLoginService = service.NewBaseSysLoginService()
-	)
-	data, err := baseSysLoginService.Login(ctx, req)
+	data, err := c.baseSysLoginService.Login(ctx, req)
 	if err != nil {
 		return
 	}

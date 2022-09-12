@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/glebarez/sqlite"
+	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gres"
@@ -18,41 +19,48 @@ import (
 
 // 初始化数据库连接供gorm使用
 func initDB(group string) (*gorm.DB, error) {
-	var ctx context.Context
+	// var ctx context.Context
 	var db *gorm.DB
 	// 如果group为空，则使用默认的group，否则使用group参数
 	if group == "" {
 		group = "default"
 	}
-	var configMap map[string]interface{}
-	var configSlice []interface{}
-	if v, _ := g.Cfg().Get(ctx, "database."+group); !v.IsEmpty() {
-		if v.IsSlice() {
-			// g.Log().Debug(ctx, "v.IsSlice()")
-			configSlice = v.Slice()
-			configMap = configSlice[0].(map[string]interface{})
-		} else if v.IsMap() {
-			// g.Log().Debug(ctx, "v.IsMap()")
-			configMap = v.Map()
-		} else {
-			panic("无法解析数据库配置")
-		}
-	}
+	// var configMap map[string]interface{}
+	// var configSlice []interface{}
+	// if v, _ := g.Cfg().Get(ctx, "database."+group); !v.IsEmpty() {
+	// 	if v.IsSlice() {
+	// 		// g.Log().Debug(ctx, "v.IsSlice()")
+	// 		configSlice = v.Slice()
+	// 		configMap = configSlice[0].(map[string]interface{})
+	// 	} else if v.IsMap() {
+	// 		// g.Log().Debug(ctx, "v.IsMap()")
+	// 		configMap = v.Map()
+	// 	} else {
+	// 		panic("无法解析数据库配置")
+	// 	}
+	// }
 	// g.Dump(configMap)
+	config := g.DB(group).GetConfig()
+	db = gormInit(config)
 
-	switch configMap["type"] {
-	case "sqlite":
-		// g.Log().Debug(ctx, "sqlite")
-		db, _ = sqliteInit(configMap["link"].(string))
-	case "mysql":
-		// g.Log().Debug(ctx, "mysql")
-		db, _ = mysqlInit(configMap["link"].(string))
-	default:
-		g.Log().Error(ctx, configMap["type"], "为未知数据库类型")
-		panic("cooldatabase type not found")
-	}
 	GormDBS[group] = db
 	return db, nil
+}
+
+// 初始化gorm数据库连接
+func gormInit(c *gdb.ConfigNode) *gorm.DB {
+	var ctx context.Context
+	var db *gorm.DB
+	switch c.Type {
+	case "sqlite":
+		db, _ = sqliteInit(c.Link)
+	case "mysql":
+		db, _ = mysqlInit(c.Link)
+	default:
+		g.Log().Error(ctx, c.Type, "为未知数据库类型")
+		panic("cooldatabase type not found")
+	}
+	return db
 }
 
 // 初始化sqlite类型连接
@@ -103,8 +111,8 @@ func mysqlInit(link string) (*gorm.DB, error) {
 	return db, nil
 }
 
-// 根据entity结构体获取DB
-func GetDBbyModel(model IModel) *gorm.DB {
+// 根据entity结构体获取 *gorm.DB
+func getDBbyModel(model IModel) *gorm.DB {
 
 	group := model.GroupName()
 	// 判断是否存在 GormDBS[group] 字段，如果存在，则使用该字段的值作为DB，否则初始化DB
@@ -128,7 +136,7 @@ func CreateTable(model IModel) error {
 	if Config.AutoMigrate {
 		g.Log().Debug(ctx, "start autoMigrate! database.autoMigrate")
 		g.Log().Debug(ctx, "开始在分组", model.GroupName(), "创建表", model.TableName())
-		db := GetDBbyModel(model)
+		db := getDBbyModel(model)
 		return db.AutoMigrate(model)
 	}
 	g.Log().Info(ctx, "autoMigrate skiped! cool.autoMigrate=false")

@@ -2,13 +2,17 @@ package cool
 
 import "github.com/gogf/gf/v2/frame/g"
 
+// cool config
 type sConfig struct {
-	AutoMigrate bool
-	File        *file `json:"file"`
+	AutoMigrate bool  `json:"auto_migrate,omitempty"` // 是否自动创建表
+	Eps         bool  `json:"eps,omitempty"`          // 是否开启eps
+	File        *file `json:"file,omitempty"`         // 文件上传配置
 }
+
+// 文件上传配置
 type file struct {
-	Mode   string `json:"mode"`
-	Domain string `json:"domain"`
+	Mode   string `json:"mode"`   // 模式 local oss
+	Domain string `json:"domain"` // 域名 http://
 }
 
 // NewConfig new config
@@ -16,10 +20,10 @@ func newConfig() *sConfig {
 	var ctx g.Ctx
 	config := &sConfig{
 		AutoMigrate: GetCfgWithDefault(ctx, "cool.autoMigrate", g.NewVar(false)).Bool(),
+		Eps:         GetCfgWithDefault(ctx, "cool.eps", g.NewVar(false)).Bool(),
 		File: &file{
 			Mode:   GetCfgWithDefault(ctx, "cool.file.mode", g.NewVar("local")).String(),
-			Domain: GetCfgWithDefault(ctx, "cool.file.domain", g.NewVar("http://127.0.0.1:8300")).String(),
-		},
+			Domain: GetCfgWithDefault(ctx, "cool.file.domain", g.NewVar("http://127.0.0.1:8300")).String()},
 	}
 	return config
 }
