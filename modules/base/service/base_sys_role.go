@@ -134,7 +134,7 @@ func NewBaseSysRoleService() *BaseSysRoleService {
 	return &BaseSysRoleService{
 		Service: &cool.Service{
 			Model: model.NewBaseSysRole(),
-			ListQueryOp: &cool.ListQueryOp{
+			ListQueryOp: &cool.QueryOp{
 				Where: func(ctx context.Context) [][]interface{} {
 					var (
 						admin   = cool.GetAdmin(ctx)
@@ -147,7 +147,7 @@ func NewBaseSysRoleService() *BaseSysRoleService {
 					}
 				},
 			},
-			PageQueryOp: &cool.PageQueryOp{
+			PageQueryOp: &cool.QueryOp{
 				KeyWorkField: []string{"name", "label"},
 				AddOrderby:   map[string]string{},
 				Where: func(ctx context.Context) [][]interface{} {

@@ -38,7 +38,7 @@ func NewDictInfoService() *DictInfoService {
 	return &DictInfoService{
 		&cool.Service{
 			Model: model.NewDictInfo(),
-			ListQueryOp: &cool.ListQueryOp{
+			ListQueryOp: &cool.QueryOp{
 				FieldEQ:      []string{"typeId"},
 				KeyWorkField: []string{"name"},
 				AddOrderby:   g.MapStrStr{"createTime": "ASC"},
