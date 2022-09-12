@@ -148,7 +148,7 @@ func NewBaseSysRoleService() *BaseSysRoleService {
 				},
 			},
 			PageQueryOp: &cool.QueryOp{
-				KeyWorkField: []string{"name", "label"},
+				KeyWordField: []string{"name", "label"},
 				AddOrderby:   map[string]string{},
 				Where: func(ctx context.Context) [][]interface{} {
 					var (

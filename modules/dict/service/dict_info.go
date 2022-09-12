@@ -40,7 +40,7 @@ func NewDictInfoService() *DictInfoService {
 			Model: model.NewDictInfo(),
 			ListQueryOp: &cool.QueryOp{
 				FieldEQ:      []string{"typeId"},
-				KeyWorkField: []string{"name"},
+				KeyWordField: []string{"name"},
 				AddOrderby:   g.MapStrStr{"createTime": "ASC"},
 			},
 		},

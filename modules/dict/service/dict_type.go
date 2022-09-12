@@ -14,7 +14,7 @@ func NewDictTypeService() *DictTypeService {
 		Service: &cool.Service{
 			Model: model.NewDictType(),
 			ListQueryOp: &cool.QueryOp{
-				KeyWorkField: []string{"name"},
+				KeyWordField: []string{"name"},
 			},
 		},
 	}

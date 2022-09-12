@@ -32,7 +32,7 @@ type Service struct {
 // List/Add接口条件配置
 type QueryOp struct {
 	FieldEQ      []string                                 // 字段等于
-	KeyWorkField []string                                 // 模糊搜索匹配的数据库字段
+	KeyWordField []string                                 // 模糊搜索匹配的数据库字段
 	AddOrderby   g.MapStrStr                              // 添加排序
 	Where        func(ctx context.Context) []g.Array      // 自定义条件
 	Select       string                                   // 查询字段,多个字段用逗号隔开 如: id,name  或  a.id,a.name,b.name AS bname
@@ -155,12 +155,12 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 				}
 			}
 		}
-		// 如果keyWorkField不为空 则添加查询条件
+		// 如果KeyWordField不为空 则添加查询条件
 		if !r.Get("keyWord").IsEmpty() {
-			if len(s.ListQueryOp.KeyWorkField) > 0 {
+			if len(s.ListQueryOp.KeyWordField) > 0 {
 				var sql string
 				args := garray.NewArray()
-				for i, field := range s.ListQueryOp.KeyWorkField {
+				for i, field := range s.ListQueryOp.KeyWordField {
 					args.Append("%" + r.Get("keyWord").String() + "%")
 					if i == 0 {
 						sql = "(`" + field + "` LIKE ?) "
@@ -239,12 +239,12 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 				}
 			}
 		}
-		// 如果keyWorkField不为空 则添加查询条件
+		// 如果KeyWordField不为空 则添加查询条件
 		if !r.Get("keyWord").IsEmpty() {
-			if len(s.PageQueryOp.KeyWorkField) > 0 {
+			if len(s.PageQueryOp.KeyWordField) > 0 {
 				var sql string
 				args := garray.NewArray()
-				for i, field := range s.PageQueryOp.KeyWorkField {
+				for i, field := range s.PageQueryOp.KeyWordField {
 					args.Append("%" + r.Get("keyWord").String() + "%")
 					if i == 0 {
 						sql = "(`" + field + "` LIKE ?) "
