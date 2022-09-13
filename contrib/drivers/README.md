@@ -36,13 +36,13 @@ func main() {
 
 ## MySQL/MariaDB/TiDB
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql"
 ```
 
 ## SQLite
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite"
 ```
 
@@ -52,7 +52,7 @@ Note:
 
 ## PostgreSQL
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
 ```
 
@@ -63,7 +63,7 @@ Note:
 
 ## SQL Server
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mssql"
 ```
 
@@ -75,7 +75,7 @@ Note:
 
 ## Oracle
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/oracle"
 ```
 
@@ -86,7 +86,7 @@ Note:
 
 ## ClickHouse
 
-```
+```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/clickhouse"
 ```
 
