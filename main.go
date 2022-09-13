@@ -3,7 +3,7 @@ package main
 import (
 	_ "cool-admin-go-simple/internal/packed"
 
-	_ "github.com/gogf/gf/contrib/drivers/sqlite/v2"
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite"
 
 	_ "cool-admin-go-simple/modules"
 
