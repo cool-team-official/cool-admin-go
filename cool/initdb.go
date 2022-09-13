@@ -1,20 +1,11 @@
 package cool
 
 import (
-	"context"
-	"log"
-	"os"
-	"time"
-
-	"github.com/glebarez/sqlite"
-	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gres"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
-	"gorm.io/gorm/schema"
 )
 
 // 初始化数据库连接供gorm使用
@@ -25,89 +16,13 @@ func initDB(group string) (*gorm.DB, error) {
 	if group == "" {
 		group = "default"
 	}
-	// var configMap map[string]interface{}
-	// var configSlice []interface{}
-	// if v, _ := g.Cfg().Get(ctx, "database."+group); !v.IsEmpty() {
-	// 	if v.IsSlice() {
-	// 		// g.Log().Debug(ctx, "v.IsSlice()")
-	// 		configSlice = v.Slice()
-	// 		configMap = configSlice[0].(map[string]interface{})
-	// 	} else if v.IsMap() {
-	// 		// g.Log().Debug(ctx, "v.IsMap()")
-	// 		configMap = v.Map()
-	// 	} else {
-	// 		panic("无法解析数据库配置")
-	// 	}
-	// }
-	// g.Dump(configMap)
 	config := g.DB(group).GetConfig()
-	db = gormInit(config)
+	db, err := cooldb.GetConn(config)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	GormDBS[group] = db
-	return db, nil
-}
-
-// 初始化gorm数据库连接
-func gormInit(c *gdb.ConfigNode) *gorm.DB {
-	var ctx context.Context
-	var db *gorm.DB
-	switch c.Type {
-	case "sqlite":
-		db, _ = sqliteInit(c.Link)
-	case "mysql":
-		db, _ = mysqlInit(c.Link)
-	default:
-		g.Log().Error(ctx, c.Type, "为未知数据库类型")
-		panic("cooldatabase type not found")
-	}
-	return db
-}
-
-// 初始化sqlite类型连接
-func sqliteInit(link string) (*gorm.DB, error) {
-	newLogger := logger.New(
-		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer（日志输出的目标，前缀和日志包含的内容——译者注）
-		logger.Config{
-			SlowThreshold:             time.Second, // 慢 SQL 阈值
-			LogLevel:                  logger.Info, // 日志级别
-			IgnoreRecordNotFoundError: true,        // 忽略ErrRecordNotFound（记录未找到）错误
-			Colorful:                  true,        // 彩色打印
-		},
-	)
-	db, err := gorm.Open(sqlite.Open(link), &gorm.Config{
-		Logger: newLogger,
-		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "",
-			SingularTable: true,
-		},
-	})
-	if err != nil {
-		panic("failed to connect database")
-	}
-	return db, nil
-}
-
-// 初始化mysql类型连接
-func mysqlInit(link string) (*gorm.DB, error) {
-	newLogger := logger.New(
-		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer（日志输出的目标，前缀和日志包含的内容——译者注）
-		logger.Config{
-			SlowThreshold:             time.Second,  // 慢 SQL 阈值
-			LogLevel:                  logger.Error, // 日志级别
-			IgnoreRecordNotFoundError: true,         // 忽略ErrRecordNotFound（记录未找到）错误
-			Colorful:                  true,         // 彩色打印
-		},
-	)
-	db, err := gorm.Open(mysql.Open(link), &gorm.Config{
-		Logger: newLogger,
-		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "",
-			SingularTable: true,
-		},
-	})
-	if err != nil {
-		panic("failed to connect database")
-	}
 	return db, nil
 }
 
@@ -143,7 +58,7 @@ func CreateTable(model IModel) error {
 	return nil
 }
 
-// 数据库填充初始数据
+// FillInitData 数据库填充初始数据
 func FillInitData(moduleName string, model IModel) error {
 	var ctx g.Ctx
 	mInit := g.DB("default").Model("base_sys_init")
