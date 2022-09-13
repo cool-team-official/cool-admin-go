@@ -36,26 +36,26 @@ fi
 # 推送到master
 git push origin master
 # 创建tag
-git tag cool/$TAG
-git tag cool-tools/$TAG
-git tag modules/base/$TAG
-git tag modules/demo/$TAG
-git tag modules/dict/$TAG
-git tag modules/space/$TAG
-git tag contrib/drivers/sqlite/$TAG
-git tag contrib/drivers/mysql/$TAG
-git tag contrib/drivers/mssql/$TAG
+# git tag cool/$TAG
+# git tag cool-tools/$TAG
+# git tag modules/base/$TAG
+# git tag modules/demo/$TAG
+# git tag modules/dict/$TAG
+# git tag modules/space/$TAG
+# git tag contrib/drivers/sqlite/$TAG
+# git tag contrib/drivers/mysql/$TAG
+# git tag contrib/drivers/mssql/$TAG
 git tag $TAG
 # 提交tag
-git push origin cool/$TAG
-git push origin cool-tools/$TAG
-git push origin modules/base/$TAG
-git push origin modules/demo/$TAG
-git push origin modules/dict/$TAG
-git push origin modules/space/$TAG
-git push origin contrib/drivers/sqlite/$TAG
-git push origin contrib/drivers/mysql/$TAG
-git push origin contrib/drivers/mssql/$TAG
+# git push origin cool/$TAG
+# git push origin cool-tools/$TAG
+# git push origin modules/base/$TAG
+# git push origin modules/demo/$TAG
+# git push origin modules/dict/$TAG
+# git push origin modules/space/$TAG
+# git push origin contrib/drivers/sqlite/$TAG
+# git push origin contrib/drivers/mysql/$TAG
+# git push origin contrib/drivers/mssql/$TAG
 git push origin $TAG
 # 显示最新的tag
 git describe --tags --abbrev=0
