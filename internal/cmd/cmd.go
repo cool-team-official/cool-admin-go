@@ -13,7 +13,7 @@ var (
 		Usage: "main",
 		Brief: "start http server",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
-			g.Dump(g.DB("test").GetConfig())
+			// g.Dump(g.DB("test").GetConfig())
 
 			s := g.Server()
 

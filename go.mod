@@ -13,8 +13,12 @@ require (
 
 require (
 	github.com/cool-team-official/cool-admin-go/cool v0.0.14 // indirect
+	github.com/denisenkom/go-mssqldb v0.12.0 // indirect
 	github.com/glebarez/sqlite v1.4.6 // indirect
+	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
+	github.com/golang-sql/sqlexp v0.0.0-20170517235910-f1bb20e5a188 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gorm.io/driver/mysql v1.3.6 // indirect
 	gorm.io/gorm v1.23.9-0.20220713102635-3262daf8d468 // indirect
@@ -53,6 +57,7 @@ require (
 	golang.org/x/sys v0.0.0-20220817070843-5a390386f1f2 // indirect
 	golang.org/x/text v0.3.8-0.20211105212822-18b340fc7af2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/sqlserver v1.3.2
 	modernc.org/libc v1.16.19 // indirect
 	modernc.org/mathutil v1.4.1 // indirect
 	modernc.org/memory v1.1.1 // indirect
