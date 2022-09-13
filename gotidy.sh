@@ -12,6 +12,7 @@ find $DIR -name "go.mod" | while read line; do
     MOD_DIR=$(dirname $line)
     echo "MOD_DIR: $MOD_DIR"
     cd $MOD_DIR
+    go get -u
     go mod tidy
 done
 
