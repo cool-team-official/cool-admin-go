@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.0.20
+	github.com/cool-team-official/cool-admin-go/cool v0.0.22
 	github.com/glebarez/sqlite v1.4.6
 	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.1.4
 	github.com/gogf/gf/v2 v2.1.4
@@ -17,7 +17,7 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
-	github.com/glebarez/go-sqlite v1.18.1 // indirect
+	github.com/glebarez/go-sqlite v1.18.2 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect

@@ -3,8 +3,10 @@ package cmd
 import (
 	"context"
 
+	"github.com/cool-team-official/cool-admin-go/cool-tools/internal/utility/mlog"
 	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/gogf/gf/v2/os/gfile"
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
@@ -47,6 +49,7 @@ var (
 				Git:      info.Git,
 				Time:     info.Time,
 			}
+			mlog.Printf(`CLI Installed At: %s`, gfile.SelfPath())
 			gutil.Dump(res)
 			return nil
 		},

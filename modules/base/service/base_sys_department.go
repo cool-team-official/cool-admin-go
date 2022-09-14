@@ -21,7 +21,7 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (r
 	if len(roleIds) > 0 {
 		// 如果是超级管理员，则返回所有部门
 		if isAdmin {
-			result, _ = cool.GDBM(s.Model).Fields("id").All()
+			result, _ = cool.DBM(s.Model).Fields("id").All()
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["id"] != nil {
@@ -30,7 +30,7 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (r
 			}
 		} else {
 			// 如果不是超级管理员，则返回角色所在部门
-			result, _ = cool.GDBM(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
+			result, _ = cool.DBM(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["departmentId"] != nil {

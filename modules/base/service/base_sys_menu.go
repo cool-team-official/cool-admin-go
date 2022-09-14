@@ -19,7 +19,7 @@ func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
 		perms  []string
 		result gdb.Result
 	)
-	m := cool.GDBM(s.Model).As("a")
+	m := cool.DBM(s.Model).As("a")
 	// 如果roldIds 包含 1 则表示是超级管理员，则返回所有权限
 	if garray.NewIntArrayFrom(gconv.Ints(roleIds)).Contains(1) {
 		result, _ = m.Fields("a.perms").All()
@@ -38,7 +38,7 @@ func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
 
 // GetMenus 获取菜单
 func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.Result) {
-	m := cool.GDBM(s.Model).As("a")
+	m := cool.DBM(s.Model).As("a")
 	if isAdmin {
 		result, _ = m.Group("a.id").Order("a.orderNum asc").All()
 	} else {

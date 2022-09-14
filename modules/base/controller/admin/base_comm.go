@@ -80,7 +80,7 @@ type BaseCommUploadModeReq struct {
 
 // BaseCommUploadMode 方法
 func (c *BaseCommController) UploadMode(ctx context.Context, req *BaseCommUploadModeReq) (res *cool.BaseRes, err error) {
-	data, err := cool.File.GetMode()
+	data, err := cool.File().GetMode()
 	res = cool.Ok(data)
 	return
 }
@@ -93,7 +93,7 @@ type BaseCommUploadReq struct {
 
 // BaseCommUpload 方法
 func (c *BaseCommController) Upload(ctx context.Context, req *BaseCommUploadReq) (res *cool.BaseRes, err error) {
-	data, err := cool.File.Upload(ctx)
+	data, err := cool.File().Upload(ctx)
 	res = cool.Ok(data)
 	return
 }

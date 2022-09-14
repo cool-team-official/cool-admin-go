@@ -65,12 +65,12 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 		return nil, nil
 	}
 	insertParams := s.InsertParam(ctx)
-	if insertParams != nil {
+	if len(insertParams) > 0 {
 		for k, v := range insertParams {
 			rjson.Set(k, v)
 		}
 	}
-	m := GDBM(s.Model)
+	m := DBM(s.Model)
 	lastInsertId, err := m.Data(rjson).InsertAndGetId()
 	if err != nil {
 		return
@@ -106,7 +106,7 @@ func (s *Service) ServiceUpdate(ctx context.Context, req *UpdateReq) (data inter
 		err = gerror.New("id不能为空")
 		return
 	}
-	m := GDBM(s.Model)
+	m := DBM(s.Model)
 	_, err = m.Data(rmap).Where("id", rmap["id"]).Update()
 
 	return

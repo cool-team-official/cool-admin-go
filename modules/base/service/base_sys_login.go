@@ -51,7 +51,7 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 	md5password, _ := gmd5.Encrypt(password)
 
 	var user *model.BaseSysUser
-	cool.GDBM(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user)
+	cool.DBM(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user)
 	if user == nil {
 		err = gerror.New("账户或密码不正确~")
 		return

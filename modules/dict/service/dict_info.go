@@ -18,7 +18,7 @@ func (s *DictInfoService) Data(ctx context.Context, types []string) (data interf
 		// dictInfoModel = model.NewDictInfo()
 		dictTypeModel = model.NewDictType()
 	)
-	mType := cool.GDBM(dictTypeModel)
+	mType := cool.DBM(dictTypeModel)
 	// 如果types不为空, 则查询指定类型的数据
 	if len(types) > 0 {
 		mType = mType.Where("type in (?)", types)

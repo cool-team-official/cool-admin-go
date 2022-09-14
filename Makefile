@@ -79,4 +79,4 @@ build.public:
 	rm -rf $(ROOT_DIR)/temp/public;\
 	mkdir -p $(ROOT_DIR)/temp/public;\
 	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/public;\
-	gf pack ./temp/public ./internal/packed/public.go -p resource
+	gf pack ./temp/public ./internal/packed/public.go -p resource/public
