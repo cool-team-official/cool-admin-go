@@ -92,11 +92,12 @@ deploy:
 	kubectl   patch -n $(NAMESPACE) deployment/$(DEPLOY_NAME) -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(shell date +%s)\"}}}}}";
 
 
+
 # 复制前端文件到指定目录并打包
-.PHONY: build.frontend
-build.frontend:
+.PHONY: build.public
+build.public:
 	@set -e; \
-	rm -rf $(ROOT_DIR)/temp/frontend;\
-	mkdir -p $(ROOT_DIR)/temp/frontend;\
-	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/frontend;\
-	gf pack ./temp/frontend ./internal/packed/frontend.go
+	rm -rf $(ROOT_DIR)/temp/public;\
+	mkdir -p $(ROOT_DIR)/temp/public;\
+	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/public;\
+	gf pack ./temp/public ./internal/packed/public.go -p resource/public

@@ -8,11 +8,12 @@ import (
 	_ "cool-admin-go-simple/modules"
 
 	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/os/gres"
 
 	"cool-admin-go-simple/internal/cmd"
 )
 
 func main() {
-	// gres.Dump()
+	gres.Dump()
 	cmd.Main.Run(gctx.New())
 }
