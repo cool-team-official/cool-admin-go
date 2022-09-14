@@ -24,7 +24,8 @@ CoolAdmin 的 Go 版本后端
 - [x] 全局错误码统一
 - [x] controller 层接口输入与 node 版本统一
 - [ ] 优化开发工具安装体验
-- [ ] service 层逻辑补全
+- [x] service 层逻辑补全
+- [ ] base模块逻辑补全
 - [ ] 其他项目需求
 
 ## 使用说明
