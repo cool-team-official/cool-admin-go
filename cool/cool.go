@@ -24,6 +24,7 @@ func init() {
 	)
 	GormDBS = make(MgormDBS)
 	g.Log().Debug(ctx, "cool init,初始化核心模块,请等待...")
+	g.Log().Debug(ctx, "初始化缓存")
 	redisVar, err := g.Cfg().Get(ctx, "redis.default")
 	if err != nil {
 		panic(err)
@@ -36,6 +37,8 @@ func init() {
 		}
 		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
 	}
+	g.Log().Debug(ctx, "初始化缓存完成")
+	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
 }
 
 // cool.OK 正常返回
