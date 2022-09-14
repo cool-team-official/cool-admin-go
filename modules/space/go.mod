@@ -2,7 +2,7 @@ module github.com/cool-team-official/cool-admin-go/modules/space
 
 go 1.19
 
-require github.com/cool-team-official/cool-admin-go/cool v0.0.19
+require github.com/cool-team-official/cool-admin-go/cool v0.0.20
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
@@ -29,7 +29,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.10.0 // indirect
 	go.opentelemetry.io/otel/trace v1.10.0 // indirect
 	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
-	golang.org/x/sys v0.0.0-20220909162455-aba9fc2a8ff2 // indirect
+	golang.org/x/sys v0.0.0-20220913175220-63ea55921009 // indirect
 	golang.org/x/text v0.3.8-0.20211105212822-18b340fc7af2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/gorm v1.23.8 // indirect

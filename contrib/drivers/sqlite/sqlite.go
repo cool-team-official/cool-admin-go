@@ -3,6 +3,7 @@ package sqlite
 import (
 	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
 	"github.com/glebarez/sqlite"
+	_ "github.com/gogf/gf/contrib/drivers/sqlite/v2"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/gorm"

@@ -9,7 +9,7 @@ import (
 )
 
 // 初始化数据库连接供gorm使用
-func initDB(group string) (*gorm.DB, error) {
+func InitDB(group string) (*gorm.DB, error) {
 	// var ctx context.Context
 	var db *gorm.DB
 	// 如果group为空，则使用默认的group，否则使用group参数
@@ -35,7 +35,7 @@ func getDBbyModel(model IModel) *gorm.DB {
 		return GormDBS[group]
 	} else {
 
-		db, err := initDB(group)
+		db, err := InitDB(group)
 		if err != nil {
 			panic("failed to connect database")
 		}

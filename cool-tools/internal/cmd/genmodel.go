@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	GenModel = gcmd.Command{
+	GenModel1 = gcmd.Command{
 		Name:  "genmodel",
 		Usage: "genmodel",
 		Brief: "根据数据库表生成model",
@@ -23,7 +23,7 @@ var (
 
 // init 初始化模块
 func init() {
-	Main.AddCommand(&GenModel)
+	Main.AddCommand(&GenModel1)
 }
 func genmodel() {
 	println("genmodel.............................")
