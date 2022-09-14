@@ -4,6 +4,7 @@ import (
 	"context"
 	"strings"
 
+	"github.com/cool-team-official/cool-admin-go/cool/coolconfig"
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
@@ -127,7 +128,7 @@ func RegisterController(c IController) {
 	var ctx = context.Background()
 	var sController = &Controller{}
 	gconv.Struct(c, &sController)
-	if Config.Eps {
+	if coolconfig.Config.Eps {
 		model := sController.Service.GetModel()
 		columns := getModelInfo(ctx, sController.Perfix, model)
 		ModelInfo[sController.Perfix] = columns

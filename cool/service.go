@@ -65,7 +65,7 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 		return nil, nil
 	}
 	insertParams := s.InsertParam(ctx)
-	if insertParams != nil {
+	if len(insertParams) > 0 {
 		for k, v := range insertParams {
 			rjson.Set(k, v)
 		}
