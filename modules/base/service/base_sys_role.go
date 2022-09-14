@@ -28,7 +28,7 @@ func (s *BaseSysRoleService) ModifyAfter(ctx context.Context, param g.MapStrAny)
 // updatePerms(roleId, menuIdList?, departmentIds = [])
 func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuIdList, departmentIds []uint) (err error) {
 	// 更新菜单权限
-	cool.GDBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", roleId).Delete()
+	cool.DBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", roleId).Delete()
 	if len(menuIdList) > 0 {
 		roleMenuList := make([]g.MapStrAny, len(menuIdList))
 		for i, menuId := range menuIdList {
@@ -37,10 +37,10 @@ func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuI
 				"menuId": menuId,
 			}
 		}
-		cool.GDBM(model.NewBaseSysRoleMenu()).Data(roleMenuList).Insert()
+		cool.DBM(model.NewBaseSysRoleMenu()).Data(roleMenuList).Insert()
 	}
 	// 更新部门权限
-	cool.GDBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", roleId).Delete()
+	cool.DBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", roleId).Delete()
 	if len(departmentIds) > 0 {
 		roleDepartmentList := make([]g.MapStrAny, len(departmentIds))
 		for i, departmentId := range departmentIds {
@@ -49,10 +49,10 @@ func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuI
 				"departmentId": departmentId,
 			}
 		}
-		cool.GDBM(model.NewBaseSysRoleDepartment()).Data(roleDepartmentList).Insert()
+		cool.DBM(model.NewBaseSysRoleDepartment()).Data(roleDepartmentList).Insert()
 	}
 	// 刷新权限
-	userRoles, err := cool.GDBM(model.NewBaseSysUserRole()).Where("roleId = ?", roleId).All()
+	userRoles, err := cool.DBM(model.NewBaseSysUserRole()).Where("roleId = ?", roleId).All()
 	if err != nil {
 		return
 	}
@@ -73,7 +73,7 @@ func (s *BaseSysRoleService) GetByUser(userId uint) []uint {
 	var (
 		roles []uint
 	)
-	res, _ := cool.GDBM(baseSysUserRole).Where("userId = ?", userId).Array("roleId")
+	res, _ := cool.DBM(baseSysUserRole).Where("userId = ?", userId).Array("roleId")
 	for _, v := range res {
 		roles = append(roles, gconv.Uint(v))
 	}
@@ -82,19 +82,19 @@ func (s *BaseSysRoleService) GetByUser(userId uint) []uint {
 
 // BaseSysRoleService Info 方法重构
 func (s *BaseSysRoleService) ServiceInfo(ctx context.Context, req *cool.InfoReq) (data interface{}, err error) {
-	info, err := cool.GDBM(s.Model).Where("id = ?", req.Id).One()
+	info, err := cool.DBM(s.Model).Where("id = ?", req.Id).One()
 	if err != nil {
 		return nil, err
 	}
 	if !info.IsEmpty() {
 		var menus gdb.Result
 		if req.Id == 1 {
-			menus, err = cool.GDBM(model.NewBaseSysMenu()).All()
+			menus, err = cool.DBM(model.NewBaseSysMenu()).All()
 			if err != nil {
 				return nil, err
 			}
 		} else {
-			menus, err = cool.GDBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", req.Id).All()
+			menus, err = cool.DBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", req.Id).All()
 			if err != nil {
 				return nil, err
 			}
@@ -105,12 +105,12 @@ func (s *BaseSysRoleService) ServiceInfo(ctx context.Context, req *cool.InfoReq)
 		}
 		var departments gdb.Result
 		if req.Id == 1 {
-			departments, err = cool.GDBM(model.NewBaseSysRoleDepartment()).All()
+			departments, err = cool.DBM(model.NewBaseSysRoleDepartment()).All()
 			if err != nil {
 				return nil, err
 			}
 		} else {
-			departments, err = cool.GDBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", req.Id).All()
+			departments, err = cool.DBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", req.Id).All()
 			if err != nil {
 				return nil, err
 			}
