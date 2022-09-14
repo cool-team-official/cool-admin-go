@@ -13,7 +13,7 @@ type BaseSysUserService struct {
 
 // Person 方法 返回不带密码的用户信息
 func (s *BaseSysUserService) Person(userId uint) (res gdb.Record, err error) {
-	m := cool.GDBM(s.Model)
+	m := cool.DBM(s.Model)
 	res, err = m.Where("id = ?", userId).FieldsEx("password").One()
 	return
 }
@@ -31,7 +31,7 @@ func (s *BaseSysUserService) ServiceInfo(ctx g.Ctx, req *cool.InfoReq) (data int
 	resultMap := result.(gdb.Record).Map()
 
 	// 获取角色
-	roleIds, err := cool.GDBM(model.NewBaseSysUserRole()).Where("userId = ?", resultMap["id"]).Fields("roleId").Array()
+	roleIds, err := cool.DBM(model.NewBaseSysUserRole()).Where("userId = ?", resultMap["id"]).Fields("roleId").Array()
 	if err != nil {
 		return nil, err
 	}

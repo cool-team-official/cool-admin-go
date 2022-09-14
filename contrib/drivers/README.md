@@ -50,7 +50,7 @@ Note:
 
 - It does not support `Save` features.
 
-## PostgreSQL
+## PostgreSQL(未完成)
 
 ```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
@@ -73,7 +73,7 @@ Note:
 - It does not support `LastInsertId`.
 - It supports server version >= `SQL Server2005`
 
-## Oracle
+## Oracle(未完成)
 
 ```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/oracle"
@@ -84,7 +84,7 @@ Note:
 - It does not support `Save/Replace` features.
 - It does not support `LastInsertId`.
 
-## ClickHouse
+## ClickHouse(未完成)
 
 ```go
 import _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/clickhouse"

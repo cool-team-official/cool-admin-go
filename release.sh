@@ -12,7 +12,6 @@ if ! echo "$TAG" | grep -q '^v[0-9]\+\.[0-9]\+\.[0-9]\+$'; then
     exit 1
 fi
 
-
 # if ! [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]; then
 #     echo "Invalid tag: $TAG, must be in the form of vMAJOR.MINOR.PATCH,example: v1.0.0"
 #     exit 1
@@ -59,4 +58,3 @@ git tag $TAG
 git push origin $TAG
 # 显示最新的tag
 git describe --tags --abbrev=0
-
