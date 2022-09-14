@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/modules/base
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.0.22
+	github.com/cool-team-official/cool-admin-go/cool v0.0.23
 	github.com/gogf/gf/v2 v2.1.4
 	github.com/golang-jwt/jwt/v4 v4.4.2
 )

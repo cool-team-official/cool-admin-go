@@ -2,7 +2,7 @@ module github.com/cool-team-official/cool-admin-go/modules/space
 
 go 1.19
 
-require github.com/cool-team-official/cool-admin-go/cool v0.0.22
+require github.com/cool-team-official/cool-admin-go/cool v0.0.23
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect

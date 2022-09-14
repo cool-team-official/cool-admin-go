@@ -5,15 +5,16 @@ go 1.18
 require (
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.0.22
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.0.22
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.0.23
 	github.com/cool-team-official/cool-admin-go/modules/base v0.0.22
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.0.22
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.0.23
 	github.com/cool-team-official/cool-admin-go/modules/dict v0.0.22
-	github.com/cool-team-official/cool-admin-go/modules/space v0.0.22
+	github.com/cool-team-official/cool-admin-go/modules/space v0.0.23
 	github.com/gogf/gf/v2 v2.1.4
 )
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.0.22 // indirect
+	github.com/cool-team-official/cool-admin-go/cool v0.0.23 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gorm.io/driver/mysql v1.3.6 // indirect
@@ -55,8 +56,8 @@ require (
 	golang.org/x/sys v0.0.0-20220913175220-63ea55921009 // indirect
 	golang.org/x/text v0.3.8-0.20211105212822-18b340fc7af2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	modernc.org/libc v1.18.2 // indirect
+	modernc.org/libc v1.19.0 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
-	modernc.org/memory v1.3.0 // indirect
+	modernc.org/memory v1.4.0 // indirect
 	modernc.org/sqlite v1.18.2 // indirect
 )

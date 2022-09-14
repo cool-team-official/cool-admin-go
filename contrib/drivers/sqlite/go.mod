@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.0.22
+	github.com/cool-team-official/cool-admin-go/cool v0.0.23
 	github.com/glebarez/sqlite v1.4.6
 	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.1.4
 	github.com/gogf/gf/v2 v2.1.4
@@ -40,8 +40,8 @@ require (
 	golang.org/x/sys v0.0.0-20220913175220-63ea55921009 // indirect
 	golang.org/x/text v0.3.8-0.20211105212822-18b340fc7af2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	modernc.org/libc v1.18.2 // indirect
+	modernc.org/libc v1.19.0 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
-	modernc.org/memory v1.3.0 // indirect
+	modernc.org/memory v1.4.0 // indirect
 	modernc.org/sqlite v1.18.2 // indirect
 )

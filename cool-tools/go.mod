@@ -6,7 +6,7 @@ require (
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mssql v0.0.22
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.0.22
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.0.22
-	github.com/cool-team-official/cool-admin-go/cool v0.0.22
+	github.com/cool-team-official/cool-admin-go/cool v0.0.23
 	github.com/gogf/gf/v2 v2.1.4
 	gorm.io/gen v0.3.16
 )
@@ -60,8 +60,8 @@ require (
 	gorm.io/gorm v1.23.9-0.20220713102635-3262daf8d468 // indirect
 	gorm.io/hints v1.1.0 // indirect
 	gorm.io/plugin/dbresolver v1.2.3 // indirect
-	modernc.org/libc v1.18.2 // indirect
+	modernc.org/libc v1.19.0 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
-	modernc.org/memory v1.3.0 // indirect
+	modernc.org/memory v1.4.0 // indirect
 	modernc.org/sqlite v1.18.2 // indirect
 )
