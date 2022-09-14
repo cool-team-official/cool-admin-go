@@ -29,3 +29,10 @@ database:
     logLevel: "all"
     createdAt: "createTime"
     updatedAt: "updateTime"
+  bill:
+    type: "mssql"
+    # link: "sqlserver://sa:fjTGgpaFlp3LLi3tsB@localhost:1433?database=bill"
+    link: "server=localhost;user id=sa;password=fjTGgpaFlp3LLi3tsB;port=1433;database=bill;"
+    logLevel: "all"
+    createdAt: "createTime"
+    updatedAt: "updateTime"

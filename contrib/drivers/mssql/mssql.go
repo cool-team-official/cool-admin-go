@@ -1,8 +1,10 @@
 package mssql
 
 import (
-	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
 	_ "github.com/gogf/gf/contrib/drivers/mssql/v2"
+
+	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
+
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/driver/sqlserver"
@@ -24,7 +26,7 @@ func init() {
 	var (
 		err         error
 		driverObj   = New()
-		driverNames = g.SliceStr{"sqlserver"}
+		driverNames = g.SliceStr{"mssql"}
 	)
 	for _, driverName := range driverNames {
 		if err = cooldb.Register(driverName, driverObj); err != nil {
