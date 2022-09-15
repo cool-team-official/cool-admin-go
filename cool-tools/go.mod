@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mssql v0.0.22
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.0.22
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.0.22
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mssql v0.0.23
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.0.23
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.0.23
 	github.com/cool-team-official/cool-admin-go/cool v0.0.23
 	github.com/gogf/gf/v2 v2.1.4
 	gorm.io/gen v0.3.16
