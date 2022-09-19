@@ -64,10 +64,13 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 	if rjson == nil {
 		return nil, nil
 	}
-	insertParams := s.InsertParam(ctx)
-	if len(insertParams) > 0 {
-		for k, v := range insertParams {
-			rjson.Set(k, v)
+	if s.InsertParam != nil {
+
+		insertParams := s.InsertParam(ctx)
+		if len(insertParams) > 0 {
+			for k, v := range insertParams {
+				rjson.Set(k, v)
+			}
 		}
 	}
 	m := DBM(s.Model)

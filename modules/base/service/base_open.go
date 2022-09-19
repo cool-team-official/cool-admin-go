@@ -5,7 +5,6 @@ import (
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
-	"github.com/gogf/gf/v2/os/gcache"
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
@@ -18,8 +17,6 @@ func NewBaseOpenService() *BaseOpenService {
 		&cool.Service{},
 	}
 }
-
-var func1 gcache.Func
 
 // AdminEPS 获取eps
 func (s *BaseOpenService) AdminEPS(ctx g.Ctx) (result *g.Var, err error) {
@@ -43,8 +40,8 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 		Tag     string `json:"tag"`     // 标签 例如：base  好像暂时不用
 		Dts     string `json:"dts"`     // 未知 例如：{} 好像暂时不用
 	}
-	type Column struct {
-	}
+	// type Column struct {
+	// }
 	type Module struct {
 		Api     []*Api             `json:"api"`
 		Columns []*cool.ColumnInfo `json:"columns"`
@@ -89,7 +86,7 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 	}
 	// 读取数据库表生成eps
 	// var modules []*Module
-	items, _ := g.Model("base_eps").Fields("DISTINCT module,prefix").All()
+	items, _ := g.Model("base_eps_admin").Fields("DISTINCT module,prefix").All()
 	for _, item := range items {
 		module := item["module"].String()
 		prefix := item["prefix"].String()

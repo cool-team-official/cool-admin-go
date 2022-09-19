@@ -54,7 +54,7 @@ func CreateTable(model IModel) error {
 		db := getDBbyModel(model)
 		return db.AutoMigrate(model)
 	}
-	g.Log().Info(ctx, "autoMigrate skiped! cool.autoMigrate=false")
+	g.Log().Debug(ctx, "autoMigrate skiped! cool.autoMigrate=false")
 	return nil
 }
 

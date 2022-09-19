@@ -168,6 +168,7 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 		sortedFields.Set(field.Index, field)
 	}
 	for _, field := range sortedFields.Slice() {
+		g.Dump(field)
 		if field.(*gdb.TableField).Name == "deleted_at" {
 			continue
 		}
@@ -193,5 +194,6 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 		columns = append(columns, column)
 	}
 
+	g.Dump(columns)
 	return
 }
