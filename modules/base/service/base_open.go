@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/cool-team-official/cool-admin-go/cool"
+	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -30,6 +31,9 @@ func (s *BaseOpenService) AdminEPS(ctx g.Ctx) (result *g.Var, err error) {
 
 // creatAdminEPS 创建eps
 func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err error) {
+	var (
+		baseEpsAdmin = model.NewBaseEpsAdmin()
+	)
 
 	type Api struct {
 		Module  string `json:"module"`  // 所属模块名称 例如：base
@@ -50,7 +54,7 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 	}
 	admineps := make(map[string][]*Module)
 	// 获取所有路由并更新到数据库表 base_eps_admin
-	g.Model("base_eps_admin").Where("1=1").Delete()
+	cool.DBM(baseEpsAdmin).Where("1=1").Delete()
 	routers := g.Server().GetRoutes()
 	for _, router := range routers {
 		if router.Type == ghttp.HandlerTypeMiddleware || router.Type == ghttp.HandlerTypeHook {
@@ -74,7 +78,7 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 		prefix := gstr.Join(routeSplite[0:len(routeSplite)-1], "/")
 		// 获取最后一个元素为summary
 		summary := routeSplite[len(routeSplite)-1]
-		g.DB().Model("base_eps_admin").Insert(&Api{
+		cool.DBM(baseEpsAdmin).Insert(&Api{
 			Module:  module,
 			Method:  method,
 			Path:    path,
@@ -86,11 +90,11 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 	}
 	// 读取数据库表生成eps
 	// var modules []*Module
-	items, _ := g.Model("base_eps_admin").Fields("DISTINCT module,prefix").All()
+	items, _ := cool.DBM(baseEpsAdmin).Fields("DISTINCT module,prefix").All()
 	for _, item := range items {
 		module := item["module"].String()
 		prefix := item["prefix"].String()
-		apis, _ := g.Model("base_eps_admin").Where("module=? AND prefix=?", module, prefix).All()
+		apis, _ := cool.DBM(baseEpsAdmin).Where("module=? AND prefix=?", module, prefix).All()
 		var apiList []*Api
 		for _, api := range apis {
 			apiList = append(apiList, &Api{
