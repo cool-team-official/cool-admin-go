@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"strings"
 
-	_ "github.com/glebarez/go-sqlite"
+	// _ "github.com/glebarez/go-sqlite"
 
 	"github.com/gogf/gf/v2/container/gmap"
 	"github.com/gogf/gf/v2/database/gdb"
