@@ -164,11 +164,9 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 	// g.Log().Info(ctx, "fields", fields)
 	sortedFields := garray.NewArraySize(len(fields), len(fields))
 	for _, field := range fields {
-		// g.DumpWithType(k, field)
 		sortedFields.Set(field.Index, field)
 	}
 	for _, field := range sortedFields.Slice() {
-		g.Dump(field)
 		if field.(*gdb.TableField).Name == "deleted_at" {
 			continue
 		}
@@ -193,7 +191,5 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 		}
 		columns = append(columns, column)
 	}
-
-	g.Dump(columns)
 	return
 }
