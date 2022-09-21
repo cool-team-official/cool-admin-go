@@ -9,7 +9,7 @@ const TableNameDemoSample = "demo_sample"
 // DemoSample mapped from table <demo_sample>
 type DemoSample struct {
 	*cool.Model
-	Name string `gorm:"not null" json:"name"`
+	// Name string `gorm:"column:name;not null;comment:名称" json:"name"`
 }
 
 // TableName DemoSample's table name
