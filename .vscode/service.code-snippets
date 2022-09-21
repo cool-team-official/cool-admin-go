@@ -19,11 +19,12 @@
     "scope": "go",
     "prefix": "cool-service",
     "description": "创建service",
-    "body":[
+    "body": [
       "package service",
       "",
       "import (",
       "       \"github.com/cool-team-official/cool-admin-go/cool\"",
+      "       \"github.com/cool-team-official/cool-admin-go/modules/demo/model\"",
       ")",
       "",
       "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service struct {",
@@ -35,10 +36,8 @@
       "               &cool.Service{",
       "                       Model: model.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(),",
       "               },",
-      "",
-      "               // Service: cool.NewService(model.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}()),",
       "       }",
-      "}",
-      ]
+      "}"
+    ]
   }
 }
