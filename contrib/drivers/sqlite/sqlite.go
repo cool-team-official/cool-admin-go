@@ -3,7 +3,8 @@ package sqlite
 import (
 	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
 	"github.com/glebarez/sqlite"
-	_ "github.com/gogf/gf/contrib/drivers/sqlite/v2"
+
+	// _ "github.com/gogf/gf/contrib/drivers/sqlite/v2"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"gorm.io/gorm"
@@ -12,7 +13,7 @@ import (
 type DriverSqlite struct {
 }
 
-func New() cooldb.Driver {
+func NewSqlite() cooldb.Driver {
 	return &DriverSqlite{}
 }
 
@@ -23,7 +24,7 @@ func (d *DriverSqlite) GetConn(node *gdb.ConfigNode) (db *gorm.DB, err error) {
 func init() {
 	var (
 		err         error
-		driverObj   = New()
+		driverObj   = NewSqlite()
 		driverNames = g.SliceStr{"sqlite"}
 	)
 	for _, driverName := range driverNames {
