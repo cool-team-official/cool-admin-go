@@ -164,7 +164,6 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 	// g.Log().Info(ctx, "fields", fields)
 	sortedFields := garray.NewArraySize(len(fields), len(fields))
 	for _, field := range fields {
-		// g.DumpWithType(k, field)
 		sortedFields.Set(field.Index, field)
 	}
 	for _, field := range sortedFields.Slice() {
@@ -192,6 +191,5 @@ func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo
 		}
 		columns = append(columns, column)
 	}
-
 	return
 }
