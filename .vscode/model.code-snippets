@@ -19,7 +19,7 @@
     "scope": "go",
     "prefix": "cool-model",
     "description": "创建model",
-    "body": [
+    "body":[
       "package model",
       "",
       "import (",
@@ -31,7 +31,7 @@
       "// ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} mapped from table <${TM_FILENAME_BASE/(.*)/${1:/downcase}/}>",
       "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} struct {",
       "       *cool.Model",
-      "       Name string `gorm:\"not null\" json:\"name\"`",
+      "       // Name string `gorm:\"column:name;not null;comment:名称\" json:\"name\"`",
       "}",
       "",
       "// TableName ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}'s table name",
@@ -54,7 +54,7 @@
       "// init 创建表",
       "func init() {",
       "       cool.CreateTable(&${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}{})",
-      "}"
-    ]
+      "}",
+      ]
   }
 }

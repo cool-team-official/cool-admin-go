@@ -14,7 +14,5 @@ func NewDemoSampleService() *DemoSampleService {
 		&cool.Service{
 			Model: model.NewDemoSample(),
 		},
-
-		// Service: cool.NewService(model.NewDemoSample()),
 	}
 }
