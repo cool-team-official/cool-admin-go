@@ -17,7 +17,7 @@ type IService interface {
 	ServiceInfo(ctx context.Context, req *InfoReq) (data interface{}, err error)     // 详情
 	ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error)     // 列表
 	ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error)     // 分页
-	ModifyAfter(ctx context.Context, param g.MapStrAny) (err error)                  // 新增|删除|修改后的操作
+	ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error)   // 新增|删除|修改后的操作
 	GetModel() IModel                                                                // 获取model
 }
 type Service struct {
@@ -361,9 +361,8 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 }
 
 // 新增|删除|修改后的操作
-func (s *Service) ModifyAfter(ctx context.Context, param g.MapStrAny) (err error) {
+func (s *Service) ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error) {
 	// g.Log().Debug(ctx, param, "2222222")
-
 	return
 }
 
