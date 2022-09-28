@@ -18,7 +18,7 @@ type BaseSysRoleService struct {
 }
 
 // ModifyAfter modify after
-func (s *BaseSysRoleService) ModifyAfter(ctx context.Context, param g.MapStrAny) (err error) {
+func (s *BaseSysRoleService) ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error) {
 	if param["id"] != nil {
 		err = s.updatePerms(ctx, gconv.Uint(param["id"]), gconv.SliceUint(param["menuIdList"]), gconv.SliceUint(param["departmentIdList"]))
 	}

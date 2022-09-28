@@ -68,7 +68,7 @@ func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err er
 		if err != nil {
 			return Fail(err.Error()), err
 		}
-		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
+		c.Service.ModifyAfter(ctx, "Add", g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
@@ -80,7 +80,7 @@ func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, 
 		if err != nil {
 			return Fail(err.Error()), err
 		}
-		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
+		c.Service.ModifyAfter(ctx, "Delete", g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
@@ -92,7 +92,7 @@ func (c *Controller) Update(ctx context.Context, req *UpdateReq) (res *BaseRes, 
 		if err != nil {
 			return Fail(err.Error()), err
 		}
-		c.Service.ModifyAfter(ctx, g.RequestFromCtx(ctx).GetMap())
+		c.Service.ModifyAfter(ctx, "Update", g.RequestFromCtx(ctx).GetMap())
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
