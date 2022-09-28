@@ -10,7 +10,7 @@ logger:
   stdout: true
 
 database:
-  default1:
+  default:
     - type: "mysql"
       link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
       role: "master"
@@ -23,7 +23,7 @@ database:
       debug: true
       createdAt: "createTime"
       updatedAt: "updateTime"
-  default:
+  default1:
     type: "sqlite"
     link: "./temp/db.sqlite"
     logLevel: "all"

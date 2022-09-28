@@ -14,7 +14,7 @@ func init() {
 	var (
 		ctx g.Ctx
 	)
-	g.Log().Info(ctx, "modules/base init")
+	g.Log().Debug(ctx, "modules/base init")
 
 	cool.FillInitData("base", &model.BaseSysMenu{})
 	cool.FillInitData("base", &model.BaseSysUser{})
