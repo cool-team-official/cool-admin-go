@@ -24,12 +24,20 @@ func init() {
 		ctx         g.Ctx
 		redisConfig = &gredis.Config{}
 	)
+	buildData := gbuild.Data()
+	if _, ok := buildData["mode"]; ok {
+		RunMode = buildData["mode"].(string)
+	}
+	if RunMode == "cool-tools" {
+		return
+	}
 	GormDBS = make(MgormDBS)
 	g.Log().Debug(ctx, "cool init,初始化核心模块,请等待...")
 	g.Log().Debug(ctx, "初始化缓存")
 	redisVar, err := g.Cfg().Get(ctx, "redis.default")
 	if err != nil {
-		panic(err)
+		g.Log().Error(ctx, "初始化缓存失败,请检查配置文件")
+		// panic(err)
 	}
 	if !redisVar.IsEmpty() {
 		redisVar.Struct(redisConfig)
@@ -40,10 +48,7 @@ func init() {
 		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
 	}
 	g.Log().Debug(ctx, "初始化缓存完成")
-	buildData := gbuild.Data()
-	if _, ok := buildData["mode"]; ok {
-		RunMode = buildData["mode"].(string)
-	}
+
 	g.Log().Debug(ctx, "当前运行模式", RunMode)
 
 	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
