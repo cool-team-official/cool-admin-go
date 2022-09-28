@@ -13,7 +13,7 @@ func init() {
 	var (
 		ctx g.Ctx
 	)
-	g.Log().Info(ctx, "modules/dict init")
+	g.Log().Debug(ctx, "modules/dict init")
 	cool.FillInitData("dict", &model.DictInfo{})
 	cool.FillInitData("dict", &model.DictType{})
 }
