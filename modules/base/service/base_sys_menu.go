@@ -1,10 +1,13 @@
 package service
 
 import (
+	"context"
+
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gstr"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -48,12 +51,20 @@ func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.
 
 }
 
+// ModifyAfter 修改后
+func (s *BaseSysMenuService) ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error) {
+	ids := gconv.Ints(param["ids"])
+	if len(ids) > 0 {
+		_, err = cool.DBM(s.Model).Where("parentId IN (?)", ids).Delete()
+	}
+	return
+}
+
 // NewBaseSysMenuService 创建一个BaseSysMenuService实例
 func NewBaseSysMenuService() *BaseSysMenuService {
 	return &BaseSysMenuService{
 		&cool.Service{
 			Model: model.NewBaseSysMenu(),
 		},
-		// 	Service: cool.NewService(model.NewBaseSysMenu()),
 	}
 }

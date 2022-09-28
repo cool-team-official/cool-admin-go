@@ -42,7 +42,7 @@ jobs:
           cd cool-tools
           go mod tidy
           make pack
-          gf build main.go -n ${{env.BIN_NAME}} -a 386,amd64,arm,arm64 -s linux,darwin,windows -p ./temp -r '{"version":"${{github.ref_name}}"}'
+          gf build main.go -n ${{env.BIN_NAME}} -a 386,amd64,arm,arm64 -s linux,darwin,windows -p ./temp -r '{"version":"${{github.ref_name},"mode":"cool-tools"}'
       - name: Move Files Before Release
         run: |
           pwd

@@ -3,6 +3,7 @@ package cool
 import (
 	"github.com/gogf/gf/v2/database/gredis"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcache"
 	"github.com/gogf/gf/v2/util/guid"
 	"gorm.io/gorm"
@@ -13,6 +14,7 @@ var (
 	CacheEPS     = gcache.New()      // 定义全局缓存对象	供EPS使用
 	CacheManager = gcache.New()      // 定义全局缓存对象	供其他业务使用
 	ProcessFlag  = guid.S()          // 定义全局进程标识
+	RunMode      = "dev"             // 定义全局运行模式
 )
 
 type MgormDBS map[string]*gorm.DB
@@ -22,12 +24,20 @@ func init() {
 		ctx         g.Ctx
 		redisConfig = &gredis.Config{}
 	)
+	buildData := gbuild.Data()
+	if _, ok := buildData["mode"]; ok {
+		RunMode = buildData["mode"].(string)
+	}
+	if RunMode == "cool-tools" {
+		return
+	}
 	GormDBS = make(MgormDBS)
 	g.Log().Debug(ctx, "cool init,初始化核心模块,请等待...")
 	g.Log().Debug(ctx, "初始化缓存")
 	redisVar, err := g.Cfg().Get(ctx, "redis.default")
 	if err != nil {
-		panic(err)
+		g.Log().Error(ctx, "初始化缓存失败,请检查配置文件")
+		// panic(err)
 	}
 	if !redisVar.IsEmpty() {
 		redisVar.Struct(redisConfig)
@@ -38,6 +48,9 @@ func init() {
 		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
 	}
 	g.Log().Debug(ctx, "初始化缓存完成")
+
+	g.Log().Debug(ctx, "当前运行模式", RunMode)
+
 	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
 }
 
