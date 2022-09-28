@@ -97,3 +97,19 @@ func (c *BaseCommController) Upload(ctx context.Context, req *BaseCommUploadReq)
 	res = cool.Ok(data)
 	return
 }
+
+// PersonUpdateReq
+type PersonUpdateReq struct {
+	g.Meta        `path:"/personUpdate" method:"POST"`
+	Authorization string `json:"Authorization" in:"header"`
+}
+
+// PersonUpdate 方法
+func (c *BaseCommController) PersonUpdate(ctx g.Ctx, req *PersonUpdateReq) (res *cool.BaseRes, err error) {
+	var (
+		baseSysUserService = service.NewBaseSysUserService()
+	)
+	err = baseSysUserService.PersonUpdate(ctx)
+	res = cool.Ok(nil)
+	return
+}

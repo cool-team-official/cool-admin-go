@@ -3,8 +3,11 @@ package service
 import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
+	"github.com/gogf/gf/v2/crypto/gmd5"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type BaseSysUserService struct {
@@ -38,6 +41,35 @@ func (s *BaseSysUserService) ServiceInfo(ctx g.Ctx, req *cool.InfoReq) (data int
 	resultMap["roleIdList"] = roleIds
 	data = resultMap
 
+	return
+}
+
+// PersonUpdate 方法 更新用户信息
+func (s *BaseSysUserService) PersonUpdate(ctx g.Ctx) (err error) {
+	var (
+		admin = cool.GetAdmin(ctx)
+		req   = g.RequestFromCtx(ctx).GetMap()
+		m     = cool.DBM(s.Model)
+	)
+	userInfo, err := m.Where("id = ?", admin.UserId).One()
+	if err != nil {
+		return err
+	}
+	if userInfo.IsEmpty() {
+		return gerror.New("用户不存在")
+	}
+	req["id"] = admin.UserId
+	// 如果 req["password"] 不为空，说明要修改密码
+	if req["password"] == "" {
+		delete(req, "password")
+	}
+	if req["password"] != nil {
+		req["password"], _ = gmd5.Encrypt(req["password"].(string))
+		req["passwordV"] = userInfo["passwordV"].Int() + 1
+		cool.CacheManager.Set(ctx, "admin:passwordVersion:"+gconv.String(admin.UserId), gconv.String(req["passwordV"]), 0)
+	}
+	// g.Dump(req)
+	_, err = m.Update(req)
 	return
 }
 
