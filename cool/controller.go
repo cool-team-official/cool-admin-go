@@ -44,10 +44,12 @@ type InfoReq struct {
 	g.Meta `path:"/info" method:"GET"`
 	Id     int `json:"id" v:"integer|required#请选择要查询的数据"`
 }
-type InfoRes struct {
-	*BaseRes
-	Data interface{} `json:"data"`
-}
+
+// type InfoRes struct {
+// 	*BaseRes
+// 	Data interface{} `json:"data"`
+// }
+
 type ListReq struct {
 	g.Meta `path:"/list" method:"POST"`
 	Order  string `json:"order"`
@@ -55,11 +57,12 @@ type ListReq struct {
 }
 
 type PageReq struct {
-	g.Meta `path:"/page" method:"POST"`
-	Page   int    `d:"1" json:"page"`
-	Size   int    `d:"15" json:"size"`
-	Order  string `json:"order"`
-	Sort   string `json:"sort"`
+	g.Meta   `path:"/page" method:"POST"`
+	Page     int    `d:"1" json:"page"`  // 页码
+	Size     int    `d:"15" json:"size"` //每页条数
+	Order    string `json:"order"`       // 排序字段
+	Sort     string `json:"sort"`        // 排序方式 asc desc
+	IsExport bool   `json:"isExport"`    // 是否导出
 }
 
 func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {
