@@ -333,6 +333,18 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 	if err != nil {
 		return nil, err
 	}
+	// 如果req.IsExport为true 则导出数据
+	if req.IsExport {
+		result, err := m.All()
+		if err != nil {
+			return nil, err
+		}
+		data = g.Map{
+			"list":  result,
+			"total": total,
+		}
+		return data, nil
+	}
 
 	result, err := m.Offset((req.Page - 1) * req.Size).Limit(req.Size).All()
 	if err != nil {
