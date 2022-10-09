@@ -335,6 +335,9 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 	}
 	// 如果req.IsExport为true 则导出数据
 	if req.IsExport {
+		if req.MaxExportLimit > 0 {
+			m.Limit(req.MaxExportLimit)
+		}
 		result, err := m.All()
 		if err != nil {
 			return nil, err
