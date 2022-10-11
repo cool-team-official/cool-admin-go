@@ -57,12 +57,13 @@ type ListReq struct {
 }
 
 type PageReq struct {
-	g.Meta   `path:"/page" method:"POST"`
-	Page     int    `d:"1" json:"page"`  // 页码
-	Size     int    `d:"15" json:"size"` //每页条数
-	Order    string `json:"order"`       // 排序字段
-	Sort     string `json:"sort"`        // 排序方式 asc desc
-	IsExport bool   `json:"isExport"`    // 是否导出
+	g.Meta         `path:"/page" method:"POST"`
+	Page           int    `d:"1" json:"page"`     // 页码
+	Size           int    `d:"15" json:"size"`    //每页条数
+	Order          string `json:"order"`          // 排序字段
+	Sort           string `json:"sort"`           // 排序方式 asc desc
+	IsExport       bool   `json:"isExport"`       // 是否导出
+	MaxExportLimit int    `json:"maxExportLimit"` // 最大导出条数,不传或者小于等于0则不限制
 }
 
 func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {

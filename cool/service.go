@@ -252,9 +252,7 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 
 	// 如果pageQueryOp不为空 则使用pageQueryOp进行查询
 	if s.PageQueryOp != nil {
-		if Select := s.PageQueryOp.Select; Select != "" {
-			m.Fields(Select)
-		}
+
 		// 如果Join不为空 则添加Join
 		if len(s.PageQueryOp.Join) > 0 {
 			for _, join := range s.PageQueryOp.Join {
@@ -323,18 +321,27 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 		}
 	}
 
-	// 如果 req.Order 和 req.Sort 均不为空 则添加排序
-	if !r.Get("order").IsEmpty() && !r.Get("sort").IsEmpty() {
-		m.Order(r.Get("order").String() + " " + r.Get("sort").String())
-	}
-
 	// 统计总数
 	total, err = m.Clone().Count()
 	if err != nil {
 		return nil, err
 	}
+	if s.PageQueryOp != nil {
+		if Select := s.PageQueryOp.Select; Select != "" {
+			m.Fields(Select)
+		}
+	}
+	// 如果 req.Order 和 req.Sort 均不为空 则添加排序
+	if !r.Get("order").IsEmpty() && !r.Get("sort").IsEmpty() {
+		m.Order(r.Get("order").String() + " " + r.Get("sort").String())
+	}
+
 	// 如果req.IsExport为true 则导出数据
 	if req.IsExport {
+		// 如果req.MaxExportSize大于0 则限制导出数据的最大条数
+		if req.MaxExportLimit > 0 {
+			m.Limit(req.MaxExportLimit)
+		}
 		result, err := m.All()
 		if err != nil {
 			return nil, err
