@@ -335,6 +335,7 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 	}
 	// 如果req.IsExport为true 则导出数据
 	if req.IsExport {
+		// 如果req.MaxExportSize大于0 则限制导出数据的最大条数
 		if req.MaxExportLimit > 0 {
 			m.Limit(req.MaxExportLimit)
 		}
