@@ -178,9 +178,3 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	r.Middleware.Next()
 
 }
-
-func init() {
-	g.Server().BindMiddleware("/admin/*/open/*", BaseAuthorityMiddlewareOpen)
-	g.Server().BindMiddleware("/admin/*/comm/*", BaseAuthorityMiddlewareComm)
-	g.Server().BindMiddleware("/admin/*", BaseAuthorityMiddleware)
-}

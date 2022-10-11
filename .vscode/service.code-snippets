@@ -24,7 +24,6 @@
       "",
       "import (",
       "       \"github.com/cool-team-official/cool-admin-go/cool\"",
-      "       \"github.com/cool-team-official/cool-admin-go/modules/demo/model\"",
       ")",
       "",
       "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service struct {",
