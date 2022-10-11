@@ -4,6 +4,8 @@ import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type BaseSysLogService struct {
@@ -54,4 +56,17 @@ func (s *BaseSysLogService) Record(ctx g.Ctx) {
 		"ipAddr": baseSysLog.IPAddr,
 		"params": baseSysLog.Params,
 	})
+}
+
+// Clear 清除日志
+func (s *BaseSysLogService) Clear(isAll bool) (err error) {
+	BaseSysConfService := NewBaseSysConfService()
+	m := cool.DBM(s.Model)
+	if isAll {
+		_, err = m.Delete("1=1")
+	} else {
+		keepDays := gconv.Int(BaseSysConfService.GetValue("logKeep"))
+		_, err = m.Delete("create_time < ?", gtime.Now().AddDate(0, 0, -keepDays).String())
+	}
+	return
 }
