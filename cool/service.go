@@ -28,6 +28,7 @@ type Service struct {
 	Before             func(ctx context.Context) (err error) // CRUD前的操作
 	InfoIgnoreProperty string                                // Info时忽略的字段,多个字段用逗号隔开
 	UniqueKey          g.MapStrStr                           // 唯一键 key:字段名 value:错误信息
+	NotNullKey         g.MapStrStr                           // 非空键 key:字段名 value:错误信息
 }
 
 // List/Add接口条件配置
@@ -65,8 +66,17 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 	if rjson == nil {
 		return nil, nil
 	}
+	rmap := r.GetMap()
+	// 非空键
+	if s.NotNullKey != nil {
+		for k, v := range s.NotNullKey {
+			if rmap[k] == nil {
+				return nil, gerror.New(v)
+			}
+		}
+	}
+	// 唯一键
 	if s.UniqueKey != nil {
-		rmap := r.GetMap()
 		for k, v := range s.UniqueKey {
 			if rmap[k] != nil {
 				m := DBM(s.Model)
