@@ -16,12 +16,12 @@ github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.5 h1:X+/
 github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.5/go.mod h1:MMg193e8zzzfwlqhDLOO13FNb12EBwo5vWqrciDeHk4=
 github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.5 h1:dBFfQlsQdjxRndl/9siwmXlQr6ohWMEb2J9whZGo9qk=
 github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.5/go.mod h1:/TzaieRCcNnxEgi7GATohngMCg45kIlMJJyF8FA/v08=
-github.com/cool-team-official/cool-admin-go/cool v0.1.5 h1:RJ4cwAST+eYBDbZeVPvDUI+3MqnpRZ8v1Qc49Ucig8U=
-github.com/cool-team-official/cool-admin-go/cool v0.1.5/go.mod h1:VUzgN2tsd0AcOCiuEZOZixyJ3TQ5FI6Be8Fl4EGEZTU=
+github.com/cool-team-official/cool-admin-go/cool v0.1.6 h1:kFfn6jlZ5j5aQz0zN/B+vRT1iAMBuN/3lVR5EwGvTck=
+github.com/cool-team-official/cool-admin-go/cool v0.1.6/go.mod h1:VUzgN2tsd0AcOCiuEZOZixyJ3TQ5FI6Be8Fl4EGEZTU=
 github.com/cool-team-official/cool-admin-go/modules/base v0.1.5 h1:LehlZMZXm+cSfeqDrMwOBuMM0IDcSd3Kyw5+O7Ifqwc=
 github.com/cool-team-official/cool-admin-go/modules/base v0.1.5/go.mod h1:1Rr50ET3QUZ1AhEp5GwwZHm0avOKdZ6FVJo7WHcng/o=
-github.com/cool-team-official/cool-admin-go/modules/demo v0.1.5 h1:BVnKBg4fjMh6g9K19F3HX3xoV1L/iHqPN0nkPe+J6Kk=
-github.com/cool-team-official/cool-admin-go/modules/demo v0.1.5/go.mod h1:PqWxN+plfuBxbrw6N0f/bX2oj/vEvXP9gqHzhDAtn3I=
+github.com/cool-team-official/cool-admin-go/modules/demo v0.1.6 h1:eeLm+J1fVnfWkdWj60J0eF5153iHhqFMxzMiUGNmZ8Y=
+github.com/cool-team-official/cool-admin-go/modules/demo v0.1.6/go.mod h1:PqWxN+plfuBxbrw6N0f/bX2oj/vEvXP9gqHzhDAtn3I=
 github.com/cool-team-official/cool-admin-go/modules/dict v0.1.5 h1:satMBvrahlZdzQcczfopyPRBavlY9bfMbIQ1yaxuMmc=
 github.com/cool-team-official/cool-admin-go/modules/dict v0.1.5/go.mod h1:wKcg37wJEcmdIm5U06nWHrqT9tMKSEXWh2mlQz00ShA=
 github.com/cool-team-official/cool-admin-go/modules/space v0.1.5 h1:BgahMaG/F4nxlVFJveqXRho9pjPby867ef7CRVaPkYo=
