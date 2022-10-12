@@ -52,5 +52,8 @@ modules:
       token:
         expire: 7200 # 2*3600
         refreshExpire: 1296000 # 24*3600*15
-
-
+    middleware:
+      authority:
+        enable: true
+      log:
+        enable: true

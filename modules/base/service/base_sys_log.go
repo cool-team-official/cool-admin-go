@@ -47,7 +47,7 @@ func (s *BaseSysLogService) Record(ctx g.Ctx) {
 	baseSysLog.IP = r.GetClientIp()
 	baseSysLog.IPAddr = r.GetClientIp()
 	baseSysLog.Params = r.GetBodyString()
-	g.DumpWithType(baseSysLog)
+	// g.DumpWithType(baseSysLog)
 	m := cool.DBM(s.Model)
 	m.Insert(g.Map{
 		"userId": baseSysLog.UserID,
