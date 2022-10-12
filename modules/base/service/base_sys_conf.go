@@ -14,6 +14,9 @@ func NewBaseSysConfService() *BaseSysConfService {
 	return &BaseSysConfService{
 		&cool.Service{
 			Model: model.NewBaseSysConf(),
+			UniqueKey: map[string]string{
+				"cKey": "配置键不能重复",
+			},
 		},
 	}
 }
