@@ -79,6 +79,9 @@ func NewBaseSysUserService() *BaseSysUserService {
 		Service: &cool.Service{
 			Model:              model.NewBaseSysUser(),
 			InfoIgnoreProperty: "password",
+			UniqueKey: map[string]string{
+				"username": "用户名不能重复",
+			},
 		},
 	}
 }

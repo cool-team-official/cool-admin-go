@@ -165,6 +165,10 @@ func NewBaseSysRoleService() *BaseSysRoleService {
 			InsertParam: func(ctx context.Context) map[string]interface{} {
 				return g.Map{"userId": cool.GetAdmin(ctx).UserId}
 			},
+			UniqueKey: map[string]string{
+				"name":  "角色名称不能重复",
+				"label": "角色标识不能重复",
+			},
 		},
 	}
 }
