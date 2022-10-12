@@ -27,6 +27,7 @@ type Service struct {
 	InsertParam        func(ctx context.Context) g.MapStrAny // Add时插入参数
 	Before             func(ctx context.Context) (err error) // CRUD前的操作
 	InfoIgnoreProperty string                                // Info时忽略的字段,多个字段用逗号隔开
+	UniqueKey          g.MapStrStr                           // 唯一键 key:字段名 value:错误信息
 }
 
 // List/Add接口条件配置
@@ -64,8 +65,23 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 	if rjson == nil {
 		return nil, nil
 	}
+	if s.UniqueKey != nil {
+		rmap := r.GetMap()
+		for k, v := range s.UniqueKey {
+			if rmap[k] != nil {
+				m := DBM(s.Model)
+				count, err := m.Where(k, rmap[k]).Count()
+				if err != nil {
+					return nil, err
+				}
+				if count > 0 {
+					err = gerror.New(v)
+					return nil, err
+				}
+			}
+		}
+	}
 	if s.InsertParam != nil {
-
 		insertParams := s.InsertParam(ctx)
 		if len(insertParams) > 0 {
 			for k, v := range insertParams {
@@ -104,10 +120,23 @@ func (s *Service) ServiceUpdate(ctx context.Context, req *UpdateReq) (data inter
 	}
 	r := g.RequestFromCtx(ctx)
 	rmap := r.GetMap()
-	// g.Dump(rmap)
 	if rmap["id"] == nil {
 		err = gerror.New("id不能为空")
 		return
+	}
+	if s.UniqueKey != nil {
+		for k, v := range s.UniqueKey {
+			if rmap[k] != nil {
+				count, err := DBM(s.Model).Where(k, rmap[k]).WhereNot("id", rmap["id"]).Count()
+				if err != nil {
+					return nil, err
+				}
+				if count > 0 {
+					err = gerror.New(v)
+					return nil, err
+				}
+			}
+		}
 	}
 	m := DBM(s.Model)
 	_, err = m.Data(rmap).Where("id", rmap["id"]).Update()
@@ -169,7 +198,6 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 		// 如果fileldEQ不为空 则添加查询条件
 		if len(s.ListQueryOp.FieldEQ) > 0 {
 			for _, field := range s.ListQueryOp.FieldEQ {
-				g.Log().Debug(ctx, field)
 				if !r.Get(field).IsEmpty() {
 					m.Where(field, r.Get(field))
 				}
@@ -269,7 +297,6 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 		// 如果fileldEQ不为空 则添加查询条件
 		if len(s.PageQueryOp.FieldEQ) > 0 {
 			for _, field := range s.PageQueryOp.FieldEQ {
-				g.Log().Debug(ctx, field)
 				if !r.Get(field).IsEmpty() {
 					m.Where(field, r.Get(field))
 				}
