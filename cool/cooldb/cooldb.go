@@ -23,7 +23,7 @@ func GetConn(node *gdb.ConfigNode) (db *gorm.DB, err error) {
 	errorMsg := "\n"
 	errorMsg += `cannot find database driver for specified database type "%s"`
 	errorMsg += `, did you misspell type name "%s" or forget importing the database driver? `
-	errorMsg += `possible reference: https://github.com/cool-team-official/cool-admin-go/contrib/drivers`
+	errorMsg += `possible reference: https://github.com/cool-team-official/cool-admin-go/tree/master/contrib/drivers`
 	// 换行
 	errorMsg += "\n"
 	errorMsg += `无法找到指定数据库类型的数据库驱动 "%s"`
