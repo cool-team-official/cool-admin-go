@@ -25,7 +25,7 @@ CoolAdmin 的 Go 版本后端
 - [x] controller 层接口输入与 node 版本统一
 - [ ] 优化开发工具安装体验
 - [x] service 层逻辑补全
-- [ ] base模块逻辑补全
+- [ ] base 模块逻辑补全
 - [ ] 其他项目需求
 
 ## 使用说明
@@ -37,21 +37,13 @@ CoolAdmin 的 Go 版本后端
 安装命令
 
 ```bash
-go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
+curl -sSL  https://raw.fastgit.org//cool-team-official/cool-admin-go/v0.1.9-dev/scripts/install-cool-tools.sh | sh
 ```
 
 验证
 
 ```bash
 cool-tools version
-```
-
-如果提示找不到命令,一般是因为没有将 GOPATH 环境变量配置到系统环境变量中,我们可以进入 GOPATH 目录下的 bin 目录下执行命令来将`cool-tools`安装到系统中
-
-```bash
-cd $(go env GOPATH)/bin
-
-./cool-tools install
 ```
 
 ### 2.创建新项目
@@ -62,10 +54,8 @@ cool-tools init hello-world
 
 ### 3.安装`gf`工具
 
-
 ```bash
-cd hello-world
-make cli
+curl -sSL  https://raw.fastgit.org//cool-team-official/cool-admin-go/v0.1.9-dev/scripts/install-gf.sh | sh
 ```
 
 ### 4.安装依赖

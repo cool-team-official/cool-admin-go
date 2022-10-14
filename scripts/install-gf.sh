@@ -20,4 +20,4 @@ chmod +x ./gf
 # 执行 install
 ./gf install
 # 删除下载的文件
-rm -rf ./gf
+# rm -rf ./gf
