@@ -3,13 +3,14 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.1.7
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.7
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.7
-	github.com/cool-team-official/cool-admin-go/modules/base v0.1.7
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.1.7
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.1.7
-	github.com/cool-team-official/cool-admin-go/modules/space v0.1.7
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.1.8
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.8
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.8
+	github.com/cool-team-official/cool-admin-go/modules/base v0.1.8
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.1.8
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.1.8
+	github.com/cool-team-official/cool-admin-go/modules/space v0.1.8
+	github.com/cool-team-official/cool-admin-go/modules/task v0.1.8
 	github.com/gogf/gf/v2 v2.2.0
 )
 
@@ -17,10 +18,10 @@ require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/clbanning/mxj/v2 v2.5.6 // indirect
-	github.com/cool-team-official/cool-admin-go/cool v0.1.7 // indirect
+	github.com/cool-team-official/cool-admin-go/cool v0.1.8 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
-	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/glebarez/go-sqlite v1.19.1 // indirect
 	github.com/glebarez/sqlite v1.5.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
@@ -43,11 +44,11 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20220927061507-ef77025ab5aa // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
 	github.com/stretchr/testify v1.7.2 // indirect
-	go.opentelemetry.io/otel v1.10.0 // indirect
-	go.opentelemetry.io/otel/sdk v1.10.0 // indirect
-	go.opentelemetry.io/otel/trace v1.10.0 // indirect
-	golang.org/x/net v0.0.0-20221004154528-8021a29435af // indirect
-	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect
+	go.opentelemetry.io/otel v1.11.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.11.0 // indirect
+	go.opentelemetry.io/otel/trace v1.11.0 // indirect
+	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b // indirect
+	golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43 // indirect
 	golang.org/x/text v0.3.8 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
