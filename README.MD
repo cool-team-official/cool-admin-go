@@ -62,7 +62,6 @@ cool-tools init hello-world
 
 ### 3.安装`gf`工具
 
-这一步需要有 wget 命令,晚点再调整成 curl 命令
 
 ```bash
 cd hello-world
