@@ -37,7 +37,7 @@ CoolAdmin 的 Go 版本后端
 安装命令
 
 ```bash
-curl -sSL  https://raw.fastgit.org//cool-team-official/cool-admin-go/v0.1.9-dev/scripts/install-cool-tools.sh | sh
+curl -sSL  https://raw.fastgit.org/cool-team-official/cool-admin-go/master/scripts/install-cool-tools.sh | sh
 ```
 
 验证
@@ -55,7 +55,7 @@ cool-tools init hello-world
 ### 3.安装`gf`工具
 
 ```bash
-curl -sSL  https://raw.fastgit.org//cool-team-official/cool-admin-go/v0.1.9-dev/scripts/install-gf.sh | sh
+curl -sSL  https://raw.fastgit.org/cool-team-official/cool-admin-go/master/scripts/install-gf.sh | sh
 ```
 
 ### 4.安装依赖

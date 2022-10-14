@@ -20,4 +20,4 @@ chmod +x ./cool-tools
 # 执行 install
 ./cool-tools install
 # 删除下载的文件
-# rm -rf ./cool-tools
+rm -rf ./cool-tools
