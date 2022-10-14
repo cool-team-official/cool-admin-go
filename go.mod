@@ -3,14 +3,14 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.1.8
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.8
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.8
-	github.com/cool-team-official/cool-admin-go/modules/base v0.1.8
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.1.8
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.1.8
-	github.com/cool-team-official/cool-admin-go/modules/space v0.1.8
-	github.com/cool-team-official/cool-admin-go/modules/task v0.1.8
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.1.9
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.9
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.1.9
+	github.com/cool-team-official/cool-admin-go/modules/base v0.1.9
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.1.9
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.1.9
+	github.com/cool-team-official/cool-admin-go/modules/space v0.1.9
+	github.com/cool-team-official/cool-admin-go/modules/task v0.1.9
 	github.com/gogf/gf/v2 v2.2.0
 )
 
@@ -18,7 +18,7 @@ require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/clbanning/mxj/v2 v2.5.6 // indirect
-	github.com/cool-team-official/cool-admin-go/cool v0.1.8 // indirect
+	github.com/cool-team-official/cool-admin-go/cool v0.1.9 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
