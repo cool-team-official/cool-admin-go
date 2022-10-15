@@ -17,11 +17,8 @@ func NewBaseSysLogService() *BaseSysLogService {
 		&cool.Service{
 			Model: model.NewBaseSysLog(),
 			PageQueryOp: &cool.QueryOp{
-				FieldEQ:      []string{},
-				KeyWordField: []string{},
-				AddOrderby:   map[string]string{},
-
-				Select: "base_sys_log.*,user.name ",
+				KeyWordField: []string{"name", "params", "ipAddr"},
+				Select:       "base_sys_log.*,user.name ",
 				Join: []*cool.JoinOp{
 					{
 						Model:     model.NewBaseSysUser(),
