@@ -54,9 +54,8 @@ func (s *BaseSysParamService) ModifyAfter(ctx context.Context, method string, pa
 	}
 	for _, v := range result {
 		key := "param:" + v["keyName"].String()
-		// value := v.Json()
-
-		err = cool.CacheManager.Set(ctx, key, v, 0)
+		value := v["data"].String()
+		err = cool.CacheManager.Set(ctx, key, value, 0)
 		if err != nil {
 			return
 		}
@@ -65,16 +64,17 @@ func (s *BaseSysParamService) ModifyAfter(ctx context.Context, method string, pa
 }
 
 // DataByKey 根据配置参数key获取数据
-func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data *g.Var, err error) {
+func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data string, err error) {
 	var (
 		m = cool.DBM(s.Model)
 	)
 	key = "param:" + key
-	data, err = cool.CacheManager.Get(ctx, key)
+	dataCache, err := cool.CacheManager.Get(ctx, key)
 	if err != nil {
 		return
 	}
-	if !data.IsEmpty() {
+	if !dataCache.IsEmpty() {
+		data = dataCache.String()
 		return
 	}
 	record, err := m.Where("key = ?", key).One()
@@ -84,7 +84,7 @@ func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data *
 	if record.IsEmpty() {
 		return
 	}
-	data = g.NewVar(record)
+	data = record["data"].String()
 	err = cool.CacheManager.Set(ctx, key, data, 0)
 	return
 }
