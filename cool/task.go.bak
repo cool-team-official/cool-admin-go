@@ -1,7 +1,6 @@
-package service
+package cool
 
 import (
-	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcron"
@@ -14,13 +13,11 @@ func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startD
 	funcName := gstr.SubStr(funcstring, 0, gstr.Pos(funcstring, "("))
 	g.Log().Debug(ctx, "启用任务", cornId, funcName, cron)
 	// funcParam := gstr.SubStr(funcstring, gstr.Pos(funcstring, "(")+1, gstr.Pos(funcstring, ")")-gstr.Pos(funcstring, "(")-1)
-	if _, ok := cool.FuncMap[funcName]; !ok {
+	if _, ok := FuncMap[funcName]; !ok {
 		err = gerror.New("函数不存在" + funcName)
 		return
 	}
-	taskInfoService := NewTaskInfoService()
-
-	if cool.FuncMap[funcName].IsSingleton() {
+	if FuncMap[funcName].IsSingleton() {
 		gcron.Remove(cornId)
 		_, err = gcron.AddSingleton(ctx, cron, func(ctx g.Ctx) {
 			nowDate := gtime.Now().Format("Y-m-d H:i:s")
@@ -28,12 +25,9 @@ func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startD
 				g.Log().Debug(ctx, "当前时间小于启用时间, 不执行单例函数", funcName)
 				return
 			}
-			err := cool.RunFunc(ctx, funcstring)
+			err := RunFunc(ctx, funcstring)
 			if err != nil {
 				g.Log().Error(ctx, err)
-				taskInfoService.Record(ctx, cornId, 0, err.Error())
-			} else {
-				taskInfoService.Record(ctx, cornId, 1, "")
 			}
 		}, cornId)
 	} else {
@@ -44,12 +38,9 @@ func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startD
 				g.Log().Debug(ctx, "当前时间小于启用时间, 不执行函数", funcName)
 				return
 			}
-			err := cool.RunFunc(ctx, funcstring)
+			err := RunFunc(ctx, funcstring)
 			if err != nil {
 				g.Log().Error(ctx, err)
-				taskInfoService.Record(ctx, cornId, 0, err.Error())
-			} else {
-				taskInfoService.Record(ctx, cornId, 1, "")
 			}
 		}, cornId)
 	}

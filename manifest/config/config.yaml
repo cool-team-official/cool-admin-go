@@ -32,7 +32,7 @@ database:
 
 # Redis 配置示例
 redis:
-  default:
+  cool:
     address: "127.0.0.1:6379"
     db: 0
 

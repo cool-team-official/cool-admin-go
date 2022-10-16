@@ -10,14 +10,13 @@ import (
 )
 
 var (
-	GormDBS      map[string]*gorm.DB // 定义全局gorm.DB对象集合 仅供内部使用
-	CacheEPS     = gcache.New()      // 定义全局缓存对象	供EPS使用
-	CacheManager = gcache.New()      // 定义全局缓存对象	供其他业务使用
-	ProcessFlag  = guid.S()          // 定义全局进程标识
-	RunMode      = "dev"             // 定义全局运行模式
+	GormDBS      = make(map[string]*gorm.DB) // 定义全局gorm.DB对象集合 仅供内部使用
+	CacheEPS     = gcache.New()              // 定义全局缓存对象	供EPS使用
+	CacheManager = gcache.New()              // 定义全局缓存对象	供其他业务使用
+	ProcessFlag  = guid.S()                  // 定义全局进程标识
+	RunMode      = "dev"                     // 定义全局运行模式
+	IsRedisMode  = false                     // 定义全局是否为redis模式
 )
-
-type MgormDBS map[string]*gorm.DB
 
 func init() {
 	var (
@@ -31,14 +30,10 @@ func init() {
 	if RunMode == "cool-tools" {
 		return
 	}
-	GormDBS = make(MgormDBS)
-	// g.Log().Debug(ctx, "cool init,初始化核心模块,请等待...")
-	// g.Log().Debug(ctx, "初始化缓存")
-	redisVar, err := g.Cfg().Get(ctx, "redis.default")
+	redisVar, err := g.Cfg().Get(ctx, "redis.cool")
 	if err != nil {
-		return
-		// g.Log().Error(ctx, "初始化缓存失败,请检查配置文件")
-		// panic(err)
+		g.Log().Error(ctx, "初始化缓存失败,请检查配置文件")
+		panic(err)
 	}
 	if !redisVar.IsEmpty() {
 		redisVar.Struct(redisConfig)
@@ -47,12 +42,12 @@ func init() {
 			panic(err)
 		}
 		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
+		IsRedisMode = true
 	}
-	// g.Log().Debug(ctx, "初始化缓存完成")
 
 	g.Log().Debug(ctx, "当前运行模式", RunMode)
-
 	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
+	g.Log().Debug(ctx, "是否缓存模式:", IsRedisMode)
 }
 
 // cool.OK 正常返回
@@ -79,3 +74,11 @@ func Fail(message string) *BaseRes {
 		Message: message,
 	}
 }
+
+// 分布式函数
+// func DistributedFunc(ctx g.Ctx, f func(ctx g.Ctx) (interface{}, error)) (interface{}, error) {
+// 	if ProcessFlag == ctx.Request.Header.Get("processFlag") {
+// 		return f(ctx)
+// 	}
+// 	return nil, nil
+// }
