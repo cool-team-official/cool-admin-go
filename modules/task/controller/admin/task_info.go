@@ -4,6 +4,7 @@ import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/task/service"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -70,5 +71,24 @@ func (c *TaskInfoController) Once(ctx g.Ctx, req *TaskInfoOnceReq) (res *cool.Ba
 		return cool.Fail(err.Error()), err
 	}
 	res = cool.Ok("执行成功")
+	return
+}
+
+// TaskInfoLogReq 请求参数
+type TaskInfoLogReq struct {
+	g.Meta `path:"/log" method:"GET"`
+	ID     int64 `json:"id"`
+	Status int   `json:"status"`
+}
+
+// Log 任务日志
+func (c *TaskInfoController) Log(ctx g.Ctx, req *TaskInfoLogReq) (res *cool.BaseRes, err error) {
+	r := ghttp.RequestFromCtx(ctx)
+	param := r.GetQueryMapStrStr()
+	data, err := c.Service.(*service.TaskInfoService).Log(ctx, param)
+	if err != nil {
+		return cool.Fail(err.Error()), err
+	}
+	res = cool.Ok(data)
 	return
 }

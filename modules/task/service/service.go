@@ -13,7 +13,6 @@ import (
 func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startDate string) (err error) {
 	funcName := gstr.SubStr(funcstring, 0, gstr.Pos(funcstring, "("))
 	g.Log().Debug(ctx, "启用任务", cornId, funcName, cron)
-	// funcParam := gstr.SubStr(funcstring, gstr.Pos(funcstring, "(")+1, gstr.Pos(funcstring, ")")-gstr.Pos(funcstring, "(")-1)
 	if _, ok := cool.FuncMap[funcName]; !ok {
 		err = gerror.New("函数不存在" + funcName)
 		return
@@ -33,7 +32,7 @@ func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startD
 				g.Log().Error(ctx, err)
 				taskInfoService.Record(ctx, cornId, 0, err.Error())
 			} else {
-				taskInfoService.Record(ctx, cornId, 1, "")
+				taskInfoService.Record(ctx, cornId, 1, "任务执行成功")
 			}
 		}, cornId)
 	} else {

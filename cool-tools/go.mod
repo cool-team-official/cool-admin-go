@@ -48,10 +48,10 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/datatypes v1.0.7 // indirect
-	gorm.io/driver/mysql v1.4.1 // indirect
+	gorm.io/driver/mysql v1.4.3 // indirect
 	gorm.io/driver/sqlserver v1.4.1 // indirect
 	gorm.io/gorm v1.24.0 // indirect
-	gorm.io/hints v1.1.0 // indirect
+	gorm.io/hints v1.1.1 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
 	modernc.org/libc v1.20.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect

@@ -64,7 +64,6 @@ func (s *TaskInfoService) Record(ctx g.Ctx, id string, status int, detail string
 		return err
 	}
 	if status == 1 {
-		// _, err = cool.DBM(taskLog).Where("taskId = ?", id).Where("status", 1).Limit(20).Delete()
 		record, err := cool.DBM(taskLog).Where("taskId = ?", id).Where("status", 1).Order("id", "desc").Offset(19).One()
 		if err != nil {
 			return err
@@ -77,7 +76,6 @@ func (s *TaskInfoService) Record(ctx g.Ctx, id string, status int, detail string
 		if err != nil {
 			return err
 		}
-		g.Log().Info(ctx, "minId", minId)
 		_, err = cool.DBM(taskLog).Where("taskId = ?", id).Where("status", 1).Where("id < ?", minId).Delete()
 		if err != nil {
 			return err
@@ -97,4 +95,61 @@ func (s *TaskInfoService) Once(ctx g.Ctx, id int64) error {
 	}
 	funcString := record["service"].String()
 	return cool.ClusterRunFunc(ctx, funcString)
+}
+
+// Log 获取任务日志
+func (s *TaskInfoService) Log(ctx g.Ctx, param g.MapStrStr) (data interface{}, err error) {
+	var (
+		Total = 0
+		Page  = 1
+		Size  = 10
+	)
+	taskLog := model.NewTaskLog()
+	m := cool.DBM(taskLog).LeftJoin("task_info", "task_info.id = task_log.taskId")
+
+	if id, ok := param["id"]; ok {
+		m = m.Where("taskId = ?", id)
+	}
+	if status, ok := param["status"]; ok {
+		m = m.Where("status = ?", status)
+	}
+	Total, err = m.Clone().Count()
+	m = m.Fields("task_log.*,task_info.name as taskName")
+	if err != nil {
+		return nil, err
+	}
+	if page, ok := param["page"]; ok {
+		Page = gconv.Int(page)
+
+	}
+	if size, ok := param["size"]; ok {
+		Size = gconv.Int(size)
+	}
+	m = m.Limit(Size).Offset((Page - 1) * Size)
+
+	result, err := m.Order("id", "desc").All()
+	// g.Dump(result)
+	if err != nil {
+		return nil, err
+	}
+	if result.IsEmpty() {
+		return g.Map{
+			"list": g.Slice{},
+			"pagination": g.Map{
+				"total": Total,
+				"size":  Size,
+				"page":  Page,
+			},
+		}, nil
+	}
+	// g.Log().Info(ctx, "TaskInfoService.Log", result)
+	data = g.Map{
+		"list": result,
+		"pagination": g.Map{
+			"total": Total,
+			"size":  Size,
+			"page":  Page,
+		},
+	}
+	return
 }

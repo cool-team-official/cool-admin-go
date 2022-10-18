@@ -11,24 +11,25 @@ logger:
 
 database:
   default:
-    - type: "mysql"
-      link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
-      role: "master"
-      debug: true
-      createdAt: "createTime"
-      updatedAt: "updateTime"
-    - type: "mysql"
-      link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
-      role: "slave"
-      debug: true
-      createdAt: "createTime"
-      updatedAt: "updateTime"
+    host: "127.0.0.1"
+    port: "3306"
+    user: "root"
+    pass: "123456"
+    name: "cooltest"
+    type: "mysql"
+    charset: "utf8mb4"
+    link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
+    debug: true
+    createdAt: "createTime"
+    updatedAt: "updateTime"
+    # deletedAt: "delete_at"
   default1:
     type: "sqlite"
     link: "./temp/db.sqlite"
     logLevel: "all"
     createdAt: "createTime"
     updatedAt: "updateTime"
+    debug: true
 
 # Redis 配置示例
 redis:
