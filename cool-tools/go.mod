@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.0
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3
 	github.com/cool-team-official/cool-admin-go/cool v0.2.0
 	github.com/gogf/gf/v2 v2.2.1
 	gorm.io/gen v0.3.17
@@ -24,6 +24,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.1 // indirect
+	github.com/gogf/gf/contrib/drivers/sqlite/v2 v2.2.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
