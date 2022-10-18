@@ -72,7 +72,10 @@ func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err er
 		if err != nil {
 			return Fail(err.Error()), err
 		}
-		c.Service.ModifyAfter(ctx, "Add", g.RequestFromCtx(ctx).GetMap())
+		err = c.Service.ModifyAfter(ctx, "Add", g.RequestFromCtx(ctx).GetMap())
+		if err != nil {
+			return Fail(err.Error()), err
+		}
 		return Ok(data), err
 	}
 	g.RequestFromCtx(ctx).Response.Status = 404
@@ -144,7 +147,6 @@ func RegisterController(c IController) {
 				c,
 			)
 		})
-
 }
 
 // ColumnInfo 表字段信息

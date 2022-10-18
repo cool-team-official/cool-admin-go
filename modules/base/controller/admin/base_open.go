@@ -62,3 +62,19 @@ func (c *BaseOpen) Login(ctx context.Context, req *v1.BaseOpenLoginReq) (res *co
 	res = cool.Ok(data)
 	return
 }
+
+// RefreshTokenReq 刷新token请求
+type RefreshTokenReq struct {
+	g.Meta       `path:"/refreshToken" method:"GET"`
+	RefreshToken string `json:"refreshToken" v:"required#refreshToken不能为空"`
+}
+
+// RefreshToken 刷新token
+func (c *BaseOpen) RefreshToken(ctx context.Context, req *RefreshTokenReq) (res *cool.BaseRes, err error) {
+	data, err := c.baseSysLoginService.RefreshToken(ctx, req.RefreshToken)
+	if err != nil {
+		return
+	}
+	res = cool.Ok(data)
+	return
+}

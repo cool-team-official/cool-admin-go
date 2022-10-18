@@ -21,7 +21,7 @@ type TaskInfo struct {
 	StartDate   gtime.Time `json:"startDate" gorm:"column:startDate;type:datetime;comment:开始时间"`
 	EndDate     gtime.Time `json:"endDate" gorm:"column:endDate;type:datetime;comment:结束时间"`
 	Data        string     `json:"data" gorm:"column:data;type:varchar(255);comment:数据"`
-	Service     string     `json:"service" gorm:"column:service;type:varchar(255);comment:执行service的实例ID"`
+	Service     string     `json:"service" gorm:"column:service;type:varchar(255);comment:执行的服务"`
 	Type        int        `json:"type" gorm:"column:type;type:int(11);comment:类型 0:系统 1:用户"`
 	NextRunTime gtime.Time `json:"nextRunTime" gorm:"column:nextRunTime;type:datetime;comment:下次执行时间"`
 	TaskType    int        `json:"taskType" gorm:"column:taskType;type:int(11);comment:任务类型 0:cron 1:时间间隔"`
