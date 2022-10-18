@@ -41,7 +41,8 @@ func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
 
 // GetMenus 获取菜单
 func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.Result) {
-	m := cool.DBM(s.Model).As("a")
+	// 屏蔽 base_sys_role_menu.id 防止部分权限的用户登录时菜单渲染错误
+	m := cool.DBM(s.Model).As("a").Fields("a.*")
 	if isAdmin {
 		result, _ = m.Group("a.id").Order("a.orderNum asc").All()
 	} else {

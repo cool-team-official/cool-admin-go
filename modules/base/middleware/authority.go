@@ -157,18 +157,19 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		})
 	}
 	// url去除参数部分
-	url = gstr.StrTillEx(url, "?")
+	if gstr.Pos("?", url) > 0 {
+		url = gstr.StrTillEx(url, "?")
+	}
 	//url 转换为数组
 	urls := gstr.Split(url, "/")
-	// 去除第一个空字符串
-	urls = urls[1:]
+	// 去除第一个空字符串和admin
+	urls = urls[2:]
 	// 以冒号连接成新字符串url
 	url = gstr.Join(urls, ":")
 	// 如果perms中不包含url 则无权限
 	if !perms.ContainsI(url) {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "perms invalid")
-		statusCode = 403
-		r.Response.WriteStatus(statusCode)
+		r.Response.Status = 403
 		r.Response.WriteJsonExit(g.Map{
 			"code":    1001,
 			"message": "登录失效或无权限访问~",

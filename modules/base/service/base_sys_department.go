@@ -34,7 +34,7 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (r
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["departmentId"] != nil {
-					res = append(res, vmap["departmentId"].(uint))
+					res = append(res, gconv.Uint(vmap["departmentId"]))
 				}
 			}
 		}
