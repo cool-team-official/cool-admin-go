@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.1.9
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.1.9
-	github.com/cool-team-official/cool-admin-go/cool v0.1.9
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.0
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.0
+	github.com/cool-team-official/cool-admin-go/cool v0.2.0
 	github.com/gogf/gf/v2 v2.2.0
 	gorm.io/gen v0.3.17
 )
@@ -48,13 +48,13 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/datatypes v1.0.7 // indirect
-	gorm.io/driver/mysql v1.4.1 // indirect
+	gorm.io/driver/mysql v1.4.3 // indirect
 	gorm.io/driver/sqlserver v1.4.1 // indirect
 	gorm.io/gorm v1.24.0 // indirect
-	gorm.io/hints v1.1.0 // indirect
+	gorm.io/hints v1.1.1 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
-	modernc.org/libc v1.20.3 // indirect
+	modernc.org/libc v1.20.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.4.0 // indirect
-	modernc.org/sqlite v1.19.1 // indirect
+	modernc.org/sqlite v1.19.2 // indirect
 )

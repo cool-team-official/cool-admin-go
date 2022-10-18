@@ -8,6 +8,13 @@ set -e
 # 获取GOOS
 GOOS=$(go env GOOS)
 echo "当前操作系统为:$GOOS"
+# 如果是linux系统,检测是否为root用户
+if [ $GOOS = "linux" ]; then
+    if [ $(id -u) != "0" ]; then
+        echo "请使用root用户执行此脚本"
+        exit 1
+    fi
+fi
 # 获取GOARCH
 GOARCH=$(go env GOARCH)
 echo "当前操作系统架构为:$GOARCH"

@@ -150,3 +150,47 @@ func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
 func NewBaseSysLoginService() *BaseSysLoginService {
 	return &BaseSysLoginService{}
 }
+
+// RefreshToken 刷新token
+func (*BaseSysLoginService) RefreshToken(ctx context.Context, token string) (data interface{}, err error) {
+	type Claims struct {
+		IsRefresh       bool   `json:"isRefresh"`
+		RoleIds         []uint `json:"roleIds"`
+		Username        string `json:"username"`
+		UserId          uint   `json:"userId"`
+		PasswordVersion *int32 `json:"passwordVersion"`
+		jwt.RegisteredClaims
+	}
+
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(config.Config.Jwt.Secret), nil
+	})
+	if err != nil {
+		return
+	}
+	claims, ok := tokenClaims.Claims.(*Claims)
+	if !ok {
+		err = gerror.New("tokenClaims.Claims.(*Claims) error")
+		return
+	}
+	if !tokenClaims.Valid {
+		err = gerror.New("tokenClaims.Valid error")
+		return
+	}
+	if !claims.IsRefresh {
+		err = gerror.New("claims.IsRefresh error")
+		return
+	}
+	newClaimes := &Claims{
+		IsRefresh:       false,
+		RoleIds:         claims.RoleIds,
+		Username:        claims.Username,
+		UserId:          claims.UserId,
+		PasswordVersion: claims.PasswordVersion,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(config.Config.Jwt.Token.Expire) * time.Second)),
+		},
+	}
+	tokenClaims = jwt.NewWithClaims(jwt.SigningMethodHS256, newClaimes)
+	return tokenClaims.SignedString([]byte(config.Config.Jwt.Secret))
+}
