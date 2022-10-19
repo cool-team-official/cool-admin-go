@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3
-	github.com/cool-team-official/cool-admin-go/cool v0.2.0
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.4
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.4
+	github.com/cool-team-official/cool-admin-go/cool v0.2.4
 	github.com/gogf/gf/v2 v2.2.1
 	gorm.io/gen v0.3.17
 )
@@ -42,7 +42,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.11.0 // indirect
 	golang.org/x/crypto v0.0.0-20221010152910-d6f0a8c073c2 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/net v0.0.0-20221017152216-f25eb7ecb193 // indirect
+	golang.org/x/net v0.0.0-20221019024206-cb67ada4b0ad // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
@@ -54,7 +54,7 @@ require (
 	gorm.io/gorm v1.24.0 // indirect
 	gorm.io/hints v1.1.1 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
-	modernc.org/libc v1.20.7 // indirect
+	modernc.org/libc v1.21.0 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.4.0 // indirect
 	modernc.org/sqlite v1.19.2 // indirect
