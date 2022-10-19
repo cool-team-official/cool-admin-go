@@ -12,7 +12,6 @@ import (
 // EnableTask 启用任务
 func EnableTask(ctx g.Ctx, cornId string, funcstring string, cron string, startDate string) (err error) {
 	funcName := gstr.SubStr(funcstring, 0, gstr.Pos(funcstring, "("))
-	g.Log().Debug(ctx, "启用任务", cornId, funcName, cron)
 	if _, ok := cool.FuncMap[funcName]; !ok {
 		err = gerror.New("函数不存在" + funcName)
 		return

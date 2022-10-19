@@ -72,7 +72,6 @@ func (s *TaskInfoService) Record(ctx g.Ctx, id string, status int, detail string
 			return nil
 		}
 		minId := record["id"].Int()
-		g.DumpWithType(minId)
 		if err != nil {
 			return err
 		}

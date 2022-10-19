@@ -3,13 +3,19 @@ package cool
 import (
 	"time"
 
-	"github.com/cool-team-official/cool-admin-go/cool/coolfunc"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gstr"
 )
 
-type CoolFunc coolfunc.CoolFunc
+type CoolFunc interface {
+	// Func handler
+	Func(ctx g.Ctx, param string) (err error)
+	// IsSingleton 是否单例,当为true时，只能有一个任务在执行,在注意函数为计划任务时使用
+	IsSingleton() bool
+	// IsAllWorker 是否所有worker都执行
+	IsAllWorker() bool
+}
 
 // FuncMap 函数列表
 var FuncMap = make(map[string]CoolFunc)
