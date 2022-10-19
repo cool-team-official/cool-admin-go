@@ -6,11 +6,11 @@ require (
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3
 	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.2.3
-	github.com/cool-team-official/cool-admin-go/cool v0.2.0
-	github.com/cool-team-official/cool-admin-go/modules/base v0.2.2
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.2.0
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.2.2
-	github.com/cool-team-official/cool-admin-go/modules/space v0.2.0
+	github.com/cool-team-official/cool-admin-go/cool v0.2.4
+	github.com/cool-team-official/cool-admin-go/modules/base v0.2.4
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.2.4
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.2.4
+	github.com/cool-team-official/cool-admin-go/modules/space v0.2.3
 	github.com/cool-team-official/cool-admin-go/modules/task v0.2.3
 	github.com/gogf/gf/v2 v2.2.1
 )

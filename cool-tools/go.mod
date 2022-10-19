@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2
 	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3
-	github.com/cool-team-official/cool-admin-go/cool v0.2.0
+	github.com/cool-team-official/cool-admin-go/cool v0.2.4
 	github.com/gogf/gf/v2 v2.2.1
 	gorm.io/gen v0.3.17
 )

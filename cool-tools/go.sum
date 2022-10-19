@@ -24,8 +24,8 @@ github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2 h1:bFth
 github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.2.2/go.mod h1:gI8zsG5JTn8FLH0vDjIy9H3BbKaFtjxpvWiVuVqog7I=
 github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3 h1:p3GQUEJ02yGLoLHc5y8xiH7enNiLK7TIU6+3J5WfB6w=
 github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.2.3/go.mod h1:MMg193e8zzzfwlqhDLOO13FNb12EBwo5vWqrciDeHk4=
-github.com/cool-team-official/cool-admin-go/cool v0.2.0 h1:04rYD27/X7hzDv5gepQi4v15Wxh3Q/o7UD3zk0f7iDs=
-github.com/cool-team-official/cool-admin-go/cool v0.2.0/go.mod h1:VUzgN2tsd0AcOCiuEZOZixyJ3TQ5FI6Be8Fl4EGEZTU=
+github.com/cool-team-official/cool-admin-go/cool v0.2.4 h1:E/rCF3TlWCV2wqtI5IyqbywQ60waMz+KukPJme2/aYI=
+github.com/cool-team-official/cool-admin-go/cool v0.2.4/go.mod h1:VUzgN2tsd0AcOCiuEZOZixyJ3TQ5FI6Be8Fl4EGEZTU=
 github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e/go.mod h1:F5haX7vjVVG0kc13fIWeqUViNPyEJxv/OmvnBo0Yme4=
 github.com/coreos/go-systemd v0.0.0-20190719114852-fd7a80b32e1f/go.mod h1:F5haX7vjVVG0kc13fIWeqUViNPyEJxv/OmvnBo0Yme4=
 github.com/creack/pty v1.1.7/go.mod h1:lj5s0c3V2DBrqTV7llrYr5NG6My20zk30Fl46Y7DoTY=
