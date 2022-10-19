@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "createTime": "2022-10-19 17:15:03.000",
+    "updateTime": "2022-10-19 17:22:51.000",
+    "deleted_at": null,
+    "jobId": null,
+    "repeatConf": null,
+    "name": "清理日志",
+    "cron": "1 2 3 * * *",
+    "limit": null,
+    "every": null,
+    "remark": "每天03:02:01执行清理缓存任务",
+    "status": 1,
+    "startDate": null,
+    "endDate": null,
+    "data": null,
+    "service": "BaseFuncClearLog(false)",
+    "type": 0,
+    "nextRunTime": null,
+    "taskType": 0
+  }
+]

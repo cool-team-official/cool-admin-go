@@ -11,7 +11,7 @@ type BaseFuncClearLog struct {
 
 // Func
 func (f *BaseFuncClearLog) Func(ctx g.Ctx, param string) (err error) {
-	g.Log().Info(ctx, "BaseFuncClearLog.Func", "param", param)
+	g.Log().Info(ctx, "清理日志 BaseFuncClearLog.Func", "param", param)
 	baseSysLogService := service.NewBaseSysLogService()
 	if param == "true" {
 		err = baseSysLogService.Clear(true)
