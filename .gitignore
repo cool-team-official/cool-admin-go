@@ -22,3 +22,4 @@ data/db.sqlite
 logs/
 public/uploads/
 gf
+data/cool.sqlite
