@@ -4,6 +4,7 @@ import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	_ "github.com/cool-team-official/cool-admin-go/modules/dict/packed"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
 
 	_ "github.com/cool-team-official/cool-admin-go/modules/dict/controller"
 	"github.com/cool-team-official/cool-admin-go/modules/dict/model"
@@ -11,9 +12,9 @@ import (
 
 func init() {
 	var (
-		ctx g.Ctx
+		ctx = gctx.GetInitCtx()
 	)
 	g.Log().Debug(ctx, "modules/dict init")
-	cool.FillInitData("dict", &model.DictInfo{})
-	cool.FillInitData("dict", &model.DictType{})
+	cool.FillInitData(ctx, "dict", &model.DictInfo{})
+	cool.FillInitData(ctx, "dict", &model.DictType{})
 }

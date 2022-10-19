@@ -37,7 +37,7 @@ func GetCfgWithDefault(ctx g.Ctx, key string, defaultValue *g.Var) *g.Var {
 	if err != nil {
 		return defaultValue
 	}
-	if value.IsEmpty() {
+	if value.IsEmpty() || value.IsNil() {
 		return defaultValue
 	}
 	return value

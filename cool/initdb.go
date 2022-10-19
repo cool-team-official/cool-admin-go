@@ -47,20 +47,15 @@ func getDBbyModel(model IModel) *gorm.DB {
 
 // 根据entity结构体创建表
 func CreateTable(model IModel) error {
-	var ctx g.Ctx
 	if Config.AutoMigrate {
-		g.Log().Debug(ctx, "start autoMigrate! database.autoMigrate")
-		g.Log().Debug(ctx, "开始在分组", model.GroupName(), "创建表", model.TableName())
 		db := getDBbyModel(model)
 		return db.AutoMigrate(model)
 	}
-	g.Log().Debug(ctx, "autoMigrate skiped! cool.autoMigrate=false")
 	return nil
 }
 
 // FillInitData 数据库填充初始数据
-func FillInitData(moduleName string, model IModel) error {
-	var ctx g.Ctx
+func FillInitData(ctx g.Ctx, moduleName string, model IModel) error {
 	mInit := g.DB("default").Model("base_sys_init")
 	n, err := mInit.Clone().Where("group", model.GroupName()).Where("table", model.TableName()).Count()
 	if err != nil {
@@ -68,17 +63,25 @@ func FillInitData(moduleName string, model IModel) error {
 		return err
 	}
 	if n > 0 {
-		g.Log().Debug(ctx, "分组", model.GroupName(), "表", model.TableName(), "已经初始化过，跳过初始化")
+		g.Log().Debug(ctx, "分组", model.GroupName(), "中的表", model.TableName(), "已经初始化过,跳过本次初始化.")
 		return nil
 	}
-	g.Log().Debug(ctx, "模块", moduleName, "将在分组", model.GroupName(), "表", model.TableName(), "中插入初始数据...")
 	m := g.DB(model.GroupName()).Model(model.TableName())
 	jsonData, _ := gjson.LoadContent(gres.GetContent("modules/" + moduleName + "/resource/initjson/" + model.TableName() + ".json"))
 	if jsonData.Var().Clone().IsEmpty() {
-		g.Log().Debug(ctx, "模块", moduleName, "没有初始化数据,跳过")
+		g.Log().Debug(ctx, "分组", model.GroupName(), "中的表", model.TableName(), "无可用的初始化数据,跳过本次初始化.")
 		return nil
 	}
-	m.Data(jsonData).Insert()
-	mInit.Insert(g.Map{"group": model.GroupName(), "table": model.TableName()})
+	_, err = m.Data(jsonData).Insert()
+	if err != nil {
+		g.Log().Error(ctx, err.Error())
+		return err
+	}
+	_, err = mInit.Insert(g.Map{"group": model.GroupName(), "table": model.TableName()})
+	if err != nil {
+		g.Log().Error(ctx, err.Error())
+		return err
+	}
+	g.Log().Info(ctx, "分组", model.GroupName(), "中的表", model.TableName(), "初始化完成.")
 	return nil
 }

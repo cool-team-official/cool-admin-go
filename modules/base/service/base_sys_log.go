@@ -44,7 +44,6 @@ func (s *BaseSysLogService) Record(ctx g.Ctx) {
 	baseSysLog.IP = r.GetClientIp()
 	baseSysLog.IPAddr = r.GetClientIp()
 	baseSysLog.Params = r.GetBodyString()
-	// g.DumpWithType(baseSysLog)
 	m := cool.DBM(s.Model)
 	m.Insert(g.Map{
 		"userId": baseSysLog.UserID,
@@ -63,7 +62,7 @@ func (s *BaseSysLogService) Clear(isAll bool) (err error) {
 		_, err = m.Delete("1=1")
 	} else {
 		keepDays := gconv.Int(BaseSysConfService.GetValue("logKeep"))
-		_, err = m.Delete("create_time < ?", gtime.Now().AddDate(0, 0, -keepDays).String())
+		_, err = m.Delete("createTime < ?", gtime.Now().AddDate(0, 0, -keepDays).String())
 	}
 	return
 }

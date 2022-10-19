@@ -7,7 +7,7 @@ DOCKER_NAME = "template-single"
 .PHONY: cli
 cli:
 	@set -e; \
-	wget -O gf https://download.fastgit.org/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
+	wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(shell go env GOOS)_$(shell go env GOARCH) && \
 	chmod +x gf && \
 	./gf install  && \
 	rm ./gf

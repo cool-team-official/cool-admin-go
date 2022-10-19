@@ -18,15 +18,15 @@ database:
     name: "cooltest"
     type: "mysql"
     charset: "utf8mb4"
-    link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
-    debug: true
+    # link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
+    # debug: true
     createdAt: "createTime"
     updatedAt: "updateTime"
     # deletedAt: "delete_at"
   default1:
     type: "sqlite"
-    link: "./temp/db.sqlite"
-    logLevel: "all"
+    link: "cool.sqlite"
+    extra: busy_timeout=5000
     createdAt: "createTime"
     updatedAt: "updateTime"
     debug: true
@@ -48,7 +48,7 @@ cool:
 modules:
   base:
     jwt:
-      sso: false
+      sso: 0
       secret: "cool-base88776655"
       token:
         expire: 7200 # 2*3600

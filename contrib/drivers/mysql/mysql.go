@@ -16,7 +16,7 @@ import (
 type DriverMysql struct {
 }
 
-func New() cooldb.Driver {
+func NewMysql() cooldb.Driver {
 	return &DriverMysql{}
 }
 
@@ -45,15 +45,14 @@ func (d *DriverMysql) GetConn(config *gdb.ConfigNode) (db *gorm.DB, err error) {
 			source = fmt.Sprintf("%s&%s", source, config.Extra)
 		}
 	}
-	g.DumpWithType(config)
-	print(source)
+
 	return gorm.Open(mysql.Open(source), &gorm.Config{})
 }
 
 func init() {
 	var (
 		err         error
-		driverObj   = New()
+		driverObj   = NewMysql()
 		driverNames = g.SliceStr{"mysql", "mariadb", "tidb"}
 	)
 	for _, driverName := range driverNames {

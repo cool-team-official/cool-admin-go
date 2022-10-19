@@ -20,3 +20,4 @@ temp/
 data/db.sqlite
 public/
 cool-tools
+cool.sqlite

@@ -5,6 +5,7 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcache"
+	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/guid"
 	"gorm.io/gorm"
 )
@@ -20,7 +21,7 @@ var (
 
 func init() {
 	var (
-		ctx         g.Ctx
+		ctx         = gctx.GetInitCtx()
 		redisConfig = &gredis.Config{}
 	)
 	buildData := gbuild.Data()
