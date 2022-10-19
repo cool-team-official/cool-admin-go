@@ -34,7 +34,6 @@ var Config = newConfig()
 // GetCfgWithDefault get config with default value
 func GetCfgWithDefault(ctx g.Ctx, key string, defaultValue *g.Var) *g.Var {
 	value, err := g.Cfg().Get(ctx, key)
-	g.Dump(key, value)
 	if err != nil {
 		return defaultValue
 	}
