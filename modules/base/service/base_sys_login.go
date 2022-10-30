@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"github.com/golang-jwt/jwt"
 	"time"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
@@ -15,32 +16,27 @@ import (
 	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/gogf/gf/v2/util/grand"
 	"github.com/gogf/gf/v2/util/guid"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 type BaseSysLoginService struct {
 	*cool.Service
 }
 
-// login
-func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginReq) (data interface{}, err error) {
-	type Result struct {
-		Expire         uint   `json:"expire"`
-		Token          string `json:"token"`
-		RefreshExpires uint   `json:"refreshExpires"`
-		RefreshToken   string `json:"refreshToken"`
-	}
+type TokenResult struct {
+	Expire         uint   `json:"expire"`
+	Token          string `json:"token"`
+	RefreshExpires uint   `json:"refreshExpires"`
+	RefreshToken   string `json:"refreshToken"`
+}
 
+// Login 登录
+func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginReq) (result *TokenResult, err error) {
 	var (
-		captchaId                = req.CaptchaId
-		verifyCode               = req.VerifyCode
-		password                 = req.Password
-		username                 = req.Username
-		baseSysRoleService       = NewBaseSysRoleService()
-		baseSysMenuService       = NewBaseSysMenuService()
-		baseSysDepartmentService = NewBaseSysDepartmentService()
-		baseSysUser              = model.NewBaseSysUser()
-		result                   = &Result{}
+		captchaId   = req.CaptchaId
+		verifyCode  = req.VerifyCode
+		password    = req.Password
+		username    = req.Username
+		baseSysUser = model.NewBaseSysUser()
 	)
 
 	vcode, _ := cool.CacheManager.Get(ctx, captchaId)
@@ -56,27 +52,12 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 		err = gerror.New("账户或密码不正确~")
 		return
 	}
-	// 获取用户角色
-	roleIds := baseSysRoleService.GetByUser(user.ID)
-	// 如果没有角色，则报错
-	if len(roleIds) == 0 {
-		err = gerror.New("该用户未设置任何角色，无法登录~")
+
+	result, err = s.generateTokenByUser(ctx, user)
+	if err != nil {
 		return
 	}
-	// 生成token
-	result.Expire = config.Config.Jwt.Token.Expire
-	result.RefreshExpires = config.Config.Jwt.Token.RefreshExpire
-	result.Token = s.GenerateToken(ctx, user, roleIds, result.Expire, false)
-	result.RefreshToken = s.GenerateToken(ctx, user, roleIds, result.RefreshExpires, true)
-	// 将用户相关信息保存到缓存
-	perms := baseSysMenuService.GetPerms(roleIds)
-	departments := baseSysDepartmentService.GetByRoleIds(roleIds, user.Username == "admin")
-	cool.CacheManager.Set(ctx, "admin:department:"+gconv.String(user.ID), departments, 0)
-	cool.CacheManager.Set(ctx, "admin:perms:"+gconv.String(user.ID), perms, 0)
-	cool.CacheManager.Set(ctx, "admin:token:"+gconv.String(user.ID), result.Token, 0)
-	cool.CacheManager.Set(ctx, "admin:token:refresh:"+gconv.String(user.ID), result.RefreshToken, 0)
 
-	data = result
 	return
 }
 
@@ -103,8 +84,68 @@ func (*BaseSysLoginService) Captcha(req *v1.BaseOpenCaptchaReq) (interface{}, er
 	return result, err
 }
 
-// generateToken 生成token
-func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseSysUser, roleIds []uint, exprire uint, isRefresh bool) (token string) {
+// Logout 退出登录
+func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
+	userId := cool.GetAdmin(ctx).UserId
+	cool.CacheManager.Remove(ctx, "admin:department:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:perms:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:token:"+gconv.String(userId))
+	cool.CacheManager.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
+	return
+}
+
+// RefreshToken 刷新token
+func (s *BaseSysLoginService) RefreshToken(ctx context.Context, token string) (result *TokenResult, err error) {
+	type Claims struct {
+		IsRefresh       bool   `json:"isRefresh"`
+		RoleIds         []uint `json:"roleIds"`
+		Username        string `json:"username"`
+		UserId          uint   `json:"userId"`
+		PasswordVersion *int32 `json:"passwordVersion"`
+		jwt.RegisteredClaims
+	}
+
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(config.Config.Jwt.Secret), nil
+	})
+	if err != nil {
+		return
+	}
+	claims, ok := tokenClaims.Claims.(*Claims)
+	if !ok {
+		err = gerror.New("tokenClaims.Claims.(*Claims) error")
+		return
+	}
+	if !tokenClaims.Valid {
+		err = gerror.New("tokenClaims.Valid error")
+		return
+	}
+	if !claims.IsRefresh {
+		err = gerror.New("claims.IsRefresh error")
+		return
+	}
+
+	if !(claims.UserId > 0) {
+		err = gerror.New("claims.UserId error")
+		return
+	}
+
+	var (
+		user        *model.BaseSysUser
+		baseSysUser = model.NewBaseSysUser()
+	)
+	cool.DBM(baseSysUser).Where("id=?", claims.UserId).Where("status=?", 1).Scan(&user)
+	if user == nil {
+		err = gerror.New("用户不存在")
+		return
+	}
+
+	result, err = s.generateTokenByUser(ctx, user)
+	return
+}
+
+// generateToken  生成token
+func (*BaseSysLoginService) generateToken(ctx context.Context, user *model.BaseSysUser, roleIds []uint, exprire uint, isRefresh bool) (token string) {
 	err := cool.CacheManager.Set(ctx, "admin:passwordVersion:"+gconv.String(user.ID), gconv.String(user.PasswordV), 0)
 	if err != nil {
 		g.Log().Error(ctx, "生成token失败", err)
@@ -136,61 +177,39 @@ func (*BaseSysLoginService) GenerateToken(ctx context.Context, user *model.BaseS
 	return
 }
 
-// logout 退出登录
-func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
-	userId := cool.GetAdmin(ctx).UserId
-	cool.CacheManager.Remove(ctx, "admin:department:"+gconv.String(userId))
-	cool.CacheManager.Remove(ctx, "admin:perms:"+gconv.String(userId))
-	cool.CacheManager.Remove(ctx, "admin:token:"+gconv.String(userId))
-	cool.CacheManager.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
+// 根据用户生成前端需要的Token信息
+func (s *BaseSysLoginService) generateTokenByUser(ctx context.Context, user *model.BaseSysUser) (result *TokenResult, err error) {
+	var (
+		baseSysRoleService       = NewBaseSysRoleService()
+		baseSysMenuService       = NewBaseSysMenuService()
+		baseSysDepartmentService = NewBaseSysDepartmentService()
+	)
+	// 获取用户角色
+	roleIds := baseSysRoleService.GetByUser(user.ID)
+	// 如果没有角色，则报错
+	if len(roleIds) == 0 {
+		err = gerror.New("该用户未设置任何角色，无法登录~")
+		return
+	}
+
+	// 生成token
+	result = &TokenResult{}
+	result.Expire = config.Config.Jwt.Token.Expire
+	result.RefreshExpires = config.Config.Jwt.Token.RefreshExpire
+	result.Token = s.generateToken(ctx, user, roleIds, result.Expire, false)
+	result.RefreshToken = s.generateToken(ctx, user, roleIds, result.RefreshExpires, true)
+	// 将用户相关信息保存到缓存
+	perms := baseSysMenuService.GetPerms(roleIds)
+	departments := baseSysDepartmentService.GetByRoleIds(roleIds, user.Username == "admin")
+	cool.CacheManager.Set(ctx, "admin:department:"+gconv.String(user.ID), departments, 0)
+	cool.CacheManager.Set(ctx, "admin:perms:"+gconv.String(user.ID), perms, 0)
+	cool.CacheManager.Set(ctx, "admin:token:"+gconv.String(user.ID), result.Token, 0)
+	cool.CacheManager.Set(ctx, "admin:token:refresh:"+gconv.String(user.ID), result.RefreshToken, 0)
+
 	return
 }
 
 // NewBaseSysLoginService 创建一个新的BaseSysLoginService
 func NewBaseSysLoginService() *BaseSysLoginService {
 	return &BaseSysLoginService{}
-}
-
-// RefreshToken 刷新token
-func (*BaseSysLoginService) RefreshToken(ctx context.Context, token string) (data interface{}, err error) {
-	type Claims struct {
-		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []uint `json:"roleIds"`
-		Username        string `json:"username"`
-		UserId          uint   `json:"userId"`
-		PasswordVersion *int32 `json:"passwordVersion"`
-		jwt.RegisteredClaims
-	}
-
-	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(config.Config.Jwt.Secret), nil
-	})
-	if err != nil {
-		return
-	}
-	claims, ok := tokenClaims.Claims.(*Claims)
-	if !ok {
-		err = gerror.New("tokenClaims.Claims.(*Claims) error")
-		return
-	}
-	if !tokenClaims.Valid {
-		err = gerror.New("tokenClaims.Valid error")
-		return
-	}
-	if !claims.IsRefresh {
-		err = gerror.New("claims.IsRefresh error")
-		return
-	}
-	newClaimes := &Claims{
-		IsRefresh:       false,
-		RoleIds:         claims.RoleIds,
-		Username:        claims.Username,
-		UserId:          claims.UserId,
-		PasswordVersion: claims.PasswordVersion,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(config.Config.Jwt.Token.Expire) * time.Second)),
-		},
-	}
-	tokenClaims = jwt.NewWithClaims(jwt.SigningMethodHS256, newClaimes)
-	return tokenClaims.SignedString([]byte(config.Config.Jwt.Secret))
 }
