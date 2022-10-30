@@ -1,3 +1,4 @@
+// Package local 提供本地文件上传支持
 package local
 
 import (

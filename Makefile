@@ -81,3 +81,10 @@ build.public:
 	cp -r ../cool-admin-vue/dist/* $(ROOT_DIR)/temp/public;\
 	gf pack ./temp/public ./internal/packed/public.go -p resource/public
 
+# 打开pkgsite文档
+.PHONY: docs
+docs:
+	@set -e; \
+	go install golang.org/x/pkgsite/cmd/pkgsite@latest;\
+	echo "http://localhost:6060/github.com/cool-team-official/cool-admin-go";\
+	pkgsite -http=localhost:6060
