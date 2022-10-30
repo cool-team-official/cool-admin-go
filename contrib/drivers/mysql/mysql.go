@@ -1,3 +1,4 @@
+// Package mysql 扩展了 GoFrame 的 mysql 包,集成了 gorm相关功能.
 package mysql
 
 import (
