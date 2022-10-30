@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/golang-jwt/jwt"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
 	v1 "github.com/cool-team-official/cool-admin-go/modules/base/api/v1"
