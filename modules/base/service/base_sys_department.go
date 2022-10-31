@@ -4,6 +4,7 @@ import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/database/gdb"
+	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -40,6 +41,29 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (r
 		}
 
 	}
+	return
+}
+
+//Order 排序部门
+func (s *BaseSysDepartmentService) Order(ctx g.Ctx) (err error) {
+	r := g.RequestFromCtx(ctx).GetMap()
+
+	type item struct {
+		Id       uint64  `json:"id"`
+		ParentId *uint64 `json:"parentId,omitempty"`
+		OrderNum int32   `json:"orderNum"`
+	}
+
+	var data *item
+
+	for _, v := range r {
+		err = gconv.Struct(v, &data)
+		if err != nil {
+			continue
+		}
+		cool.DBM(s.Model).Where("id = ?", data.Id).Data(data).Update()
+	}
+
 	return
 }
 

@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"github.com/golang-jwt/jwt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
