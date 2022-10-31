@@ -6,6 +6,8 @@ import (
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/robfig/cron"
+	"time"
 )
 
 type TaskInfoService struct {
@@ -150,5 +152,33 @@ func (s *TaskInfoService) Log(ctx g.Ctx, param g.MapStrStr) (data interface{}, e
 			"page":  Page,
 		},
 	}
+	return
+}
+
+// SetNextRunTime 更新下次执行时间
+func (s *TaskInfoService) SetNextRunTime(ctx g.Ctx, cronId string, cron string) error {
+	// 更新下次执行时间
+	nextTime, e := getCronNextTime(cron, time.Now())
+
+	if e == nil {
+		_, err := cool.DBM(s.Model).Where("id = ?", cronId).Data("nextRunTime", nextTime).Update()
+		if err != nil {
+			return err
+		}
+	} else {
+		g.Log().Debug(ctx, "获取下次执行时间失败", e)
+	}
+
+	return nil
+}
+
+// getCronNextTime 获取下一次Cron的执行时间
+func getCronNextTime(cronStr string, t time.Time) (nextTime time.Time, err error) {
+	p := cron.NewParser(cron.Second | cron.Minute | cron.Hour | cron.Dom | cron.Month | cron.Dow | cron.Descriptor)
+	s, err := p.Parse(cronStr)
+	if err != nil {
+		return
+	}
+	nextTime = s.Next(t)
 	return
 }

@@ -2,7 +2,6 @@ package cool
 
 import (
 	"context"
-
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/errors/gerror"
@@ -17,6 +16,7 @@ type IService interface {
 	ServiceInfo(ctx context.Context, req *InfoReq) (data interface{}, err error)     // 详情
 	ServiceList(ctx context.Context, req *ListReq) (data interface{}, err error)     // 列表
 	ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error)     // 分页
+	ModifyBefore(ctx context.Context, method string, param g.MapStrAny) (err error)  // 新增|删除|修改前的操作
 	ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error)   // 新增|删除|修改后的操作
 	GetModel() IModel                                                                // 获取model
 }
@@ -115,8 +115,10 @@ func (s *Service) ServiceDelete(ctx context.Context, req *DeleteReq) (data inter
 			return
 		}
 	}
+
+	ids := g.RequestFromCtx(ctx).Get("ids").Slice()
 	m := g.DB(s.Model.GroupName()).Model(s.Model.TableName())
-	data, err = m.WhereIn("id", req.Ids).Delete()
+	data, err = m.WhereIn("id", ids).Delete()
 
 	return
 }
@@ -215,18 +217,14 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 		}
 		// 如果KeyWordField不为空 则添加查询条件
 		if !r.Get("keyWord").IsEmpty() {
-			if len(s.ListQueryOp.KeyWordField) > 0 {
-				var sql string
-				args := garray.NewArray()
-				for i, field := range s.ListQueryOp.KeyWordField {
-					args.Append("%" + r.Get("keyWord").String() + "%")
-					if i == 0 {
-						sql = "(`" + field + "` LIKE ?) "
-					} else {
-						sql = sql + " OR " + "(`" + field + "` LIKE ?) "
-					}
+			if len(s.PageQueryOp.KeyWordField) > 0 {
+				builder := m.Builder()
+				for _, field := range s.PageQueryOp.KeyWordField {
+					g.DumpWithType(field)
+					// builder.WhereLike(field, "%"+r.Get("keyWord").String()+"%")
+					builder = builder.WhereOrLike(field, "%"+r.Get("keyWord").String()+"%")
 				}
-				m.Where(sql, args.Slice())
+				m.Where(builder)
 			}
 		}
 		if s.ListQueryOp.Where != nil {
@@ -256,8 +254,10 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 		}
 	}
 
+	// 增加默认数据限制，防止查询所有数据
+	m.Limit(10000)
+
 	result, err := m.All()
-	// g.Dump(result)
 	if err != nil {
 		g.Log().Error(ctx, "ServiceList error:", err)
 	}
@@ -315,17 +315,13 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 		// 如果KeyWordField不为空 则添加查询条件
 		if !r.Get("keyWord").IsEmpty() {
 			if len(s.PageQueryOp.KeyWordField) > 0 {
-				var sql string
-				args := garray.NewArray()
-				for i, field := range s.PageQueryOp.KeyWordField {
-					args.Append("%" + r.Get("keyWord").String() + "%")
-					if i == 0 {
-						sql = "(`" + field + "` LIKE ?) "
-					} else {
-						sql = sql + " OR " + "(`" + field + "` LIKE ?) "
-					}
+				builder := m.Builder()
+				for _, field := range s.PageQueryOp.KeyWordField {
+					g.DumpWithType(field)
+					// builder.WhereLike(field, "%"+r.Get("keyWord").String()+"%")
+					builder = builder.WhereOrLike(field, "%"+r.Get("keyWord").String()+"%")
 				}
-				m.Where(sql, args.Slice())
+				m.Where(builder)
 			}
 		}
 		// 加入where条件
@@ -416,9 +412,13 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 	return
 }
 
-// 新增|删除|修改后的操作
+// ModifyBefore 新增|删除|修改后的操作
+func (s *Service) ModifyBefore(ctx context.Context, method string, param g.MapStrAny) (err error) {
+	return
+}
+
+// ModifyAfter 新增|删除|修改后的操作
 func (s *Service) ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error) {
-	// g.Log().Debug(ctx, param, "2222222")
 	return
 }
 

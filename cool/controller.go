@@ -68,6 +68,11 @@ type PageReq struct {
 
 func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Add") {
+		err := c.Service.ModifyBefore(ctx, "Add", g.RequestFromCtx(ctx).GetMap())
+		if err != nil {
+			return nil, err
+		}
+
 		data, err := c.Service.ServiceAdd(ctx, req)
 		if err != nil {
 			return Fail(err.Error()), err
@@ -83,6 +88,11 @@ func (c *Controller) Add(ctx context.Context, req *AddReq) (res *BaseRes, err er
 }
 func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Delete") {
+		err := c.Service.ModifyBefore(ctx, "Delete", g.RequestFromCtx(ctx).GetMap())
+		if err != nil {
+			return nil, err
+		}
+
 		data, err := c.Service.ServiceDelete(ctx, req)
 		if err != nil {
 			return Fail(err.Error()), err
@@ -95,6 +105,11 @@ func (c *Controller) Delete(ctx context.Context, req *DeleteReq) (res *BaseRes, 
 }
 func (c *Controller) Update(ctx context.Context, req *UpdateReq) (res *BaseRes, err error) {
 	if garray.NewStrArrayFrom(c.Api).Contains("Update") {
+		err := c.Service.ModifyBefore(ctx, "Update", g.RequestFromCtx(ctx).GetMap())
+		if err != nil {
+			return nil, err
+		}
+
 		data, err := c.Service.ServiceUpdate(ctx, req)
 		if err != nil {
 			return Fail(err.Error()), err

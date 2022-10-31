@@ -16,7 +16,7 @@ func init() {
 	var task_info_controller = &TaskInfoController{
 		&cool.Controller{
 			Perfix:  "/admin/task/info",
-			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
+			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page", "Start", "Stop"},
 			Service: service.NewTaskInfoService(),
 		},
 	}
@@ -26,7 +26,7 @@ func init() {
 
 // TaskInfoStopReq 请求参数
 type TaskInfoStopReq struct {
-	g.Meta `path:"/stop" method:"POST"`
+	g.Meta `path:"/stop" method:"GET"`
 	ID     int64 `json:"id" v:"required#请输入id"`
 }
 
@@ -43,7 +43,7 @@ func (c *TaskInfoController) Stop(ctx g.Ctx, req *TaskInfoStopReq) (res *cool.Ba
 
 // TaskInfoStartReq 请求参数
 type TaskInfoStartReq struct {
-	g.Meta `path:"/start" method:"POST"`
+	g.Meta `path:"/start" method:"GET"`
 	ID     int64 `json:"id" v:"required#请输入id"`
 }
 
