@@ -28,7 +28,7 @@ type BaseCommPersonReq struct {
 	Authorization string `json:"Authorization" in:"header"`
 }
 
-// BaseCommPerson 方法
+// Person 方法
 func (c *BaseCommController) Person(ctx context.Context, req *BaseCommPersonReq) (res *cool.BaseRes, err error) {
 	var (
 		baseSysUserService = service.NewBaseSysUserService()
@@ -39,13 +39,13 @@ func (c *BaseCommController) Person(ctx context.Context, req *BaseCommPersonReq)
 	return
 }
 
-// BaseCommPremmenu 接口请求参数
+// BaseCommPermmenuReq 接口请求参数
 type BaseCommPermmenuReq struct {
 	g.Meta        `path:"/permmenu" method:"GET"`
 	Authorization string `json:"Authorization" in:"header"`
 }
 
-// BaseCommPremmenu 方法
+// Permmenu 方法
 func (c *BaseCommController) Permmenu(ctx context.Context, req *BaseCommPermmenuReq) (res *cool.BaseRes, err error) {
 
 	var (
@@ -56,13 +56,12 @@ func (c *BaseCommController) Permmenu(ctx context.Context, req *BaseCommPermmenu
 	return
 }
 
-// BaseCommLogoutReq
 type BaseCommLogoutReq struct {
 	g.Meta        `path:"/logout" method:"POST"`
 	Authorization string `json:"Authorization" in:"header"`
 }
 
-// BaseCommLogout 方法
+// Logout BaseCommLogout 方法
 func (c *BaseCommController) Logout(ctx context.Context, req *BaseCommLogoutReq) (res *cool.BaseRes, err error) {
 	var (
 		BaseSysLoginService = service.NewBaseSysLoginService()
@@ -72,33 +71,30 @@ func (c *BaseCommController) Logout(ctx context.Context, req *BaseCommLogoutReq)
 	return
 }
 
-// BaseCommUploadModeReq
 type BaseCommUploadModeReq struct {
 	g.Meta        `path:"/uploadMode" method:"GET"`
 	Authorization string `json:"Authorization" in:"header"`
 }
 
-// BaseCommUploadMode 方法
+// UploadMode 方法
 func (c *BaseCommController) UploadMode(ctx context.Context, req *BaseCommUploadModeReq) (res *cool.BaseRes, err error) {
 	data, err := cool.File().GetMode()
 	res = cool.Ok(data)
 	return
 }
 
-// BaseCommUploadReq
 type BaseCommUploadReq struct {
 	g.Meta        `path:"/upload" method:"POST"`
 	Authorization string `json:"Authorization" in:"header"`
 }
 
-// BaseCommUpload 方法
+// Upload 方法
 func (c *BaseCommController) Upload(ctx context.Context, req *BaseCommUploadReq) (res *cool.BaseRes, err error) {
 	data, err := cool.File().Upload(ctx)
 	res = cool.Ok(data)
 	return
 }
 
-// PersonUpdateReq
 type PersonUpdateReq struct {
 	g.Meta        `path:"/personUpdate" method:"POST"`
 	Authorization string `json:"Authorization" in:"header"`
@@ -109,7 +105,12 @@ func (c *BaseCommController) PersonUpdate(ctx g.Ctx, req *PersonUpdateReq) (res 
 	var (
 		baseSysUserService = service.NewBaseSysUserService()
 	)
-	err = baseSysUserService.PersonUpdate(ctx)
+
+	_, err = baseSysUserService.ServiceUpdate(ctx, &cool.UpdateReq{})
+	if err != nil {
+		return
+	}
+
 	res = cool.Ok(nil)
 	return
 }

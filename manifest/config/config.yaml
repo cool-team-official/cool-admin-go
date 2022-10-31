@@ -18,6 +18,7 @@ database:
     name: "cooltest"
     type: "mysql"
     charset: "utf8mb4"
+    timezone: "Asia/Shanghai"
     # link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
     # debug: true
     createdAt: "createTime"
