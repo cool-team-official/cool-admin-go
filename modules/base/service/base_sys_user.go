@@ -121,7 +121,7 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 		roleIdsSet := gset.NewFrom(gconv.Ints(roleIds))
 
 		// 判断是否相等
-		if roleIdsSet.Size() == 0 || inRoleIdSet.Intersect(roleIdsSet).Size() != 0 {
+		if roleIdsSet.Diff(inRoleIdSet).Size() != 0 || inRoleIdSet.Diff(roleIdsSet).Size() != 0 {
 			roleArray := garray.NewArray()
 			inRoleIdSet.Iterator(func(v interface{}) bool {
 				roleArray.PushRight(g.Map{
