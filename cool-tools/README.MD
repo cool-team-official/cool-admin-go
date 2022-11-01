@@ -5,7 +5,7 @@ cool-tools is a collection of tools for cool people.
 ## 安装
 
 ```bash
-go install github.com/cool-team-official/cool-admin-go/cool-tools@master
+go install github.com/cool-team-official/cool-admin-go/cool-tools
 ```
 
 ## 使用
