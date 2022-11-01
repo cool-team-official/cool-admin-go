@@ -1,0 +1,15 @@
+{
+  "name": "cool-admin-go",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:cool-team-official/cool-admin-go.git",
+  "author": "LiDong <cnlidong@live.cn>",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}

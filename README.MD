@@ -7,7 +7,7 @@ CoolAdmin 的 Go 版本后端
 
 开发中，未完成
 
-- [docs](https://pkg.go.dev/github.com/cool-team-official/cool-admin-go) - 开发文档
+- [docs](docs/README.md) - 开发文档
 - [github](https://github.com/cool-team-official/cool-admin-go) - cool-admin-go 仓库
 - [release](https://github.com/cool-team-official/cool-admin-go/releases) - cool-tools 编译版本下载
 - [issues](https://github.com/cool-team-official/cool-admin-go/issues) - 问答区
