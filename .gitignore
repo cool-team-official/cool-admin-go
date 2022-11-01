@@ -21,3 +21,4 @@ data/db.sqlite
 public/
 cool-tools
 cool.sqlite
+node_modules
