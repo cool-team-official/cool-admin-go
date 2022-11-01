@@ -87,9 +87,8 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 	r := g.RequestFromCtx(ctx)
 	rMap := r.GetMap()
 
-	// 如果不传如ID代表更新当前用户
+	// 如果不传入ID代表更新当前用户
 	userId := r.Get("id", admin.UserId).Uint()
-
 	userInfo, err := m.Where("id = ?", userId).One()
 
 	if err != nil {
@@ -97,6 +96,12 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 	}
 	if userInfo.IsEmpty() {
 		err = gerror.New("用户不存在")
+		return
+	}
+
+	// 禁止禁用超级管理员
+	if userId == 1 && (!r.Get("status").IsNil() && r.Get("status").Int() == 0) {
+		err = gerror.New("禁止禁用超级管理员")
 		return
 	}
 
@@ -117,29 +122,31 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 			return
 		}
 
-		inRoleIdSet := gset.NewFrom(r.Get("roleIdList").Ints())
-		roleIdsSet := gset.NewFrom(gconv.Ints(roleIds))
+		// 如果请求参数中不包含roleIdList说明不修改角色信息
+		if !r.Get("roleIdList").IsNil() {
+			inRoleIdSet := gset.NewFrom(r.Get("roleIdList").Ints())
+			roleIdsSet := gset.NewFrom(gconv.Ints(roleIds))
 
-		// 判断是否相等
-		if roleIdsSet.Diff(inRoleIdSet).Size() != 0 || inRoleIdSet.Diff(roleIdsSet).Size() != 0 {
-			roleArray := garray.NewArray()
-			inRoleIdSet.Iterator(func(v interface{}) bool {
-				roleArray.PushRight(g.Map{
-					"userId": gconv.Uint(userId),
-					"roleId": gconv.Uint(v),
+			// 如果请求的角色信息未发生变化则跳过更新逻辑
+			if roleIdsSet.Diff(inRoleIdSet).Size() != 0 || inRoleIdSet.Diff(roleIdsSet).Size() != 0 {
+				roleArray := garray.NewArray()
+				inRoleIdSet.Iterator(func(v interface{}) bool {
+					roleArray.PushRight(g.Map{
+						"userId": gconv.Uint(userId),
+						"roleId": gconv.Uint(v),
+					})
+					return true
 				})
-				return true
-			})
 
-			_, err = roleModel.Delete()
+				_, err = roleModel.Delete()
 
-			if err != nil {
-				return err
-			}
-
-			_, err = roleModel.Fields("userId,roleId").Insert(roleArray)
-			if err != nil {
-				return err
+				if err != nil {
+					return err
+				}
+				_, err = roleModel.Fields("userId,roleId").Insert(roleArray)
+				if err != nil {
+					return err
+				}
 			}
 		}
 

@@ -43,9 +43,16 @@ cool:
   autoMigrate: true
   eps: true
   file:
-    mode: "local"
+    mode: "local" # local | minio | oss
     domain: "http://127.0.0.1:8002"
-
+    # oss配置项兼容 minio oss 需要配置bucket公开读
+    oss:
+      endpoint: "192.168.192.110:9000"
+      accessKeyID: "accessKeyID"
+      secretAccessKey: "secretAccessKey"
+      bucketName: "cool-admin-go"
+      useSSL: false            #minio用到
+      location: "us-east-1"    #minio用到
 modules:
   base:
     jwt:
