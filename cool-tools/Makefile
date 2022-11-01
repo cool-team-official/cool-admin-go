@@ -8,6 +8,13 @@ pack.template-simple:
 	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
 	@rm -fr temp
 
+.PHONY: pack.docs
+pack.docs:
+	@rm -fr temp
+	@mkdir temp || exit 0
+	@cp -r ../docs/.vuepress/dist temp/docs
+	@cd temp && gf pack docs ../internal/packed/docs.go -n=packed -y
+
 # Install/Update to the latest CLI tool.
 .PHONY: cli
 cli:

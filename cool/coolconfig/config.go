@@ -24,6 +24,7 @@ type file struct {
 	Mode   string `json:"mode"`   // 模式 local oss
 	Domain string `json:"domain"` // 域名 http://
 	Oss    *oss   `json:"oss,omitempty"`
+
 }
 
 // NewConfig new config
