@@ -42,17 +42,17 @@ cool:
   autoMigrate: true
   eps: true
   file:
-    # 本地上传配置
-    # mode: "local"
-    # domain: "http://127.0.0.1:8002"
-    
-    # OSS 配置
-    mode: "oss"
-    accessKeyId: "your access key"
-    accessKeySecret: "your access secret"
-    bucket: "your bucket name"
-    endpoint: "oss-cn-hongkong.aliyuncs.com 换成你自己的"
-    timeout: 3600
+
+    mode: "local" # local | minio | oss
+    domain: "http://127.0.0.1:8002"
+    # oss配置项兼容 minio oss 需要配置bucket公开读
+    oss:
+      endpoint: "192.168.192.110:9000"
+      accessKeyID: "accessKeyID"
+      secretAccessKey: "secretAccessKey"
+      bucketName: "cool-admin-go"
+      useSSL: false            #minio用到
+      location: "us-east-1"    #minio用到
 
 modules:
   base:
