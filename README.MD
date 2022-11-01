@@ -23,7 +23,7 @@ CoolAdmin 的 Go 版本后端
 - [x] 中间件错误状态及错误码与 node 版本统一
 - [x] 全局错误码统一
 - [x] controller 层接口输入与 node 版本统一
-- [ ] 优化开发工具安装体验
+- [x] 优化开发工具安装体验
 - [x] service 层逻辑补全
 - [ ] base 模块逻辑补全
 - [ ] 其他项目需求
@@ -34,10 +34,16 @@ CoolAdmin 的 Go 版本后端
 
 ### 1.安装`cool-tools`开发工具
 
-安装命令
+从 github 下载
 
 ```bash
-curl -sSL  https://raw.fastgit.org/cool-team-official/cool-admin-go/master/scripts/install-cool-tools.sh | sh
+wget -O cool-tools https://github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install -y && rm ./cool-tools
+```
+
+从镜像下载
+
+```bash
+wget -O cool-tools https://gh.hjmcloud.cn/github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install -y && rm ./cool-tools
 ```
 
 验证
@@ -54,8 +60,16 @@ cool-tools init hello-world
 
 ### 3.安装`gf`工具
 
+从 github 下载
+
 ```bash
-curl -sSL  https://raw.fastgit.org/cool-team-official/cool-admin-go/master/scripts/install-gf.sh | sh
+wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install -y && rm ./gf
+```
+
+使用镜像下载
+
+```
+wget -O gf https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install -y && rm ./gf
 ```
 
 ### 4.安装依赖
