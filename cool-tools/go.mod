@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.3.0
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.3.0
-	github.com/cool-team-official/cool-admin-go/cool v0.3.0
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.3.2
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.3.2
+	github.com/cool-team-official/cool-admin-go/cool v0.3.2
 	github.com/gogf/gf/v2 v2.2.1
 	gorm.io/gen v0.3.18
 )
@@ -13,7 +13,7 @@ require (
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
-	github.com/clbanning/mxj/v2 v2.5.6 // indirect
+	github.com/clbanning/mxj/v2 v2.5.7 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
