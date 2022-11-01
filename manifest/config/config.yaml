@@ -38,13 +38,21 @@ redis:
     address: "127.0.0.1:6379"
     db: 0
 
-
 cool:
   autoMigrate: true
   eps: true
   file:
-    mode: "local"
-    domain: "http://127.0.0.1:8002"
+    # 本地上传配置
+    # mode: "local"
+    # domain: "http://127.0.0.1:8002"
+    
+    # OSS 配置
+    mode: "oss"
+    accessKeyId: "your access key"
+    accessKeySecret: "your access secret"
+    bucket: "your bucket name"
+    endpoint: "oss-cn-hongkong.aliyuncs.com 换成你自己的"
+    timeout: 3600
 
 modules:
   base:

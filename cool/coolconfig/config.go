@@ -11,8 +11,13 @@ type sConfig struct {
 
 // 文件上传配置
 type file struct {
-	Mode   string `json:"mode"`   // 模式 local oss
-	Domain string `json:"domain"` // 域名 http://
+	Mode           string `json:"mode"`           // 模式 local oss
+	Domain         string `json:"domain"`         // 域名 http://
+	AccessKeyID    string `json:"accessKeyId"`    // AccessKeyID
+	AcessKeySecret string `json:"acessKeySecret"` // AcessKeySecret
+	Bucket         string `json:"bucket"`         // bucket
+	Endpoint       string `json:"endpoint"`       // endpoint
+	TimeOut        int    `json:"timeOut"`        // timeOut
 }
 
 // NewConfig new config
