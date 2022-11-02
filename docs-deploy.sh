@@ -14,6 +14,11 @@ cd docs/.vuepress/dist
 # 如果是发布到自定义域名
 # echo 'www.example.com' > CNAME
 
+# 获取当前时间
+now=$(date "+%Y.%m.%d-%H.%M.%S")
+echo "${now}" > version.txt
+
+
 git init
 git add -A
 git commit -m 'deploy'
