@@ -40,13 +40,13 @@ CoolAdmin 的 Go 版本后端
 从 github 下载
 
 ```bash
-wget -O cool-tools https://github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install -y && rm ./cool-tools
+wget -O cool-tools https://github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install  && rm ./cool-tools
 ```
 
 从镜像下载
 
 ```bash
-wget -O cool-tools https://gh.hjmcloud.cn/github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install -y && rm ./cool-tools
+wget -O cool-tools https://gh.hjmcloud.cn/github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install  && rm ./cool-tools
 ```
 
 验证
@@ -66,13 +66,13 @@ cool-tools init hello-world
 从 github 下载
 
 ```bash
-wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install -y && rm ./gf
+wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install  && rm ./gf
 ```
 
 使用镜像下载
 
 ```
-wget -O gf https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install -y && rm ./gf
+wget -O gf https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install  && rm ./gf
 ```
 
 ### 4.安装依赖

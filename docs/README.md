@@ -1,10 +1,13 @@
 # CoolAdminGo 文档
 
-本文档使用`vuepress`编写，可使用`yarn docs:dev`进行本地预览。版本随`CoolAdminGo`版本更新。
+本文档使用`vuepress`编写，可使用`cool-tools docs`进行本地预览。版本随`CoolAdminGo`版本更新。
 
 ## 文档目录
 
 - [介绍](introduction.md)
+- [问题反馈](feedback.md)
+- [开发环境](development.md)
+- [开发工具](cli.md)
 - [快速开始](quick_start.md)
 - [配置](config.md)
 - [CRUD](crud.md)

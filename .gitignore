@@ -18,7 +18,8 @@ output/
 manifest/output/
 temp/
 data/db.sqlite
-public/
+public/uploads/
 cool.sqlite
 node_modules
 docs/.vuepress/dist/
+

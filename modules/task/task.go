@@ -17,7 +17,7 @@ func init() {
 		taskInfo = model.NewTaskInfo()
 		ctx      = gctx.GetInitCtx()
 	)
-	g.Log().Debug(ctx, "modules/task init")
+	g.Log().Debug(ctx, "module task init start ...")
 	cool.FillInitData(ctx, "task", taskInfo)
 
 	result, err := cool.DBM(taskInfo).Where("status = ?", 1).All()
@@ -28,5 +28,6 @@ func init() {
 		id := v["id"].String()
 		cool.RunFunc(ctx, "TaskAddTask("+id+")")
 	}
+	g.Log().Debug(ctx, "module task init finished ...")
 
 }

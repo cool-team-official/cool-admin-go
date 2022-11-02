@@ -2,6 +2,7 @@ package cool
 
 import (
 	"context"
+
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/errors/gerror"
@@ -53,19 +54,10 @@ type JoinOp struct {
 // JoinType 关联类型
 type JoinType string
 
+// ServiceAdd 新增
 func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}, err error) {
-	if s.Before != nil {
-		err = s.Before(ctx)
-		if err != nil {
-			return
-		}
-	}
 	r := g.RequestFromCtx(ctx)
-	rjson, _ := r.GetJson()
-	// 如果rjson为空 则直接返回
-	if rjson == nil {
-		return nil, nil
-	}
+
 	rmap := r.GetMap()
 	// 非空键
 	if s.NotNullKey != nil {
@@ -95,12 +87,12 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 		insertParams := s.InsertParam(ctx)
 		if len(insertParams) > 0 {
 			for k, v := range insertParams {
-				rjson.Set(k, v)
+				rmap[k] = v
 			}
 		}
 	}
 	m := DBM(s.Model)
-	lastInsertId, err := m.Data(rjson).InsertAndGetId()
+	lastInsertId, err := m.Data(rmap).InsertAndGetId()
 	if err != nil {
 		return
 	}
@@ -108,14 +100,9 @@ func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}
 
 	return
 }
-func (s *Service) ServiceDelete(ctx context.Context, req *DeleteReq) (data interface{}, err error) {
-	if s.Before != nil {
-		err = s.Before(ctx)
-		if err != nil {
-			return
-		}
-	}
 
+// ServiceDelete 删除
+func (s *Service) ServiceDelete(ctx context.Context, req *DeleteReq) (data interface{}, err error) {
 	ids := g.RequestFromCtx(ctx).Get("ids").Slice()
 	m := g.DB(s.Model.GroupName()).Model(s.Model.TableName())
 	data, err = m.WhereIn("id", ids).Delete()
@@ -123,13 +110,8 @@ func (s *Service) ServiceDelete(ctx context.Context, req *DeleteReq) (data inter
 	return
 }
 
+// ServiceUpdate 修改
 func (s *Service) ServiceUpdate(ctx context.Context, req *UpdateReq) (data interface{}, err error) {
-	if s.Before != nil {
-		err = s.Before(ctx)
-		if err != nil {
-			return
-		}
-	}
 	r := g.RequestFromCtx(ctx)
 	rmap := r.GetMap()
 	if rmap["id"] == nil {
@@ -412,8 +394,9 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 	return
 }
 
-// ModifyBefore 新增|删除|修改后的操作
+// ModifyBefore 新增|删除|修改前的操作
 func (s *Service) ModifyBefore(ctx context.Context, method string, param g.MapStrAny) (err error) {
+	// g.Log().Debugf(ctx, "ModifyBefore: %s", method)
 	return
 }
 
