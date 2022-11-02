@@ -11,5 +11,6 @@ func init() {
 	var (
 		ctx = gctx.GetInitCtx()
 	)
-	g.Log().Debug(ctx, "modules/space init")
+	g.Log().Debug(ctx, "module space init start ...")
+	g.Log().Debug(ctx, "module space init finished ...")
 }

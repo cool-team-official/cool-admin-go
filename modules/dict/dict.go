@@ -14,7 +14,8 @@ func init() {
 	var (
 		ctx = gctx.GetInitCtx()
 	)
-	g.Log().Debug(ctx, "modules/dict init")
+	g.Log().Debug(ctx, "module dict init start ...")
 	cool.FillInitData(ctx, "dict", &model.DictInfo{})
 	cool.FillInitData(ctx, "dict", &model.DictType{})
+	g.Log().Debug(ctx, "module dict init finished ...")
 }

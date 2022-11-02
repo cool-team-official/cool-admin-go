@@ -24,6 +24,7 @@ func init() {
 		ctx         = gctx.GetInitCtx()
 		redisConfig = &gredis.Config{}
 	)
+	g.Log().Debug(ctx, "module cool init start ...")
 	buildData := gbuild.Data()
 	if _, ok := buildData["mode"]; ok {
 		RunMode = buildData["mode"].(string)
@@ -49,6 +50,7 @@ func init() {
 	g.Log().Debug(ctx, "当前运行模式", RunMode)
 	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
 	g.Log().Debug(ctx, "是否缓存模式:", IsRedisMode)
+	g.Log().Debug(ctx, "module cool init finished ...")
 }
 
 // cool.OK 正常返回
