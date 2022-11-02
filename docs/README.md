@@ -5,8 +5,9 @@
 ## 文档目录
 
 - [介绍](introduction.md)
+- [问题反馈](feedback.md)
 - [开发环境](development.md)
-- [脚手架](cli.md)
+- [开发工具](cli.md)
 - [快速开始](quick_start.md)
 - [配置](config.md)
 - [CRUD](crud.md)

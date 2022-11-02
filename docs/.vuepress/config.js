@@ -22,10 +22,12 @@ module.exports = {
       lastUpdated: '上次更新',
       sidebar: [
         "/",
-        "/development",
         "/introduction",
+        "/feedback",
+        "/development",
         "/cli",
         "/quick_start",
+        "/known_issues",
       ],
     },
   }
