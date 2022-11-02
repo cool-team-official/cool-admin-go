@@ -6,14 +6,16 @@ pack.template-simple:
 	@cd temp && git clone --depth=1 -b simple  https://github.com/cool-team-official/cool-admin-go.git cool-admin-go-simple
 	@rm -fr temp/cool-admin-go-simple/.git
 	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
-	@rm -fr temp
+	@rm -fr temp/cool-admin-go-simple
 
 .PHONY: pack.docs
 pack.docs:
 	@rm -fr temp
 	@mkdir temp || exit 0
-	@cp -r ../docs/.vuepress/dist temp/docs
+	@cd temp && git clone --depth=1 -b gh-pages https://github.com/cooladmingo/cooladmingo.github.io.git docs
+	@rm -fr temp/docs/.git
 	@cd temp && gf pack docs ../internal/packed/docs.go -n=packed -y
+	@rm -fr temp/docs
 
 # Install/Update to the latest CLI tool.
 .PHONY: cli

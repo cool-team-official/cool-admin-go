@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # This script deploys the documentation to the gh-pages branch.
+# 发布文档到 https://cooladmingo.github.io
 
 # 确保脚本抛出遇到的错误
 set -e

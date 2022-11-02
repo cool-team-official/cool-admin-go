@@ -16,7 +16,7 @@ func init() {
 	var (
 		ctx = gctx.GetInitCtx()
 	)
-	g.Log().Debug(ctx, "modules/base init")
+	g.Log().Debug(ctx, "module base init start ...")
 
 	cool.FillInitData(ctx, "base", &model.BaseSysMenu{})
 	cool.FillInitData(ctx, "base", &model.BaseSysUser{})
@@ -26,5 +26,7 @@ func init() {
 	cool.FillInitData(ctx, "base", &model.BaseSysDepartment{})
 	cool.FillInitData(ctx, "base", &model.BaseSysRoleDepartment{})
 	cool.FillInitData(ctx, "base", &model.BaseSysParam{})
+
+	g.Log().Debug(ctx, "module base init finished ...")
 
 }
