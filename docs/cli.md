@@ -69,3 +69,11 @@ https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env G
 && ./gf install \
 && rm ./gf
 ```
+
+验证
+
+```bash
+gf version
+```
+
+更多`gf`工具的使用说明,可以访问 [https://goframe.org/pages/viewpage.action?pageId=1114260](https://goframe.org/pages/viewpage.action?pageId=1114260) 
