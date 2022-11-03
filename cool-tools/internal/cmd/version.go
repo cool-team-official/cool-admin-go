@@ -7,6 +7,7 @@ import (
 	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
+	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
@@ -27,18 +28,14 @@ var (
 		Brief: "查看版本信息",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			info := gbuild.Info()
-			// gutil.Dump(info)
 			data := gbuild.Data()
-			// gutil.Dump(data)
-			// 如果data为空map
 
-			var binVersion string
-			if len(data) == 0 || data["version"] == nil {
-				binVersion = "dev"
-			} else {
-				binVersion = data["version"].(string)
+			binVersion := "v0.3.5-dev"
+			if version, ok := data["version"]; !ok {
+				if gconv.String(version) != "" {
+					binVersion = gconv.String(version)
+				}
 			}
-
 			// 生成sVersion结构体
 			res := sVersion{
 				Name:     "cool-tools",

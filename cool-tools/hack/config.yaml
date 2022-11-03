@@ -4,6 +4,5 @@
 gfcli:
   build:
     name: "cool-tools"
-    packSrc: "resource"
 
 
