@@ -2,9 +2,11 @@
 
 [返回目录](README.md)
 
+::: warning 注意
 推荐使用 Linux 或 MacOS 进行开发，Windows 下可使用 WSL2。
 
 Linux 及 WSL2 下推荐使用 root 用户进行开发.
+:::
 
 ## Node.js 环境
 
@@ -71,7 +73,6 @@ wget -O golang-install.sh https://cool-admin-go.github.io/scripts/golang-install
 为提高依赖下载速度，推荐配置`goproxy`，可使用`go env -w GOPROXY=https://goproxy.cn,direct`切换到 goproxy.cn 镜像。
 :::
 
-
 ## VSCode
 
 官网下载地址：[https://code.visualstudio.com/](https://code.visualstudio.com/)
@@ -87,5 +88,29 @@ wget -O golang-install.sh https://cool-admin-go.github.io/scripts/golang-install
 - [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 
+## Docker
 
+云原生时代，Docker 已经成为开发者必备的工具之一。
 
+开发过程中，我们将使用 Docker 进行数据库管理，以及打包测试。
+
+官网下载地址：[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+
+一般选择最新版本即可。
+
+配置 Docker 镜像加速器：
+
+```bash
+# Linux
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+```
+
+MacOS 及 Windows 下可在 Docker Desktop 的设置中配置。
