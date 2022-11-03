@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.3.4
+	github.com/cool-team-official/cool-admin-go/cool v0.3.5
 	github.com/glebarez/sqlite v1.5.0
 	github.com/gogf/gf/v2 v2.2.1
 	gorm.io/gorm v1.24.1

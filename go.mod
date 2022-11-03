@@ -8,12 +8,12 @@ require (
 	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.3.4
 	github.com/cool-team-official/cool-admin-go/contrib/files/minio v0.3.4
 	github.com/cool-team-official/cool-admin-go/contrib/files/oss v0.3.4
-	github.com/cool-team-official/cool-admin-go/cool v0.3.4
+	github.com/cool-team-official/cool-admin-go/cool v0.3.5
 	github.com/cool-team-official/cool-admin-go/modules/base v0.3.4
 	github.com/cool-team-official/cool-admin-go/modules/demo v0.3.4
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.3.5
 	github.com/cool-team-official/cool-admin-go/modules/space v0.3.4
-	github.com/cool-team-official/cool-admin-go/modules/task v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/task v0.3.5
 	github.com/gogf/gf/v2 v2.2.1
 )
 

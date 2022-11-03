@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/files/local
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.3.4
+	github.com/cool-team-official/cool-admin-go/cool v0.3.5
 	github.com/gogf/gf/v2 v2.2.1
 )
 
