@@ -1,5 +1,4 @@
-pack: pack.template-simple
-
+.PHONY: pack.template-simple
 pack.template-simple:
 	@rm -fr temp
 	@mkdir temp || exit 0
@@ -8,11 +7,28 @@ pack.template-simple:
 	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
 	@rm -fr temp/cool-admin-go-simple
 
+.PHONY: pack.template-simple.ssh
+pack.template-simpl.ssh:
+	@rm -fr temp
+	@mkdir temp || exit 0
+	@cd temp && git clone --depth=1 -b simple  git@github.com:cool-team-official/cool-admin-go.git cool-admin-go-simple
+	@rm -fr temp/cool-admin-go-simple/.git
+	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
+	@rm -fr temp
+
 .PHONY: pack.docs
 pack.docs:
 	@rm -fr temp
 	@mkdir temp || exit 0
 	@cd temp && git clone --depth=1 -b gh-pages https://github.com/cooladmingo/cooladmingo.github.io.git docs
+	@rm -fr temp/docs/.git
+	@cd temp && gf pack docs ../internal/packed/docs.go -n=packed -y
+	@rm -fr temp/docs
+.PHONY: pack.docs.ssh
+pack.docs.ssh:
+	@rm -fr temp
+	@mkdir temp || exit 0
+	@cd temp && git clone --depth=1 -b gh-pages git@github.com:cooladmingo/cooladmingo.github.io.git docs
 	@rm -fr temp/docs/.git
 	@cd temp && gf pack docs ../internal/packed/docs.go -n=packed -y
 	@rm -fr temp/docs
@@ -26,13 +42,7 @@ cli:
 	./gf install  && \
 	rm ./gf
 
-pack.ssh:
-	@rm -fr temp
-	@mkdir temp || exit 0
-	@cd temp && git clone --depth=1 -b simple  git@github.com:cool-team-official/cool-admin-go.git cool-admin-go-simple
-	@rm -fr temp/cool-admin-go-simple/.git
-	@cd temp && gf pack cool-admin-go-simple ../internal/packed/cool-admin-go-simple.go -n=packed -y
-	@rm -fr temp
+
 
 # Install/Update to the latest cool-tools.
 .PHONY: tools

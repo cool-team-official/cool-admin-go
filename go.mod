@@ -3,17 +3,17 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.3.3
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.3.3
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.3.3
-	github.com/cool-team-official/cool-admin-go/contrib/files/minio v0.3.3
-	github.com/cool-team-official/cool-admin-go/contrib/files/oss v0.3.3
-	github.com/cool-team-official/cool-admin-go/cool v0.3.3
-	github.com/cool-team-official/cool-admin-go/modules/base v0.3.3
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.3.3
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.3.3
-	github.com/cool-team-official/cool-admin-go/modules/space v0.3.3
-	github.com/cool-team-official/cool-admin-go/modules/task v0.3.3
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.3.4
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.3.4
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.3.4
+	github.com/cool-team-official/cool-admin-go/contrib/files/minio v0.3.4
+	github.com/cool-team-official/cool-admin-go/contrib/files/oss v0.3.4
+	github.com/cool-team-official/cool-admin-go/cool v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/base v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/demo v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/dict v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/space v0.3.4
+	github.com/cool-team-official/cool-admin-go/modules/task v0.3.4
 	github.com/gogf/gf/v2 v2.2.1
 )
 
@@ -70,7 +70,7 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.4.3 // indirect
-	gorm.io/gorm v1.24.0 // indirect
+	gorm.io/gorm v1.24.1 // indirect
 	modernc.org/libc v1.21.4 // indirect
 	modernc.org/mathutil v1.5.0 // indirect
 	modernc.org/memory v1.4.0 // indirect

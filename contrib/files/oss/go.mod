@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.5+incompatible
-	github.com/cool-team-official/cool-admin-go/cool v0.3.3
+	github.com/cool-team-official/cool-admin-go/cool v0.3.4
 	github.com/gogf/gf/v2 v2.2.1
 )
 
@@ -36,5 +36,5 @@ require (
 	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/time v0.1.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.24.0 // indirect
+	gorm.io/gorm v1.24.1 // indirect
 )

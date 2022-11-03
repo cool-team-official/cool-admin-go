@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/files/minio
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v0.3.3
+	github.com/cool-team-official/cool-admin-go/cool v0.3.4
 	github.com/gogf/gf/v2 v2.2.1
 	github.com/minio/minio-go/v7 v7.0.43
 )
@@ -48,5 +48,5 @@ require (
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.24.0 // indirect
+	gorm.io/gorm v1.24.1 // indirect
 )
