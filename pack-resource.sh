@@ -13,7 +13,7 @@ fi
 version=$1-dev
 
 # 替换版本号 cool-tools/internal/cmd/version.go 中的 binVersion = "xxxx"
-sed -i '' "s/binVersion := \".*\"/binVersion = \"$version\"/g" cool-tools/internal/cmd/version.go
+sed -i '' "s/binVersion := \".*\"/binVersion := \"$version\"/g" cool-tools/internal/cmd/version.go
 
 # 进入脚本所在目录
 cd "$(dirname "$0")"
