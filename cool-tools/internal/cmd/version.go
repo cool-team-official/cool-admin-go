@@ -30,7 +30,7 @@ var (
 			info := gbuild.Info()
 			data := gbuild.Data()
 
-			binVersion = "v1.0.0-dev"
+			binVersion := "v1.0.0-dev"
 			if version, ok := data["version"]; !ok {
 				if gconv.String(version) != "" {
 					binVersion = gconv.String(version)
