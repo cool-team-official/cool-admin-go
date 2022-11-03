@@ -22,5 +22,5 @@ cd "$(dirname "$0")"
 cd cool-tools
 
 # 更新资源文件
-make pack.template-simple.ssh
+make pack.template-simpl.ssh
 make pack.docs.ssh
