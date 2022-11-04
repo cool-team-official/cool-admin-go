@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.0.0
+	github.com/cool-team-official/cool-admin-go/cool v1.0.1
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.2
 	github.com/gogf/gf/v2 v2.2.2
 	gorm.io/driver/mysql v1.4.3
@@ -25,7 +25,7 @@ require (
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/kr/pretty v0.1.0 // indirect
+	github.com/kr/text v0.1.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
@@ -38,6 +38,5 @@ require (
 	golang.org/x/net v0.1.0 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

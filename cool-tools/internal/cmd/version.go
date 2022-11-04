@@ -7,7 +7,6 @@ import (
 	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
-	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/gogf/gf/v2/util/gutil"
 )
 
@@ -28,14 +27,8 @@ var (
 		Brief: "查看版本信息",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			info := gbuild.Info()
-			data := gbuild.Data()
+			binVersion := "v1.0.2"
 
-			binVersion := "v1.0.1-dev"
-			if version, ok := data["version"]; !ok {
-				if gconv.String(version) != "" {
-					binVersion = gconv.String(version)
-				}
-			}
 			// 生成sVersion结构体
 			res := sVersion{
 				Name:     "cool-tools",
