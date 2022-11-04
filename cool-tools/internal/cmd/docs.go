@@ -6,6 +6,7 @@ import (
 
 	"github.com/cool-team-official/cool-admin-go/cool-tools/internal/utility/mlog"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/util/gconv"
 )
@@ -31,9 +32,12 @@ var (
 			// 	return err
 			// }
 			s.SetServerRoot("docs")
+			s.BindHandler("/", func(r *ghttp.Request) {
+				r.Response.RedirectTo("/cool-admin-go/")
+			})
 			// 设置端口
 			s.SetPort(gconv.Int(port))
-			mlog.Printf("CoolAdminGo docs server is running at %s", "http://"+"127.0.0.1"+":"+gconv.String(port))
+			mlog.Printf("CoolAdminGo docs server is running at %s", "http://"+"127.0.0.1"+":"+gconv.String(port)+"/cool-admin-go/")
 			s.Run()
 			return nil
 		},
