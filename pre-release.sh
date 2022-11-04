@@ -10,7 +10,7 @@ if [ -z "$1" ]; then
     echo "Usage: pack-resource.sh [version]"
     exit 1
 fi
-version=$1-dev
+version=$1
 
 # 替换版本号 cool-tools/internal/cmd/version.go 中的 binVersion = "xxxx"
 if [ "$(uname)" == "Darwin" ]; then
