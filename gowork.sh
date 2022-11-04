@@ -31,4 +31,4 @@ if [ ! -f go.work ]; then
 fi
 
 # 将目录下的所有子模块加入go workspace
-go work add -r .
+go work use -r .
