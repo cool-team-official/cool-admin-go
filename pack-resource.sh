@@ -13,7 +13,12 @@ fi
 version=$1-dev
 
 # 替换版本号 cool-tools/internal/cmd/version.go 中的 binVersion = "xxxx"
-sed -i '' "s/binVersion := \".*\"/binVersion := \"$version\"/g" cool-tools/internal/cmd/version.go
+if [ "$(uname)" == "Darwin" ]; then
+    sed -i '' -e "s/binVersion := \".*\"/binVersion := \"$version\"/g" cool-tools/internal/cmd/version.go
+else
+    sed -i -e "s/binVersion := \".*\"/binVersion := \"$version\"/g" cool-tools/internal/cmd/version.go
+fi
+# sed -i '' "s/binVersion := \".*\"/binVersion := \"$version\"/g" cool-tools/internal/cmd/version.go
 
 # 进入脚本所在目录
 cd "$(dirname "$0")"
@@ -21,6 +26,13 @@ cd "$(dirname "$0")"
 # 进入cool-tools目录
 cd cool-tools
 
-# 更新资源文件
-make pack.template-simpl.ssh
-make pack.docs.ssh
+# 如果当前环境为github codespace, 则使用https方式拉取, 否则使用ssh方式拉取
+if [ -n "$CODESPACES" ]; then
+    echo "github codespace detected, using https to pull"
+    make pack.template-simple
+    make pack.docs
+else
+    echo "github codespace not detected, use ssh"
+    make pack.template-simple.ssh
+    make pack.docs.ssh
+fi

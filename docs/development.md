@@ -25,7 +25,7 @@ brew install node
 Linux 下可使用以下脚本进行安装：
 
 ```bash
-wget -O nodejs-install.sh https://cool-admin-go.github.io/scripts/nodejs-install.sh \
+wget -O nodejs-install.sh https://cool-team-official.github.io/cool-admin-go/scripts/nodejs-install.sh \
 && chmod +x nodejs-install.sh \
 && ./nodejs-install.sh 18.12.0
 ```
@@ -59,9 +59,9 @@ brew install go
 Linux 下可使用以下脚本进行安装：
 
 ```bash
-wget -O golang-install.sh https://cool-admin-go.github.io/scripts/golang-install.sh \
+wget -O golang-install.sh https://cool-team-official.github.io/cool-admin-go/scripts/golang-install.sh \
 && chmod +x golang-install.sh \
-&& ./golang-install.sh 1.17.1
+&& ./golang-install.sh 1.19.3
 ```
 
 脚本文件内容如下:
