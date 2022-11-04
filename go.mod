@@ -3,18 +3,18 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v0.3.4
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v0.3.4
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v0.3.4
-	github.com/cool-team-official/cool-admin-go/contrib/files/minio v0.3.4
-	github.com/cool-team-official/cool-admin-go/contrib/files/oss v0.3.4
-	github.com/cool-team-official/cool-admin-go/cool v0.3.5
-	github.com/cool-team-official/cool-admin-go/modules/base v0.3.4
-	github.com/cool-team-official/cool-admin-go/modules/demo v0.3.4
-	github.com/cool-team-official/cool-admin-go/modules/dict v0.3.5
-	github.com/cool-team-official/cool-admin-go/modules/space v0.3.4
-	github.com/cool-team-official/cool-admin-go/modules/task v0.3.5
-	github.com/gogf/gf/v2 v2.2.1
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.0.0
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v1.0.0
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.0.0
+	github.com/cool-team-official/cool-admin-go/contrib/files/minio v1.0.0
+	github.com/cool-team-official/cool-admin-go/contrib/files/oss v1.0.0
+	github.com/cool-team-official/cool-admin-go/cool v1.0.0
+	github.com/cool-team-official/cool-admin-go/modules/base v1.0.0
+	github.com/cool-team-official/cool-admin-go/modules/demo v1.0.0
+	github.com/cool-team-official/cool-admin-go/modules/dict v1.0.0
+	github.com/cool-team-official/cool-admin-go/modules/space v1.0.0
+	github.com/cool-team-official/cool-admin-go/modules/task v1.0.0
+	github.com/gogf/gf/v2 v2.2.2
 )
 
 require (
@@ -32,7 +32,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.1 // indirect
+	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
