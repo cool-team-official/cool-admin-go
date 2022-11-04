@@ -1,6 +1,7 @@
 module.exports = {
     title: 'CoolAdminGo文档',
     description: 'CoolAdminGo文档',
+    base: '/cool-admin-go/',
     locales: {
         '/': {
             lang: 'zh-CN',

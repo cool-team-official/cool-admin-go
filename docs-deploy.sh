@@ -23,8 +23,18 @@ git init
 git add -A
 git commit -m 'deploy'
 
+# 如果当前运行在 github codespace 中, 则使用 https 方式提交.否则使用 ssh 方式提交
+if [ -n "$CODESPACES" ]; then
+    echo "github codespace detected, using https to push"
+    git push -f https://github.com/cool-team-official/cool-admin-go.git master:gh-pages
+else
+    echo "github codespace not detected, use ssh"
+    git push -f git@github.com:cool-team-official/cool-admin-go.git master:gh-pages
+fi
+
 # 如果发布到 https://<USERNAME>.github.io
-git push -f git@github.com:cooladmingo/cooladmingo.github.io.git master:gh-pages
+# git push -f git@github.com:cooladmingo/cooladmingo.github.io.git master:gh-pages
+# git push -f https://github.com/cool-team-official/cool-admin-go.git master:gh-pages
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
