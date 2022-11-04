@@ -22,5 +22,5 @@ public/uploads/
 cool.sqlite
 node_modules
 docs/.vuepress/dist/
-
 cool-tools/cool-tools
+go.work

@@ -36,12 +36,7 @@ jobs:
         run: |
           pwd
           go work init
-          find ./ -name "go.mod" | while read line
-          do
-              MOD_DIR=$(dirname $line)
-              echo "MOD_DIR: $MOD_DIR"
-              go work use $MOD_DIR
-          done
+          go work use -r .
 
           cd cool-tools
           go mod tidy
