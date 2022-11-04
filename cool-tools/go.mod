@@ -2,7 +2,7 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 
 go 1.18
 
-require github.com/gogf/gf/v2 v2.2.1
+require github.com/gogf/gf/v2 v2.2.2
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
