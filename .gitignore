@@ -24,3 +24,5 @@ node_modules
 docs/.vuepress/dist/
 cool-tools/cool-tools
 go.work
+data/mysql/
+data/redis/
