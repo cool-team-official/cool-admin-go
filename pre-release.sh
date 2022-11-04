@@ -1,6 +1,6 @@
 #!/bin/bash
-# 更新cool-tools中打包的资源文件
-# Usage: pack-resource.sh [version]
+# 版本发布前的脚本,设置版本号,更新打包资源,更新相关依赖
+# Usage: pre-release.sh [version]
 
 # 出错时终止执行
 set -e

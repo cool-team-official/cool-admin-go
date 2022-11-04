@@ -4,5 +4,9 @@
 gfcli:
   build:
     name: "cool-tools"
+    arch: "all"
+    system: "linux,darwin,windows"
+    
+
 
 
