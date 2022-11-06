@@ -30,7 +30,7 @@ cd backend
 # 安装依赖
 go mod tidy
 # 开发模式运行后端项目
-gf run backend
+gf run main.go
 ```
 
 ## 创建前端项目

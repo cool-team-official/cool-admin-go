@@ -1,6 +1,7 @@
 version: '3'
 services:
 
+# mysql8 数据库
   mysql8:
     image: mysql:8
     container_name: mysql8
@@ -16,7 +17,8 @@ services:
       - 3306:3306
     volumes:
       - ./data/mysql/:/var/lib/mysql/
-
+  
+# redis 数据库
   redis:
     image: redis
     # command: --requirepass "12345678" # redis库密码,不需要密码注释本行
