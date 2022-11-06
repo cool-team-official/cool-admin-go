@@ -4,6 +4,12 @@
 
 # 确保脚本抛出遇到的错误
 set -e
+# 检测是否存在 package.json,如果不存在，说明运行目录不对
+if [ ! -f "package.json" ]; then
+    echo "package.json not found, please run this script in the root directory of the project"
+    exit 1
+fi
+
 
 # 生成静态文件
 npm run docs:build

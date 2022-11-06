@@ -42,6 +42,15 @@ cool-tools version
 
 Windows 可以直接下载编译后的可执行文件，下载地址：[releases](https://github.com/cool-team-official/cool-admin-go/releases),选择对应的版本下载。下载后复制到`PATH`环境变量中的目录下即可。
 
+::: tip 提示
+在正确地将 GOPATH/bin 目录添加到 PATH 环境变量中后，可以直接使用`go install`命令安装,因为该安装方式为本地编译安装,可享受`goproxy`的加速服务,安装速度更快,适用于所有平台。
+:::
+
+```bash
+go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
+```
+
+
 ## gf
 
 `GoFrame`框架提供了功能强大的`gf`命令行开发辅助工具，是框架发展的一个重要组成部分。
@@ -76,4 +85,4 @@ https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env G
 gf version
 ```
 
-更多`gf`工具的使用说明,可以访问 [https://goframe.org/pages/viewpage.action?pageId=1114260](https://goframe.org/pages/viewpage.action?pageId=1114260) 
+更多`gf`工具的安装使用说明,可以访问 [https://goframe.org/pages/viewpage.action?pageId=1114260](https://goframe.org/pages/viewpage.action?pageId=1114260)
