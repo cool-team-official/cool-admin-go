@@ -28,6 +28,7 @@ module.exports = {
         "/development",
         "/cli",
         "/quick_start",
+        "/config",
         "/known_issues",
       ],
     },

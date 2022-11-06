@@ -3,17 +3,17 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.0.1
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v1.0.1
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.0.1
-	github.com/cool-team-official/cool-admin-go/contrib/files/minio v1.0.1
-	github.com/cool-team-official/cool-admin-go/contrib/files/oss v1.0.1
-	github.com/cool-team-official/cool-admin-go/cool v1.0.1
-	github.com/cool-team-official/cool-admin-go/modules/base v1.0.1
-	github.com/cool-team-official/cool-admin-go/modules/demo v1.0.1
-	github.com/cool-team-official/cool-admin-go/modules/dict v1.0.1
-	github.com/cool-team-official/cool-admin-go/modules/space v1.0.1
-	github.com/cool-team-official/cool-admin-go/modules/task v1.0.1
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.0.2
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v1.0.2
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.0.2
+	github.com/cool-team-official/cool-admin-go/contrib/files/minio v1.0.2
+	github.com/cool-team-official/cool-admin-go/contrib/files/oss v1.0.2
+	github.com/cool-team-official/cool-admin-go/cool v1.0.2
+	github.com/cool-team-official/cool-admin-go/modules/base v1.0.2
+	github.com/cool-team-official/cool-admin-go/modules/demo v1.0.2
+	github.com/cool-team-official/cool-admin-go/modules/dict v1.0.2
+	github.com/cool-team-official/cool-admin-go/modules/space v1.0.2
+	github.com/cool-team-official/cool-admin-go/modules/task v1.0.2
 	github.com/gogf/gf/v2 v2.2.2
 )
 
@@ -42,7 +42,6 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.15.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.1.2 // indirect
-	github.com/kr/text v0.1.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
