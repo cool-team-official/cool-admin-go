@@ -56,8 +56,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if err != nil {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", err)
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -65,8 +64,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if !token.Valid {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -82,8 +80,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		if tokenString != rtoken && config.Config.Jwt.Sso {
 			g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 			statusCode = 401
-			r.Response.WriteStatus(statusCode)
-			r.Response.WriteJsonExit(g.Map{
+			r.Response.WriteStatusExit(statusCode, g.Map{
 				"code":    1001,
 				"message": "登陆失效～",
 			})
@@ -103,8 +100,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if admin.IsRefresh {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -114,8 +110,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if passwordV.Int32() != *admin.PasswordVersion {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "passwordV invalid")
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -124,8 +119,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if rtoken == "" {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "rtoken invalid")
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -134,8 +128,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if tokenString != rtoken && !config.Config.Jwt.Sso {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "token invalid")
 		statusCode = 401
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登陆失效～",
 		})
@@ -150,8 +143,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	if perms.Len() == 0 {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "perms invalid")
 		statusCode = 403
-		r.Response.WriteStatus(statusCode)
-		r.Response.WriteJsonExit(g.Map{
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登录失效或无权限访问~",
 		})
@@ -169,8 +161,8 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	// 如果perms中不包含url 则无权限
 	if !perms.ContainsI(url) {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "perms invalid")
-		r.Response.Status = 403
-		r.Response.WriteJsonExit(g.Map{
+		statusCode = 403
+		r.Response.WriteStatusExit(statusCode, g.Map{
 			"code":    1001,
 			"message": "登录失效或无权限访问~",
 		})
