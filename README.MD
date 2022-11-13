@@ -2,6 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/cool-team-official/cool-admin-go.svg)](https://pkg.go.dev/github.com/cool-team-official/cool-admin-go)
 [![Build Release](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml/badge.svg)](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml)
+[![Goproxy.cn](https://goproxy.cn/stats/github.com/cool-team-official/cool-admin-go/badges/download-count.svg)](https://goproxy.cn)
 
 CoolAdmin 的 Go 版本后端
 

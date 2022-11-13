@@ -2,7 +2,7 @@ version: '3'
 services:
 
 # mysql8 数据库
-  mysql8:
+  mysql:
     image: mysql:8
     container_name: mysql8
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
