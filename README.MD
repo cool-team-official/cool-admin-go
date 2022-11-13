@@ -2,11 +2,13 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/cool-team-official/cool-admin-go.svg)](https://pkg.go.dev/github.com/cool-team-official/cool-admin-go)
 [![Build Release](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml/badge.svg)](https://github.com/cool-team-official/cool-admin-go/actions/workflows/release.yml)
+[![Goproxy.cn](https://goproxy.cn/stats/github.com/cool-team-official/cool-admin-go/badges/download-count.svg)](https://goproxy.cn)
 
 CoolAdmin 的 Go 版本后端
 
 
 - [docs](https://cool-team-official.github.io/cool-admin-go/) - 开发文档
+- [changelog](changelog.md) - 更新日志
 - [github](https://github.com/cool-team-official/cool-admin-go) - cool-admin-go 仓库
 - [release](https://github.com/cool-team-official/cool-admin-go/releases) - cool-tools 编译版本下载
 - [issues](https://github.com/cool-team-official/cool-admin-go/issues) - 问答区

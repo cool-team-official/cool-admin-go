@@ -1,21 +1,27 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "gcslaoli/cool-admin-codespace",
+  "mounts": [
+    {
+      "source": "dind-var-lib-docker-${devcontainerId}",
+      "target": "/var/lib/docker",
+      "type": "volume"
+  }
+  ],
+  "customizations": {
+    "vscode": {
+    "extensions": [
+      "ms-ceintl.vscode-language-pack-zh-hans",
+      "GitHub.vscode-pull-request-github",
+      "github.copilot",
+      "esbenp.prettier-vscode",
+      "vue.volar",
+      "cweijan.vscode-database-client2"
+    ]
+    }
+  },
   "containerEnv": {
     "TZ": "Asia/Shanghai"
   },
-  "features": {},
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-ceintl.vscode-language-pack-zh-hans",
-        "GitHub.vscode-pull-request-github",
-        "ms-azuretools.vscode-docker",
-        "github.copilot",
-        "golang.go",
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "cweijan.vscode-database-client2"
-      ]
-    }
-  }
+  "postCreateCommand": "make init",
+  "remoteUser": "root"
 }
