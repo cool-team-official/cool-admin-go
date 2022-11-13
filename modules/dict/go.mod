@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/modules/dict
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.0.2
+	github.com/cool-team-official/cool-admin-go/cool v1.0.4
 	github.com/gogf/gf/v2 v2.2.2
 )
 
@@ -31,8 +31,8 @@ require (
 	go.opentelemetry.io/otel v1.11.1 // indirect
 	go.opentelemetry.io/otel/sdk v1.11.1 // indirect
 	go.opentelemetry.io/otel/trace v1.11.1 // indirect
-	golang.org/x/net v0.1.0 // indirect
-	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/net v0.2.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/gorm v1.24.1 // indirect

@@ -2,7 +2,7 @@ server:
   address: ":8002"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
-  serverRoot: "resource/public"
+  serverRoot: "public"
   clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
 
 logger:
