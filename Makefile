@@ -13,9 +13,9 @@ cli: ## 安装gf-cli
 	rm ./gf
 
 
-.PHONY: public 
-public: ## 复制前端文件到指定目录并打包
-	bash ./scripts/build-public.sh
+.PHONY: frontend
+front: ## 下载最新cool-admin-vue,并调整参数编译
+	bash ./scripts/frontend.sh
 
 .PHONY: docs
 docs: ## 打开pkgsite文档
