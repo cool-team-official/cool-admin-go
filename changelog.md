@@ -9,6 +9,7 @@
 - 增加make frontend命令,用于构建前端
 - 权限中间件移除部分Debug日志
 - 清理cool-tools模块部分无用文件
+- 引入 gf 的 run命令至cool-tools模块
 
 ## 1.0.5
 
