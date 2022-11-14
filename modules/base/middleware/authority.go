@@ -36,7 +36,6 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	// 无需登录验证
 	AuthOpen := r.GetCtxVar("AuthOpen", false)
 	if AuthOpen.Bool() {
-		g.Log().Debug(ctx, "BaseAuthorityMiddleware", "AuthOpen", url)
 		r.Middleware.Next()
 		return
 	}
@@ -92,7 +91,6 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	// 只验证登录不验证权限的接口
 	AuthComm := r.GetCtxVar("AuthComm", false)
 	if AuthComm.Bool() {
-		g.Log().Debug(ctx, "BaseAuthorityMiddleware", "AuthComm", url)
 		r.Middleware.Next()
 		return
 	}
@@ -139,7 +137,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 	permsVar := permsCache.Strings()
 	// 转换为garray
 	perms := garray.NewStrArrayFrom(permsVar)
-	// 如果perms为空 为无权限
+	// 如果perms为空
 	if perms.Len() == 0 {
 		g.Log().Error(ctx, "BaseAuthorityMiddleware", "perms invalid")
 		statusCode = 403
