@@ -11,6 +11,7 @@
 - 清理cool-tools模块部分无用文件
 - 引入 gf 的 run命令至cool-tools模块
 - 引入 gf 的 build命令至cool-tools模块
+- 调整 cool-tools 使用 hack 目录下的配置文件
 
 ## 1.0.5
 
