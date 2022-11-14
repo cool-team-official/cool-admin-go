@@ -13,15 +13,15 @@ if [ ! -f "Makefile" ]; then
     exit 1
 fi
 # 下载最新的前端代码并打包
-if [ ! -d "$ROOT_DIR/temp" ]; then
-  echo "temp directory not found, creating temp directory"
-  mkdir -p $ROOT_DIR/temp
+if [ ! -d "$ROOT_DIR/data" ]; then
+  echo "data directory not found, creating data directory"
+  mkdir -p $ROOT_DIR/data
 fi
-cd $ROOT_DIR/temp
+cd $ROOT_DIR/data
 # 如果已经存在前端代码,则删除
-if [ -d "$ROOT_DIR/temp/cool-admin-vue" ]; then
+if [ -d "$ROOT_DIR/data/cool-admin-vue" ]; then
   echo "cool-admin-vue directory found, deleting cool-admin-vue directory"
-  rm -rf $ROOT_DIR/temp/cool-admin-vue
+  rm -rf $ROOT_DIR/data/cool-admin-vue
 fi
 # 如果当前为codespace开发环境，则使用git clone,否则使用pgit clone
 if [ "$CODESPACES" = "true" ]; then
@@ -33,11 +33,11 @@ else
 fi
 
 # 进入前端代码目录
-cd $ROOT_DIR/temp/cool-admin-vue
+cd $ROOT_DIR/data/cool-admin-vue
 # 替换 src/cool/config/index.ts 中的 mode: "history" 为 mode: "hash"
 sed -i 's#mode: "history"#mode: "hash"#g' src/cool/config/index.ts
 # 替换 src/cool/config/prod.ts 中的 baseUrl: "/api" 为 baseUrl: "/"
-sed -i 's#baseUrl: "/api"#baseUrl: "/"#g' src/cool/config/prod.ts
+sed -i 's#baseUrl: "/api"#baseUrl: ""#g' src/cool/config/prod.ts
 
 # 替换yarn.lock中的npm镜像地址
 sed -i 's#https://registry.npmjs.org/#https://registry.npmmirror.com/#g' yarn.lock
@@ -49,16 +49,16 @@ echo "Building front-end code"
 yarn build
 
 
-## 如果存在 temp/public 目录,则删除
-cd $ROOT_DIR
-if [ -d "temp/public" ]; then
-  echo "$ROOT_DIR/temp/public directory found, deleting $ROOT_DIR/temp/public directory"
-  rm -rf $ROOT_DIR/temp/public
-fi
-## 移动dist目录到temp目录并重命名为public
-echo "Moving dist directory to temp directory and renaming it to public"
-mv $ROOT_DIR/temp/cool-admin-vue/dist $ROOT_DIR/temp/public
-## gf 打包
-cd $ROOT_DIR/temp
-echo "Packaging public directory"
-gf pack public $ROOT_DIR/internal/packed/public.go -y
+# ## 如果存在 data/public 目录,则删除
+# cd $ROOT_DIR
+# if [ -d "data/public" ]; then
+#   echo "$ROOT_DIR/data/public directory found, deleting $ROOT_DIR/data/public directory"
+#   rm -rf $ROOT_DIR/data/public
+# fi
+# ## 移动dist目录到data目录并重命名为public
+# echo "Moving dist directory to data directory and renaming it to public"
+# mv $ROOT_DIR/data/cool-admin-vue/dist $ROOT_DIR/data/public
+# ## gf 打包
+# cd $ROOT_DIR/data
+# echo "Packaging public directory"
+# gf pack public $ROOT_DIR/internal/packed/public.go -y
