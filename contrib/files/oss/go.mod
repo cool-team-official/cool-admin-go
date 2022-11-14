@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.2.5+incompatible
-	github.com/cool-team-official/cool-admin-go/cool v1.0.5
+	github.com/cool-team-official/cool-admin-go/cool v1.0.6
 	github.com/gogf/gf/v2 v2.2.2
 )
 
