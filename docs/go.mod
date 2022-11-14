@@ -1,3 +1,3 @@
 module github.com/cool-team-official/cool-admin-go/docs
 
-go 1.19
+go 1.18
