@@ -27,3 +27,4 @@ go.work
 data/mysql/
 data/redis/
 go.work.sum
+data/
