@@ -1,13 +1,12 @@
-ROOT_DIR    = $(shell pwd)
-NAMESPACE   = "default"
-DEPLOY_NAME = "template-single"
-DOCKER_NAME = "cool-admin-go-simple"
+.PHONY: help
+help: ## 查看帮助
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-# 安装cool-tools
+
 .PHONY: cool-tools
-cool-tools:
+cool-tools: ## 安装cool-tools
 	@echo "install cool-tools"
-	@go install github.com/cool-team-official/cool-admin-go/cool-tools@master
+	@go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 
 # 安装gf
 .PHONY: gf
@@ -19,23 +18,20 @@ gf:
 	./gf install -y && \
 	rm ./gf
 
-# 开发模式启动
-.PHONY: run
-run:
+.PHONY: dev
+dev: ## 开发模式启动
 	@echo "开发模式启动"
-	@go run main.go
+	@cool-tools run main.go
 
-# 安装依赖
 .PHONY: install
-install:
+install: ## 安装依赖
 	@echo "安装依赖"
 	@go mod tidy
 
-# 编译为二进制文件
 .PHONY: build
-build:
+build: ## 编译为二进制文件
 	@echo "编译为二进制文件"
-	@gf build
+	@cool-tools build
 # 复制前端文件到指定目录并打包
 .PHONY: build.public
 build.public:
