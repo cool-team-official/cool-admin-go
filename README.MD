@@ -6,7 +6,6 @@
 
 CoolAdmin 的 Go 版本后端
 
-
 - [docs](https://cool-team-official.github.io/cool-admin-go/) - 开发文档
 - [changelog](docs/changelog.md) - 更新日志
 - [github](https://github.com/cool-team-official/cool-admin-go) - cool-admin-go 仓库
@@ -44,10 +43,16 @@ CoolAdmin 的 Go 版本后端
 wget -O cool-tools https://github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install  && rm ./cool-tools
 ```
 
-从镜像下载
+如果到直接下载速度过慢，可使用`pgit`加速安装
 
 ```bash
-wget -O cool-tools https://gh.hjmcloud.cn/github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install  && rm ./cool-tools
+pgit wget -O cool-tools https://github.com/cool-team-official/cool-admin-go/releases/latest/download/cool-tools_$(go env GOOS)_$(go env GOARCH) && chmod +x cool-tools && ./cool-tools install  && rm ./cool-tools
+```
+
+通过`go install`安装
+
+```bash
+go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
 ```
 
 验证
@@ -62,30 +67,17 @@ cool-tools version
 cool-tools init hello-world
 ```
 
-### 3.安装`gf`工具
-
-从 github 下载
+### 3.安装依赖
 
 ```bash
-wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install  && rm ./gf
-```
-
-使用镜像下载
-
-```
-wget -O gf https://gh.hjmcloud.cn/github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install  && rm ./gf
-```
-
-### 4.安装依赖
-
-```bash
+cd hellow-world
 go mod tidy
 ```
 
 ### 5.启动开发环境
 
 ```bash
-gf run main.go
+cool-tools run main.go
 ```
 
 enjoy it!
