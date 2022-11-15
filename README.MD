@@ -1,33 +1,27 @@
 # Cool Admin Go Simple
 
-## 开发工具安装
+## 使用
 
-### 安装 gf 工具
-
-```bash
-make gf
-```
-
-### 安装 cool-tools
-
-```bash
-make cool-tools
-```
-
-## 安装依赖
+1. 安装依赖
 
 ```bash
 make install
 ```
 
-## 开发模式启动
+2. 运行
 
 ```bash
-make run
+make dev
 ```
 
-## 编译
+## 集成命令
+
+Makefile 中集成了一些常用的命令，可以直接使用 `make` 命令执行。
 
 ```bash
-make build
+build                          编译为二进制文件
+cool-tools                     安装cool-tools
+dev                            开发模式启动
+help                           查看帮助
+install                        安装依赖
 ```
