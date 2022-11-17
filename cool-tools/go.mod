@@ -2,7 +2,7 @@ module github.com/cool-team-official/cool-admin-go/cool-tools
 
 go 1.18
 
-require github.com/gogf/gf/v2 v2.2.2
+require github.com/gogf/gf/v2 v2.2.4
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
@@ -22,7 +22,7 @@ require (
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/rivo/uniseg v0.4.2 // indirect
+	github.com/rivo/uniseg v0.4.3 // indirect
 	go.opentelemetry.io/otel v1.11.1 // indirect
 	go.opentelemetry.io/otel/sdk v1.11.1 // indirect
 	go.opentelemetry.io/otel/trace v1.11.1 // indirect
