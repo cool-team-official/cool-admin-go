@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 
-	"github.com/cool-team-official/cool-admin-go/cool-tools/internal/utility/mlog"
 	"github.com/gogf/gf/v2/os/gbuild"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
@@ -11,13 +10,14 @@ import (
 )
 
 type sVersion struct {
-	Name     string //程序名称
-	Homepage string //程序主页
-	Version  string //程序版本
-	GoFrame  string //goframe version
-	Golang   string //golang version
-	Git      string //git commit id
-	Time     string //build datetime
+	Name        string //程序名称
+	Homepage    string //程序主页
+	Version     string //程序版本
+	GoFrame     string //goframe version
+	Golang      string //golang version
+	Git         string //git commit id
+	Time        string //build datetime
+	InstallPath string //安装路径
 }
 
 var (
@@ -31,15 +31,16 @@ var (
 
 			// 生成sVersion结构体
 			res := sVersion{
-				Name:     "cool-tools",
-				Homepage: "https://cool-js.com",
-				Version:  binVersion,
-				GoFrame:  info.GoFrame,
-				Golang:   info.Golang,
-				Git:      info.Git,
-				Time:     info.Time,
+				Name:        "cool-tools",
+				Homepage:    "https://cool-js.com",
+				Version:     binVersion,
+				GoFrame:     info.GoFrame,
+				Golang:      info.Golang,
+				Git:         info.Git,
+				Time:        info.Time,
+				InstallPath: gfile.SelfDir(),
 			}
-			mlog.Printf(`CLI Installed At: %s`, gfile.SelfPath())
+			// mlog.Printf(`CLI Installed At: %s`, gfile.SelfPath())
 			gutil.Dump(res)
 			return nil
 		},
