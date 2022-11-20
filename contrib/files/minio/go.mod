@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/cool-team-official/cool-admin-go/cool v1.0.6
 	github.com/gogf/gf/v2 v2.2.4
-	github.com/minio/minio-go/v7 v7.0.43
+	github.com/minio/minio-go/v7 v7.0.44
 )
 
 require (
