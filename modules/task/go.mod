@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/modules/task
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.0.6
+	github.com/cool-team-official/cool-admin-go/cool v1.0.7
 	github.com/gogf/gf/v2 v2.2.4
 	github.com/robfig/cron v1.2.0
 )
