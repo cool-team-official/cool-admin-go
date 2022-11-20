@@ -29,6 +29,7 @@ module.exports = {
         "/cli",
         "/quick_start",
         "/config",
+        "/changelog",
         "/known_issues",
       ],
     },
