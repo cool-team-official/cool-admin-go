@@ -9,7 +9,7 @@ echo "ROOT_DIR: $ROOT_DIR"
 # 如果运行目录不存在Makefile,则退出
 if [ ! -f "Makefile" ]; then
     echo "Makefile not found, please run this script in the project root directory"
-    echo "请使用 make public 命令在项目根目录运行此脚本"
+    echo "请使用 make frontend 命令在项目根目录运行此脚本"
     exit 1
 fi
 # 下载最新的前端代码并打包
