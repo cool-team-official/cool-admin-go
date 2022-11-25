@@ -22,11 +22,6 @@ jobs:
           gf version
           echo ${{github.ref}}
           pwd
-          repository_array=(${GITHUB_REPOSITORY//\// })
-          binname=${repository_array[1]}
-          binname=cool-tools
-          echo ${binname}
-          echo "BIN_NAME=${binname}" >> $GITHUB_ENV
       - name: Build CLI Binary For All Platform
         run: |
           pwd
@@ -44,8 +39,8 @@ jobs:
           cd cool-tools/temp
           for OS in *;do for FILE in $OS/*;\
           do if [[ ${OS} =~ 'windows' ]];\
-          then mv $FILE ${{env.BIN_NAME}}_${OS}.exe && rm -rf $OS;\
-          else mv $FILE ${{env.BIN_NAME}}_$OS && rm -rf $OS;\
+          then mv $FILE cool-tools_${OS}.exe && rm -rf $OS;\
+          else mv $FILE cool-tools_$OS && rm -rf $OS;\
           fi;done;done
           pwd
           ls
@@ -57,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name:     ${{ github.ref }}
-          release_name: ${{env.BIN_NAME}} Release ${{ github.ref }}
+          release_name: cool-tools Release ${{ github.ref }}
           draft:        false
           prerelease:   false
       
@@ -67,4 +62,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          asset_paths: '["cool-tools/temp/${{env.BIN_NAME}}_*"]'
+          asset_paths: '["cool-tools/temp/cool-tools_*"]'
