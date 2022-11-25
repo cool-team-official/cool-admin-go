@@ -34,8 +34,8 @@ pack.docs:
 pack.docs.ssh:
 	@rm -fr temp
 	@mkdir temp || exit 0
-	@cd temp && git clone --depth=1 -b gh-pages git@github.com:cool-team-official/cool-admin-go.git docs
-	@rm -fr temp/docs/.git
+	@cd temp && git clone --depth=1 -b gh-pages git@github.com:cool-team-official/cool-admin-go.git docs/cool-admin-go
+	@rm -fr temp/docs/cool-admin-go/.git
 	@cd temp && gf pack docs ../internal/packed/docs.go -n=packed -y
 	@rm -fr temp/docs
 
