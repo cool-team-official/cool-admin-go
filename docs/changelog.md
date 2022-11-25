@@ -4,6 +4,7 @@
 
 - 更新依赖包版本
 - 调整cool-tools version命令输出格式
+- 修复go install模式安装的cool-tools docs命令无法使用的问题
 
 
 ## 1.0.7
