@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.0.8
+	github.com/cool-team-official/cool-admin-go/cool v1.0.9
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.5
 	github.com/gogf/gf/v2 v2.2.5
 	gorm.io/driver/mysql v1.4.4
