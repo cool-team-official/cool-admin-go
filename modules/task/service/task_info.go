@@ -1,13 +1,14 @@
 package service
 
 import (
+	"time"
+
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/task/model"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/robfig/cron"
-	"time"
 )
 
 type TaskInfoService struct {
@@ -101,9 +102,9 @@ func (s *TaskInfoService) Once(ctx g.Ctx, id int64) error {
 // Log 获取任务日志
 func (s *TaskInfoService) Log(ctx g.Ctx, param g.MapStrStr) (data interface{}, err error) {
 	var (
-		Total = 0
-		Page  = 1
-		Size  = 10
+		Total int64 = 0
+		Page        = 1
+		Size        = 10
 	)
 	taskLog := model.NewTaskLog()
 	m := cool.DBM(taskLog).LeftJoin("task_info", "task_info.id = task_log.taskId")

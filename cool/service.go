@@ -253,14 +253,14 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 
 func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface{}, err error) {
 	var (
-		r     = g.RequestFromCtx(ctx)
-		total = 0
+		r           = g.RequestFromCtx(ctx)
+		total int64 = 0
 	)
 
 	type pagination struct {
-		Page  int `json:"page"`
-		Size  int `json:"size"`
-		Total int `json:"total"`
+		Page  int   `json:"page"`
+		Size  int   `json:"size"`
+		Total int64 `json:"total"`
 	}
 	if req.Size <= 0 {
 		req.Size = 10

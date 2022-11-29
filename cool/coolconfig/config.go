@@ -24,7 +24,6 @@ type file struct {
 	Mode   string `json:"mode"`   // 模式 local oss
 	Domain string `json:"domain"` // 域名 http://
 	Oss    *oss   `json:"oss,omitempty"`
-
 }
 
 // NewConfig new config
@@ -54,7 +53,7 @@ var Config = newConfig()
 
 // GetCfgWithDefault get config with default value
 func GetCfgWithDefault(ctx g.Ctx, key string, defaultValue *g.Var) *g.Var {
-	value, err := g.Cfg().Get(ctx, key)
+	value, err := g.Cfg().GetWithEnv(ctx, key)
 	if err != nil {
 		return defaultValue
 	}

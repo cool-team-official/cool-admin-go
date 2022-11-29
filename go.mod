@@ -3,15 +3,15 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.0.7
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.0.7
-	github.com/cool-team-official/cool-admin-go/cool v1.0.7
-	github.com/cool-team-official/cool-admin-go/modules/base v1.0.6
-	github.com/cool-team-official/cool-admin-go/modules/demo v1.0.6
-	github.com/cool-team-official/cool-admin-go/modules/dict v1.0.7
-	github.com/cool-team-official/cool-admin-go/modules/space v1.0.7
-	github.com/cool-team-official/cool-admin-go/modules/task v1.0.7
-	github.com/gogf/gf/v2 v2.2.4
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.0.8
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.0.8
+	github.com/cool-team-official/cool-admin-go/cool v1.0.8
+	github.com/cool-team-official/cool-admin-go/modules/base v1.0.8
+	github.com/cool-team-official/cool-admin-go/modules/demo v1.0.8
+	github.com/cool-team-official/cool-admin-go/modules/dict v1.0.8
+	github.com/cool-team-official/cool-admin-go/modules/space v1.0.8
+	github.com/cool-team-official/cool-admin-go/modules/task v1.0.8
+	github.com/gogf/gf/v2 v2.2.5
 )
 
 require (
@@ -25,7 +25,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.4 // indirect
+	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.2.5 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
@@ -46,5 +46,5 @@ require (
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.4.4 // indirect
-	gorm.io/gorm v1.24.1 // indirect
+	gorm.io/gorm v1.24.2 // indirect
 )
