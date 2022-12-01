@@ -1,34 +1,37 @@
 # 更新日志
 
+## 1.0.10
+
+- 修复 base/menu/add 不支持数组菜单的问题
+
 ## 1.0.9
 
 - GetCfgWithDefault 函数支持环境变量,优先级 配置文件>环境变量>默认值
-- 更新gf版本至v2.2.5 修复软删除bug
+- 更新 gf 版本至 v2.2.5 修复软删除 bug
 
 ## 1.0.8
 
 - 更新依赖包版本
-- 调整cool-tools version命令输出格式
-- 修复go install模式安装的cool-tools docs命令无法使用的问题
-
+- 调整 cool-tools version 命令输出格式
+- 修复 go install 模式安装的 cool-tools docs 命令无法使用的问题
 
 ## 1.0.7
 
-- 更新gf依赖至v2.2.4
-- cool-tools 增加 -y支持
-- 集成gf pack
+- 更新 gf 依赖至 v2.2.4
+- cool-tools 增加 -y 支持
+- 集成 gf pack
 
 ## 1.0.6
 
-- docs独立为单独mod,减小主库体积
+- docs 独立为单独 mod,减小主库体积
 - 清理部分无用文件,减小主库体积
 - 更新依赖
 - 主库移除内置的前端
-- 增加make frontend命令,用于构建前端
-- 权限中间件移除部分Debug日志
-- 清理cool-tools模块部分无用文件
-- 引入 gf 的 run命令至cool-tools模块
-- 引入 gf 的 build命令至cool-tools模块
+- 增加 make frontend 命令,用于构建前端
+- 权限中间件移除部分 Debug 日志
+- 清理 cool-tools 模块部分无用文件
+- 引入 gf 的 run 命令至 cool-tools 模块
+- 引入 gf 的 build 命令至 cool-tools 模块
 - 调整 cool-tools 使用 hack 目录下的配置文件
 
 ## 1.0.5

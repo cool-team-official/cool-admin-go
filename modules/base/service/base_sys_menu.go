@@ -54,10 +54,30 @@ func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.
 
 // ModifyAfter 修改后
 func (s *BaseSysMenuService) ModifyAfter(ctx context.Context, method string, param g.MapStrAny) (err error) {
-	ids := gconv.Ints(param["ids"])
-	if len(ids) > 0 {
-		_, err = cool.DBM(s.Model).Where("parentId IN (?)", ids).Delete()
+	if method == "Delete" {
+		ids := gconv.Ints(param["ids"])
+		if len(ids) > 0 {
+			_, err = cool.DBM(s.Model).Where("parentId IN (?)", ids).Delete()
+		}
+		return
 	}
+	return
+}
+
+// ServiceAdd 添加
+func (s *BaseSysMenuService) ServiceAdd(ctx context.Context, req *cool.AddReq) (data interface{}, err error) {
+	r := g.RequestFromCtx(ctx)
+	rjson, err := r.GetJson()
+	if err != nil {
+		return
+	}
+	g.DumpWithType(rjson)
+	m := cool.DBM(s.Model)
+	lastInsertId, err := m.Data(rjson).InsertAndGetId()
+	if err != nil {
+		return
+	}
+	data = g.Map{"id": lastInsertId}
 	return
 }
 
