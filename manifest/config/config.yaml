@@ -1,5 +1,5 @@
 server:
-  address: ":8002"
+  address: ":8001"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
   clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
@@ -19,7 +19,7 @@ database:
     charset: "utf8mb4"
     timezone: "Asia/Shanghai"
     # link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
-    # debug: true
+    debug: true
     createdAt: "createTime"
     updatedAt: "updateTime"
     # deletedAt: "delete_at"
