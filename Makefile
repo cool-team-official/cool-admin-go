@@ -48,7 +48,7 @@ mysql-up: ## 启动mysql
 .PHONY: mysql-down
 mysql-down: ## 停止mysql
 	@echo "停止mysql"
-	@docker-compose -f ./docker-compose.yml down mysql
+	@docker-compose -f ./docker-compose.yml stop mysql
 
 # 备份mysql
 .PHONY: mysql-backup
@@ -66,4 +66,16 @@ redis-up: ## 启动redis
 .PHONY: redis-down
 redis-down: ## 停止redis
 	@echo "停止redis"
-	@docker-compose -f ./docker-compose.yml down redis
+	@docker-compose -f ./docker-compose.yml stop redis
+
+# 启动pgsql
+.PHONY: pgsql-up
+pgsql-up: ## 启动pgsql
+	@echo "启动pgsql"
+	@docker-compose -f ./docker-compose.yml up -d pgsql
+
+# 停止pgsql
+.PHONY: pgsql-down
+pgsql-down: ## 停止pgsql
+	@echo "停止pgsql"
+	@docker-compose -f ./docker-compose.yml stop pgsql
