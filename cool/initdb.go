@@ -16,6 +16,11 @@ func InitDB(group string) (*gorm.DB, error) {
 	if group == "" {
 		group = "default"
 	}
+	defer func() {
+		if err := recover(); err != nil {
+			panic("failed to connect database")
+		}
+	}()
 	config := g.DB(group).GetConfig()
 	db, err := cooldb.GetConn(config)
 	if err != nil {
