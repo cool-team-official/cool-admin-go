@@ -102,9 +102,9 @@ func (s *TaskInfoService) Once(ctx g.Ctx, id int64) error {
 // Log 获取任务日志
 func (s *TaskInfoService) Log(ctx g.Ctx, param g.MapStrStr) (data interface{}, err error) {
 	var (
-		Total int64 = 0
-		Page        = 1
-		Size        = 10
+		Total = 0
+		Page  = 1
+		Size  = 10
 	)
 	taskLog := model.NewTaskLog()
 	m := cool.DBM(taskLog).LeftJoin("task_info", "task_info.id = task_log.taskId")
