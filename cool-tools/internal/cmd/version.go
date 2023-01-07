@@ -27,7 +27,7 @@ var (
 		Brief: "查看版本信息",
 		Func: func(ctx context.Context, parser *gcmd.Parser) (err error) {
 			info := gbuild.Info()
-			binVersion := "v1.0.11"
+			binVersion := "v1.0.12"
 
 			// 生成sVersion结构体
 			res := sVersion{
