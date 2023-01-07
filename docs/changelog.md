@@ -1,12 +1,17 @@
 # 更新日志
 
+## 1.0.13
+
+- 增加 pgsql 支持
+- 调整部分表字段类型以兼容 pgsql
+
 ## 1.0.12
 
-- 更新gf版本至v2.2.6(sql统计中total由int64修改为int)
+- 更新 gf 版本至 v2.2.6(sql 统计中 total 由 int64 修改为 int)
 
 ## 1.0.11
 
-- 修复dict模块的bug
+- 修复 dict 模块的 bug
 
 ## 1.0.10
 

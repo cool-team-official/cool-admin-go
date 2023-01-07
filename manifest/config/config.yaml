@@ -9,18 +9,17 @@ logger:
   stdout: true
 
 database:
+  # default:
+  #   type: "pgsql"
+  #   host: "127.0.0.1"
+  #   port: "5432"
+  #   user: "cooltest"
+  #   pass: "123456"
+  #   name: "cooltest"
+  #   debug: true
+  #   createdAt: "createTime"
+  #   updatedAt: "updateTime"
   default:
-    type: "pgsql"
-    host: "127.0.0.1"
-    port: "5432"
-    user: "cooltest"
-    pass: "123456"
-    name: "cooltest"
-    debug: true
-    createdAt: "createTime"
-    updatedAt: "updateTime"
-
-  default2:
     type: "mysql"
     host: "127.0.0.1"
     port: "3306"
@@ -29,18 +28,16 @@ database:
     name: "cooltest"
     charset: "utf8mb4"
     timezone: "Asia/Shanghai"
-    # link: "root:123456@tcp(127.0.0.1:3306)/cooltest?charset=utf8mb4&parseTime=True&loc=Local"
     debug: true
     createdAt: "createTime"
     updatedAt: "updateTime"
-    # deletedAt: "delete_at"
-  default1:
-    type: "sqlite"
-    link: "cool.sqlite"
-    extra: busy_timeout=5000
-    createdAt: "createTime"
-    updatedAt: "updateTime"
-    debug: true
+  # default:
+  #   type: "sqlite"
+  #   link: "cool.sqlite"
+  #   extra: busy_timeout=5000
+  #   createdAt: "createTime"
+  #   updatedAt: "updateTime"
+  #   debug: true
 
 # Redis 配置示例
 redis:
