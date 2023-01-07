@@ -15,6 +15,8 @@ import (
 
 	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql"
 
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
+
 	_ "github.com/cool-team-official/cool-admin-go/modules"
 
 	"github.com/gogf/gf/v2/os/gctx"

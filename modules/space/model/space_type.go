@@ -10,7 +10,7 @@ const TableNameSpaceType = "space_type"
 type SpaceType struct {
 	*cool.Model
 	Name     string `gorm:"column:name;type:varchar(255);not null;comment:类别名称 " json:"name"` // 类别名称
-	ParentID *int32 `gorm:"column:parentId;type:tinyint;comment:父分类ID" json:"parentId"`       // 父分类ID
+	ParentID *int32 `gorm:"column:parentId;comment:父分类ID" json:"parentId"`                    // 父分类ID
 }
 
 // TableName SpaceType's table name

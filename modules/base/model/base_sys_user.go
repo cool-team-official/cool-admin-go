@@ -16,7 +16,7 @@ type BaseSysUser struct {
 	HeadImg      *string `gorm:"column:headImg;type:varchar(255)" json:"headImg"`                  // 头像
 	Phone        *string `gorm:"column:phone;type:varchar(20);index" json:"phone"`                 // 手机
 	Email        *string `gorm:"column:email;type:varchar(255)" json:"email"`                      // 邮箱
-	Status       *int32  `gorm:"column:status;type:tinyint;not null;default:1" json:"status"`      // 状态 0:禁用 1：启用
+	Status       *int32  `gorm:"column:status;not null;default:1" json:"status"`                   // 状态 0:禁用 1：启用
 	Remark       *string `gorm:"column:remark;type:varchar(255)" json:"remark"`                    // 备注
 	SocketID     *string `gorm:"column:socketId;type:varchar(255)" json:"socketId"`                // socketId
 }
