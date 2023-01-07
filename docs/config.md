@@ -117,3 +117,38 @@ docker compose  -f "docker-compose.yml" up -d --build mysql8
 docker compose  -f "docker-compose.yml" down mysql8
 ```
 
+### PostgreSQL 配置
+
+使用`postgresql`数据库时，需在`main.go`中引入`_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"`包，然后在`config.yaml`中配置`postgresql`数据库。
+
+::: warning 注意
+`postgresql`引入应早于使用数据库的包， 为防止编辑器自动排序，可在数据包引入下方加一个空行。
+:::
+
+```go
+// main.go
+import (
+    // 引入postgresql驱动
+    _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
+
+    // 引入其他包
+    "github.com/cool-team-official/cool-admin-go/pkg/dao"
+
+)
+```
+
+配置文件中相关配置如下：
+
+```yaml
+database:
+  default:
+    type: "pgsql" # 数据库类型
+    host: "127.0.0.1" # 数据库地址
+    port: "5432" # 数据库端口
+    user: "cooltest" # 数据库用户名
+    pass: "123456" # 数据库密码
+    name: "cooltest" # 数据库名称
+    debug: true # 是否开启调试模式，开启后会打印SQL日志
+    createdAt: "createTime" # 创建时间字段
+    updatedAt: "updateTime" # 更新时间字段
+```
