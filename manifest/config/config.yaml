@@ -10,6 +10,17 @@ logger:
 
 database:
   default:
+    type: "pgsql"
+    host: "127.0.0.1"
+    port: "5432"
+    user: "cooltest"
+    pass: "123456"
+    name: "cooltest"
+    debug: true
+    createdAt: "createTime"
+    updatedAt: "updateTime"
+
+  default2:
     type: "mysql"
     host: "127.0.0.1"
     port: "3306"

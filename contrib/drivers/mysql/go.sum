@@ -11,8 +11,8 @@ github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMn
 github.com/clbanning/mxj/v2 v2.5.5/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
 github.com/clbanning/mxj/v2 v2.5.7 h1:7q5lvUpaPF/WOkqgIDiwjBJaznaLCCBd78pi8ZyAnE0=
 github.com/clbanning/mxj/v2 v2.5.7/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
-github.com/cool-team-official/cool-admin-go/cool v1.0.11 h1:pfhE63CQuvVONDUFwszPjrsrExAJe+mYlXk6wPd4670=
-github.com/cool-team-official/cool-admin-go/cool v1.0.11/go.mod h1:JhSCF8jvZz4t9vcpXQb5en+1P6++uwcOVuqRB6APj6I=
+github.com/cool-team-official/cool-admin-go/cool v1.0.12 h1:Pqost33dDh/k4I/nxlLwGe2dAKezAI119k2UnrkYe44=
+github.com/cool-team-official/cool-admin-go/cool v1.0.12/go.mod h1:ZZo5Lw5XF/23sQt8O5TvqLTrksna/bpsDd+FxC/CW18=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
