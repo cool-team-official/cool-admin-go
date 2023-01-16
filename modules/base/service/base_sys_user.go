@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
+
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/container/garray"
@@ -51,6 +52,25 @@ func (s *BaseSysUserService) ModifyAfter(ctx context.Context, method string, par
 		// 删除用户时删除相关数据
 		cool.DBM(model.NewBaseSysUserRole()).WhereIn("userId", userIds.Slice()).Delete()
 	}
+	return
+}
+
+// ServiceAdd 方法 添加用户
+func (s *BaseSysUserService) ServiceAdd(ctx context.Context, req *cool.AddReq) (data interface{}, err error) {
+	var (
+		m      = cool.DBM(s.Model)
+		r      = g.RequestFromCtx(ctx)
+		reqmap = r.GetMap()
+	)
+	// 如果reqmap["password"]不为空，则对密码进行md5加密
+	if !r.Get("password").IsNil() {
+		reqmap["password"] = gmd5.MustEncryptString(r.Get("password").String())
+	}
+	lastInsertId, err := m.Data(reqmap).InsertAndGetId()
+	if err != nil {
+		return
+	}
+	data = g.Map{"id": lastInsertId}
 	return
 }
 
@@ -160,7 +180,7 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 	return
 }
 
-//Move 移动用户部门
+// Move 移动用户部门
 func (s *BaseSysUserService) Move(ctx g.Ctx) (err error) {
 	request := g.RequestFromCtx(ctx)
 	departmentId := request.Get("departmentId").Int()
