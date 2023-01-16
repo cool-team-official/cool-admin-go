@@ -16,6 +16,12 @@ require (
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
+	github.com/go-redis/redis/v8 v8.11.5 // indirect
+)
+
+require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/clbanning/mxj/v2 v2.5.7 // indirect
 	github.com/fatih/color v1.13.0 // indirect
@@ -25,6 +31,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gogf/gf/contrib/drivers/mysql/v2 v2.3.0 // indirect
 	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.3.0 // indirect
+	github.com/gogf/gf/contrib/nosql/redis/v2 v2.3.0
 	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
