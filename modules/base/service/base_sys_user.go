@@ -115,7 +115,7 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 		delete(rMap, "password")
 	}
 
-	err = g.DB().Transaction(ctx, func(ctx context.Context, tx *gdb.TX) (err error) {
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) (err error) {
 		roleModel := cool.DBM(model.NewBaseSysUserRole()).TX(tx).Where("userId = ?", userId)
 		roleIds, err := roleModel.Fields("roleId").Array()
 		if err != nil {
