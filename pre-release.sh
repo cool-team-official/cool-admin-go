@@ -7,7 +7,8 @@ set -e
 
 # 读取版本号
 if [ -z "$1" ]; then
-    echo "Usage: pack-resource.sh [version]"
+    echo "Usage: pre-release.sh [version]"
+    echo "Example: pre-release.sh v1.0.0"
     exit 1
 fi
 version=$1
@@ -22,6 +23,9 @@ fi
 
 # 进入脚本所在目录
 cd "$(dirname "$0")"
+
+# 发布文档
+yarn docs:deploy
 
 # 进入cool-tools目录
 cd cool-tools
