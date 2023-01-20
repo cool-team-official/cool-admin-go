@@ -6,8 +6,8 @@ github.com/cespare/xxhash/v2 v2.1.2/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XL
 github.com/clbanning/mxj/v2 v2.5.5/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
 github.com/clbanning/mxj/v2 v2.5.7 h1:7q5lvUpaPF/WOkqgIDiwjBJaznaLCCBd78pi8ZyAnE0=
 github.com/clbanning/mxj/v2 v2.5.7/go.mod h1:hNiWqW14h+kc+MdF9C6/YoRfjEJoR3ou6tn/Qo+ve2s=
-github.com/cool-team-official/cool-admin-go/cool v1.0.13 h1:az2+VARQk/TROq69r64X0Xo2YiNUGBpbKHnT6zuRjVA=
-github.com/cool-team-official/cool-admin-go/cool v1.0.13/go.mod h1:ZZo5Lw5XF/23sQt8O5TvqLTrksna/bpsDd+FxC/CW18=
+github.com/cool-team-official/cool-admin-go/cool v1.0.14 h1:y5hxg69rhVhNQxmOTOwgn4Gv6ISupjUTFSBdL5TdzZs=
+github.com/cool-team-official/cool-admin-go/cool v1.0.14/go.mod h1:NeqlB8aTbJvB+wFQfhCRPJcA5BFaFOI2cj1C+lcFteY=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
@@ -31,11 +31,11 @@ github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LB
 github.com/go-sql-driver/mysql v1.7.0 h1:ueSltNNllEqE3qcWBTD0iQd3IpL/6U+mJxLkazJ7YPc=
 github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
 github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0/go.mod h1:fyg7847qk6SyHyPtNmDHnmrv/HOrqktSC+C9fM+CJOE=
-github.com/gogf/gf/contrib/drivers/mysql/v2 v2.3.0 h1:dStQv/e/Vf8GHkQNe2GN+2l1untFgLZ8APwBlSZHEeI=
-github.com/gogf/gf/contrib/drivers/mysql/v2 v2.3.0/go.mod h1:z+/0qiOwMroAnj5ESuobTv0l5P83rf+XR3r6Fj8WJyk=
+github.com/gogf/gf/contrib/drivers/mysql/v2 v2.3.1 h1:uSZtDmlTFS51A98KPgZElPigSGDi7PPDN6mxeIXtsLo=
+github.com/gogf/gf/contrib/drivers/mysql/v2 v2.3.1/go.mod h1:z+/0qiOwMroAnj5ESuobTv0l5P83rf+XR3r6Fj8WJyk=
 github.com/gogf/gf/v2 v2.0.0/go.mod h1:apktt6TleWtCIwpz63vBqUnw8MX8gWKoZyxgDpXFtgM=
-github.com/gogf/gf/v2 v2.3.0 h1:Uz4z6tMqnpH9azLFrfBX1R1k/73d7QPC2E4Ab8L3y4g=
-github.com/gogf/gf/v2 v2.3.0/go.mod h1:tsbmtwcAl2chcYoq/fP9W2FZf06aw4i89X34nbSHo9Y=
+github.com/gogf/gf/v2 v2.3.1 h1:uptCJK47N6KSRwTBnFAqBWYnYa/OXBkZ0OlhO9CK7bQ=
+github.com/gogf/gf/v2 v2.3.1/go.mod h1:tsbmtwcAl2chcYoq/fP9W2FZf06aw4i89X34nbSHo9Y=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.4.0-rc.1/go.mod h1:ceaxUfeHdC40wWswd/P6IGgMaK3YpKi5j83Wpe3EHw8=
 github.com/golang/protobuf v1.4.0-rc.1.0.20200221234624-67d41d38c208/go.mod h1:xKAWHe0F5eneWXFV3EuXVDTCmh+JuBKY0li0aMyXATA=
@@ -64,9 +64,7 @@ github.com/jinzhu/now v1.1.4/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
 github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/z8=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
-github.com/kr/pretty v0.2.1/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
 github.com/kr/pretty v0.3.0 h1:WgNl7dwNpEZ6jJ9k1snq4pZsg7DOEN8hP9Xw0Tsjwk0=
-github.com/kr/pretty v0.3.0/go.mod h1:640gp4NfQd8pI5XOwp5fnNeVWj67G7CFk/SaSQn7NBk=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
@@ -187,7 +185,6 @@ google.golang.org/protobuf v1.26.0/go.mod h1:9q0QmTI4eRPtz6boOQmLYwt+qCgq0jsYwAQ
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c h1:Hei/4ADfdWqJk1ZMxUNpqntNwaWcugrBjAiHlqqRiVk=
-gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c/go.mod h1:JHkPIbrfpd72SG/EVd6muEfDQjcINNoR0C8j2r3qZ4Q=
 gopkg.in/errgo.v2 v2.1.0/go.mod h1:hNsd1EY+bozCKY1Ytp96fpM3vjJbqLJn88ws8XvfDNI=
 gopkg.in/fsnotify.v1 v1.4.7/go.mod h1:Tz8NjZHkW78fSQdbUxIjBTcgA1z1m8ZHf0WmKUhAMys=
 gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7/go.mod h1:dt/ZhP58zS4L8KSrWDmTeBkI65Dw0HsyUHuEVlX15mw=

@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.0.13
-	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.3.0
-	github.com/gogf/gf/v2 v2.3.0
+	github.com/cool-team-official/cool-admin-go/cool v1.0.14
+	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.3.1
+	github.com/gogf/gf/v2 v2.3.1
 	gorm.io/driver/postgres v1.4.6
 	gorm.io/gorm v1.24.3
 )
