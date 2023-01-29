@@ -5,13 +5,13 @@
 1. 安装依赖
 
 ```bash
-make install
+go mod tidy
 ```
 
 2. 运行
 
 ```bash
-make dev
+cool-tools run main.go
 ```
 
 ## 集成命令
