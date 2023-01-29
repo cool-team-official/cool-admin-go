@@ -19,9 +19,13 @@ make dev
 Makefile 中集成了一些常用的命令，可以直接使用 `make` 命令执行。
 
 ```bash
-build                          编译为二进制文件
-cool-tools                     安装cool-tools
-dev                            开发模式启动
+clean                          清理项目,用于删除开发容器及存储卷,需在本地开发环境执行
 help                           查看帮助
-install                        安装依赖
+init                           初始化项目,用于在开发容器生成后配置一些常用镜像,如: golang, nodejs, docker
+mysql-backup                   备份mysql
+mysql-down                     停止mysql
+mysql-up                       启动mysql
+redis-down                     停止redis
+redis-up                       启动redis
+setmirror                      设置国内镜像源,用于在开发容器生成后配置国内镜像源
 ```
