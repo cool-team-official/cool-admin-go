@@ -34,13 +34,14 @@ type Service struct {
 
 // List/Add接口条件配置
 type QueryOp struct {
-	FieldEQ      []string                                 // 字段等于
-	KeyWordField []string                                 // 模糊搜索匹配的数据库字段
-	AddOrderby   g.MapStrStr                              // 添加排序
-	Where        func(ctx context.Context) []g.Array      // 自定义条件
-	Select       string                                   // 查询字段,多个字段用逗号隔开 如: id,name  或  a.id,a.name,b.name AS bname
-	Join         []*JoinOp                                // 关联查询
-	Extend       func(ctx g.Ctx, m *gdb.Model) *gdb.Model // 追加其他条件
+	FieldEQ      []string                                      // 字段等于
+	KeyWordField []string                                      // 模糊搜索匹配的数据库字段
+	AddOrderby   g.MapStrStr                                   // 添加排序
+	Where        func(ctx context.Context) []g.Array           // 自定义条件
+	Select       string                                        // 查询字段,多个字段用逗号隔开 如: id,name  或  a.id,a.name,b.name AS bname
+	Join         []*JoinOp                                     // 关联查询
+	Extend       func(ctx g.Ctx, m *gdb.Model) *gdb.Model      // 追加其他条件
+	ModifyResult func(ctx g.Ctx, data interface{}) interface{} // 修改结果
 }
 
 // JoinOp 关联查询
@@ -248,6 +249,11 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 	} else {
 		data = result
 	}
+	if s.ListQueryOp != nil {
+		if s.ListQueryOp.ModifyResult != nil {
+			data = s.ListQueryOp.ModifyResult(ctx, data)
+		}
+	}
 	return
 }
 
@@ -389,6 +395,11 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 				Size:  req.Size,
 				Total: total,
 			},
+		}
+	}
+	if s.PageQueryOp != nil {
+		if s.PageQueryOp.ModifyResult != nil {
+			data = s.PageQueryOp.ModifyResult(ctx, data)
 		}
 	}
 	return
