@@ -120,3 +120,104 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 	return
 
 }
+
+// AdminEPS 获取eps
+func (s *BaseOpenService) AppEPS(ctx g.Ctx) (result *g.Var, err error) {
+	c := cool.CacheEPS
+	result, err = c.GetOrSetFunc(ctx, "appEPS", func(ctx g.Ctx) (interface{}, error) {
+		return s.creatAppEPS(ctx)
+	}, 0)
+
+	return
+}
+
+// creatAppEPS 创建app eps
+func (s *BaseOpenService) creatAppEPS(ctx g.Ctx) (appEPS interface{}, err error) {
+	var (
+		baseEpsApp = model.NewBaseEpsApp()
+	)
+
+	type Api struct {
+		Module  string `json:"module"`  // 所属模块名称 例如：base
+		Method  string `json:"method"`  // 请求方法 例如：GET
+		Path    string `json:"path"`    // 请求路径 例如：/welcome
+		Prefix  string `json:"prefix"`  // 路由前缀 例如：/admin/base/open
+		Summary string `json:"summary"` // 描述 例如：欢迎页面
+		Tag     string `json:"tag"`     // 标签 例如：base  好像暂时不用
+		Dts     string `json:"dts"`     // 未知 例如：{} 好像暂时不用
+	}
+	// type Column struct {
+	// }
+	type Module struct {
+		Api     []*Api             `json:"api"`
+		Columns []*cool.ColumnInfo `json:"columns"`
+		Module  string             `json:"module"`
+		Prefix  string             `json:"prefix"`
+	}
+	appeps := make(map[string][]*Module)
+	// 获取所有路由并更新到数据库表 base_eps_admin
+	cool.DBM(baseEpsApp).Where("1=1").Delete()
+	routers := g.Server().GetRoutes()
+	for _, router := range routers {
+		if router.Type == ghttp.HandlerTypeMiddleware || router.Type == ghttp.HandlerTypeHook {
+			continue
+		}
+		if router.Method == "ALL" {
+			continue
+		}
+		routeSplite := gstr.Split(router.Route, "/")
+		if len(routeSplite) < 5 {
+			continue
+		}
+		if routeSplite[1] != "app" {
+			continue
+		}
+		module := routeSplite[2]
+		method := router.Method
+		// 获取最后一个元素加前缀 / 为 path
+		path := "/" + routeSplite[len(routeSplite)-1]
+		// 获取前面的元素为prefix
+		prefix := gstr.Join(routeSplite[0:len(routeSplite)-1], "/")
+		// 获取最后一个元素为summary
+		summary := routeSplite[len(routeSplite)-1]
+		cool.DBM(baseEpsApp).Insert(&Api{
+			Module:  module,
+			Method:  method,
+			Path:    path,
+			Prefix:  prefix,
+			Summary: summary,
+			Tag:     "",
+			Dts:     "",
+		})
+	}
+	// 读取数据库表生成eps
+	// var modules []*Module
+	items, _ := cool.DBM(baseEpsApp).Fields("DISTINCT module,prefix").All()
+	for _, item := range items {
+		module := item["module"].String()
+		prefix := item["prefix"].String()
+		apis, _ := cool.DBM(baseEpsApp).Where("module=? AND prefix=?", module, prefix).All()
+		var apiList []*Api
+		for _, api := range apis {
+			apiList = append(apiList, &Api{
+				Module:  api["module"].String(),
+				Method:  api["method"].String(),
+				Path:    api["path"].String(),
+				Prefix:  api["prefix"].String(),
+				Summary: api["summary"].String(),
+				Tag:     api["tag"].String(),
+				Dts:     api["dts"].String(),
+			})
+		}
+		appeps[module] = append(appeps[module], &Module{
+			Api:     apiList,
+			Columns: cool.ModelInfo[prefix],
+			Module:  module,
+			Prefix:  prefix,
+		})
+
+	}
+
+	appEPS = gjson.New(appeps)
+	return
+}
