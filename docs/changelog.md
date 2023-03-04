@@ -1,5 +1,11 @@
 # 更新日志
 
+## 1.0.18
+
+- 增加app接口下的EPS以匹配cool-uni
+- 更新依赖
+
+
 ## 1.0.17
 
 - list page 接口增加 ModifyAfter 钩子,用于对数据进行修改
