@@ -1,5 +1,9 @@
 # 更新日志
 
+## 1.0.19
+
+- 修复base/parma模块的bug 感谢 @vera-byte
+
 ## 1.0.18
 
 - 增加app接口下的EPS以匹配cool-uni
