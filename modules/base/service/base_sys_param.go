@@ -35,7 +35,7 @@ func (s *BaseSysParamService) HtmlByKey(key string) string {
 		return html
 	}
 	if record.IsEmpty() {
-		html = gstr.Replace(html, "@content", "key notfound")
+		html = gstr.Replace(html, "@content", "keyName notfound")
 		return html
 	}
 	html = gstr.Replace(html, "@content", record["data"].String())
