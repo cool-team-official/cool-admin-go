@@ -29,7 +29,7 @@ func (s *BaseSysParamService) HtmlByKey(key string) string {
 		html = "<html><body>@content</body></html>"
 	)
 	m := cool.DBM(s.Model)
-	record, err := m.Where("key = ?", key).One()
+	record, err := m.Where("keyName = ?", key).One()
 	if err != nil {
 		html = gstr.Replace(html, "@content", err.Error())
 		return html
@@ -68,8 +68,8 @@ func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data s
 	var (
 		m = cool.DBM(s.Model)
 	)
-	key = "param:" + key
-	dataCache, err := cool.CacheManager.Get(ctx, key)
+	rKey := "param:" + key
+	dataCache, err := cool.CacheManager.Get(ctx, rKey)
 	if err != nil {
 		return
 	}
@@ -77,7 +77,7 @@ func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data s
 		data = dataCache.String()
 		return
 	}
-	record, err := m.Where("key = ?", key).One()
+	record, err := m.Where("keyName = ?", key).One()
 	if err != nil {
 		return
 	}
@@ -85,6 +85,6 @@ func (s *BaseSysParamService) DataByKey(ctx context.Context, key string) (data s
 		return
 	}
 	data = record["data"].String()
-	err = cool.CacheManager.Set(ctx, key, data, 0)
+	err = cool.CacheManager.Set(ctx, rKey, data, 0)
 	return
 }
