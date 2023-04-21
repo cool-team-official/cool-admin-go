@@ -2,7 +2,7 @@ server:
   address: ":8001"
   openapiPath: "/api.json"
   swaggerPath: "/swagger"
-  clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
+  clientMaxBodySize: 104857600 # 100MB in bytes 100*1024*1024
 
 logger:
   level: "all"
@@ -25,7 +25,7 @@ database:
     port: "3306"
     user: "root"
     pass: "123456"
-    name: "cooltest"
+    name: "cool"
     charset: "utf8mb4"
     timezone: "Asia/Shanghai"
     debug: true
@@ -49,7 +49,6 @@ cool:
   autoMigrate: true
   eps: true
   file:
-
     mode: "local" # local | minio | oss
     domain: "http://127.0.0.1:8002"
     # oss配置项兼容 minio oss 需要配置bucket公开读
@@ -58,8 +57,8 @@ cool:
       accessKeyID: "accessKeyID"
       secretAccessKey: "secretAccessKey"
       bucketName: "cool-admin-go"
-      useSSL: false            #minio用到
-      location: "us-east-1"    #minio用到
+      useSSL: false #minio用到
+      location: "us-east-1" #minio用到
 
 modules:
   base:
