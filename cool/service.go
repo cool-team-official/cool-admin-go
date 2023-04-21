@@ -200,9 +200,9 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 		}
 		// 如果KeyWordField不为空 则添加查询条件
 		if !r.Get("keyWord").IsEmpty() {
-			if len(s.PageQueryOp.KeyWordField) > 0 {
+			if len(s.ListQueryOp.KeyWordField) > 0 {
 				builder := m.Builder()
-				for _, field := range s.PageQueryOp.KeyWordField {
+				for _, field := range s.ListQueryOp.KeyWordField {
 					g.DumpWithType(field)
 					// builder.WhereLike(field, "%"+r.Get("keyWord").String()+"%")
 					builder = builder.WhereOrLike(field, "%"+r.Get("keyWord").String()+"%")
