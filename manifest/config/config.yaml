@@ -25,7 +25,7 @@ database:
     port: "3306"
     user: "root"
     pass: "123456"
-    name: "cool"
+    name: "cooltest"
     charset: "utf8mb4"
     timezone: "Asia/Shanghai"
     debug: true
