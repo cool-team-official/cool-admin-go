@@ -25,12 +25,13 @@ database:
     port: "3306"
     user: "root"
     pass: "123456"
-    name: "cool"
+    name: "cooltest"
     charset: "utf8mb4"
     timezone: "Asia/Shanghai"
     debug: true
     createdAt: "createTime"
     updatedAt: "updateTime"
+    deletedAt: "deleteTime"
   # default:
   #   type: "sqlite"
   #   link: "cool.sqlite"
@@ -63,10 +64,10 @@ cool:
 modules:
   base:
     jwt:
-      sso: 0
+      sso: false
       secret: "cool-base88776655"
       token:
-        expire: 10 # 2*3600
+        expire: 7200 # 2*3600
         refreshExpire: 1296000 # 24*3600*15
     middleware:
       authority:
