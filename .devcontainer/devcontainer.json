@@ -1,5 +1,5 @@
 {
-  "image": "gcslaoli/cool-admin-codespace:latest",
+  "image": "cnlidong/cool-admin-codespace:latest",
   "mounts": [
     {
       "source": "${localWorkspaceFolder}/scripts/daemon.json",
