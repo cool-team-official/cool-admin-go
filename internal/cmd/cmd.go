@@ -23,8 +23,8 @@ var (
 			s := g.Server()
 
 			// 如果存在 data/cool-admin-vue/dist 目录，则设置为主目录
-			if gfile.IsDir("data/cool-admin-vue/dist") {
-				s.SetServerRoot("data/cool-admin-vue/dist")
+			if gfile.IsDir("frontend/dist") {
+				s.SetServerRoot("frontend/dist")
 			}
 
 			s.Run()
