@@ -146,9 +146,10 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 			"message": "登录失效或无权限访问~",
 		})
 	}
-	// url去除参数部分
-	if gstr.Pos("?", url) > 0 {
-		url = gstr.StrTillEx(url, "?")
+	// 去除url后面的参数，使用字符串分割方法，若长度等于2，则说明有参数，则我们将改写url值进行权限比对
+	parts := gstr.Split(url, "?")
+	if len(parts) == 2 {
+		url = parts[0]
 	}
 	//url 转换为数组
 	urls := gstr.Split(url, "/")
