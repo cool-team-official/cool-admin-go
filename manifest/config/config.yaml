@@ -32,13 +32,13 @@ database:
     createdAt: "createTime"
     updatedAt: "updateTime"
     deletedAt: "deleteTime"
-  # default:
-  #   type: "sqlite"
-  #   link: "cool.sqlite"
-  #   extra: busy_timeout=5000
-  #   createdAt: "createTime"
-  #   updatedAt: "updateTime"
-  #   debug: true
+  baseConfig:
+    type: "sqlite"
+    link: "base-config.sqlite"
+    extra: busy_timeout=5000
+    createdAt: "createTime"
+    updatedAt: "updateTime"
+    debug: true
 
 # Redis 配置示例
 redis:
