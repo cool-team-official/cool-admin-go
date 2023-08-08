@@ -18,5 +18,10 @@ func NewDemoTestService() *DemoTestService {
 
 func (s *DemoTestService) GetDemoTestList() (interface{}, error) {
 	gsvc.SetRegistry(etcd.New(`127.0.0.1:2379`))
+	// var (
+	// 	adapter = new(Adapter)
+	// )
+	// cf := g.Cfg().SetAdapter(adapter)
+
 	return nil, nil
 }
