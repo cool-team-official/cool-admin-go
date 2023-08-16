@@ -30,3 +30,4 @@ go.work.sum
 data/
 gf
 __debug_*
+default.etcd
