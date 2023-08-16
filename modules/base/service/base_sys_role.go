@@ -69,13 +69,13 @@ func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuI
 }
 
 // GetByUser get array  roleId by userId
-func (s *BaseSysRoleService) GetByUser(userId uint) []uint {
+func (s *BaseSysRoleService) GetByUser(userId uint) []string {
 	var (
-		roles []uint
+		roles []string
 	)
 	res, _ := cool.DBM(baseSysUserRole).Where("userId = ?", userId).Array("roleId")
 	for _, v := range res {
-		roles = append(roles, gconv.Uint(v))
+		roles = append(roles, gconv.String(v))
 	}
 	return roles
 }
