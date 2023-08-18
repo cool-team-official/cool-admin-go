@@ -39,16 +39,9 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 		r.Middleware.Next()
 		return
 	}
-	type Claims struct {
-		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []uint `json:"roleIds"`
-		Username        string `json:"username"`
-		UserId          uint   `json:"userId"`
-		PasswordVersion *int32 `json:"passwordVersion"`
-		jwt.RegisteredClaims
-	}
+
 	tokenString := r.GetHeader("Authorization")
-	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &cool.Claims{}, func(token *jwt.Token) (interface{}, error) {
 
 		return []byte(config.Config.Jwt.Secret), nil
 	})
@@ -68,7 +61,7 @@ func BaseAuthorityMiddleware(r *ghttp.Request) {
 			"message": "登陆失效～",
 		})
 	}
-	admin := token.Claims.(*Claims)
+	admin := token.Claims.(*cool.Claims)
 	// 将用户信息放入上下文
 	r.SetCtxVar("admin", admin)
 
