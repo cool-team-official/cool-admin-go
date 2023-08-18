@@ -17,7 +17,7 @@ type BaseSysMenuService struct {
 }
 
 // GetPerms 获取菜单的权限
-func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
+func (s *BaseSysMenuService) GetPerms(roleIds []string) []string {
 	var (
 		perms  []string
 		result gdb.Result
@@ -40,7 +40,7 @@ func (s *BaseSysMenuService) GetPerms(roleIds []uint) []string {
 }
 
 // GetMenus 获取菜单
-func (s *BaseSysMenuService) GetMenus(roleIds []uint, isAdmin bool) (result gdb.Result) {
+func (s *BaseSysMenuService) GetMenus(roleIds []string, isAdmin bool) (result gdb.Result) {
 	// 屏蔽 base_sys_role_menu.id 防止部分权限的用户登录时菜单渲染错误
 	m := cool.DBM(s.Model).As("a").Fields("a.*")
 	if isAdmin {

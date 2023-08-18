@@ -32,9 +32,9 @@ database:
     createdAt: "createTime"
     updatedAt: "updateTime"
     deletedAt: "deleteTime"
-  # default:
+  # baseConfig:
   #   type: "sqlite"
-  #   link: "cool.sqlite"
+  #   link: "base-config.sqlite"
   #   extra: busy_timeout=5000
   #   createdAt: "createTime"
   #   updatedAt: "updateTime"
@@ -67,7 +67,7 @@ modules:
       sso: false
       secret: "cool-base88776655"
       token:
-        expire: 7200 # 2*3600
+        expire: 10 # 2*3600
         refreshExpire: 1296000 # 24*3600*15
     middleware:
       authority:

@@ -1,6 +1,9 @@
 package cool
 
 import (
+	"context"
+
+	"github.com/gogf/gf/i18n/gi18n"
 	"github.com/gogf/gf/v2/database/gredis"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gbuild"
@@ -17,6 +20,7 @@ var (
 	ProcessFlag  = guid.S()                  // 定义全局进程标识
 	RunMode      = "dev"                     // 定义全局运行模式
 	IsRedisMode  = false                     // 定义全局是否为redis模式
+	I18n         = gi18n.New()               // 定义全局国际化对象
 )
 
 func init() {
@@ -46,11 +50,11 @@ func init() {
 		CacheManager.SetAdapter(gcache.NewAdapterRedis(redis))
 		IsRedisMode = true
 	}
-
 	g.Log().Debug(ctx, "当前运行模式", RunMode)
 	g.Log().Debug(ctx, "当前实例ID:", ProcessFlag)
 	g.Log().Debug(ctx, "是否缓存模式:", IsRedisMode)
 	g.Log().Debug(ctx, "module cool init finished ...")
+
 }
 
 // cool.OK 正常返回
@@ -65,7 +69,7 @@ func Ok(data interface{}) *BaseRes {
 
 	return &BaseRes{
 		Code:    1000,
-		Message: "success",
+		Message: I18n.Translate(context.TODO(), "BaseResMessage"),
 		Data:    data,
 	}
 }

@@ -14,11 +14,13 @@ Linux 及 WSL2 下推荐使用 root 用户进行开发.
 
 一般选择 LTS 版本即可。
 
-MacOS 下可使用 Homebrew 进行安装：
+MacOS 下可使用 Homebrew 进行安装 nvm：
 
 ```bash
-brew install node
+brew install nvm
 ```
+
+nvm 是 node 版本管理工具，可以通过`nvm install <version>` 安装指定版本，使用 `nvm use  <version>` 切换版本。
 
 或者直接下载 pkg 安装包进行安装。
 

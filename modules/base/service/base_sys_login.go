@@ -10,6 +10,7 @@ import (
 	v1 "github.com/cool-team-official/cool-admin-go/modules/base/api/v1"
 	"github.com/cool-team-official/cool-admin-go/modules/base/config"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
+
 	"github.com/gogf/gf/v2/crypto/gmd5"
 	"github.com/gogf/gf/v2/encoding/gbase64"
 	"github.com/gogf/gf/v2/errors/gerror"
@@ -24,10 +25,10 @@ type BaseSysLoginService struct {
 }
 
 type TokenResult struct {
-	Expire         uint   `json:"expire"`
-	Token          string `json:"token"`
-	RefreshExpires uint   `json:"refreshExpires"`
-	RefreshToken   string `json:"refreshToken"`
+	Expire        uint   `json:"expire"`
+	Token         string `json:"token"`
+	RefreshExpire uint   `json:"refreshExpire"`
+	RefreshToken  string `json:"refreshToken"`
 }
 
 // Login 登录
@@ -97,22 +98,14 @@ func (*BaseSysLoginService) Logout(ctx context.Context) (err error) {
 
 // RefreshToken 刷新token
 func (s *BaseSysLoginService) RefreshToken(ctx context.Context, token string) (result *TokenResult, err error) {
-	type Claims struct {
-		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []uint `json:"roleIds"`
-		Username        string `json:"username"`
-		UserId          uint   `json:"userId"`
-		PasswordVersion *int32 `json:"passwordVersion"`
-		jwt.RegisteredClaims
-	}
 
-	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+	tokenClaims, err := jwt.ParseWithClaims(token, &cool.Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(config.Config.Jwt.Secret), nil
 	})
 	if err != nil {
 		return
 	}
-	claims, ok := tokenClaims.Claims.(*Claims)
+	claims, ok := tokenClaims.Claims.(*cool.Claims)
 	if !ok {
 		err = gerror.New("tokenClaims.Claims.(*Claims) error")
 		return
@@ -146,26 +139,20 @@ func (s *BaseSysLoginService) RefreshToken(ctx context.Context, token string) (r
 }
 
 // generateToken  生成token
-func (*BaseSysLoginService) generateToken(ctx context.Context, user *model.BaseSysUser, roleIds []uint, exprire uint, isRefresh bool) (token string) {
+func (*BaseSysLoginService) generateToken(ctx context.Context, user *model.BaseSysUser, roleIds []string, exprire uint, isRefresh bool) (token string) {
 	err := cool.CacheManager.Set(ctx, "admin:passwordVersion:"+gconv.String(user.ID), gconv.String(user.PasswordV), 0)
 	if err != nil {
 		g.Log().Error(ctx, "生成token失败", err)
 	}
-	type Claims struct {
-		IsRefresh       bool   `json:"isRefresh"`
-		RoleIds         []uint `json:"roleIds"`
-		Username        string `json:"username"`
-		UserId          uint   `json:"userId"`
-		PasswordVersion *int32 `json:"passwordVersion"`
-		jwt.RegisteredClaims
-	}
-	claims := &Claims{
+
+	claims := &cool.Claims{
 		IsRefresh:       isRefresh,
 		RoleIds:         roleIds,
 		Username:        user.Username,
 		UserId:          user.ID,
 		PasswordVersion: user.PasswordV,
 		RegisteredClaims: jwt.RegisteredClaims{
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(exprire) * time.Second)),
 		},
 	}
@@ -196,9 +183,9 @@ func (s *BaseSysLoginService) generateTokenByUser(ctx context.Context, user *mod
 	// 生成token
 	result = &TokenResult{}
 	result.Expire = config.Config.Jwt.Token.Expire
-	result.RefreshExpires = config.Config.Jwt.Token.RefreshExpire
+	result.RefreshExpire = config.Config.Jwt.Token.RefreshExpire
 	result.Token = s.generateToken(ctx, user, roleIds, result.Expire, false)
-	result.RefreshToken = s.generateToken(ctx, user, roleIds, result.RefreshExpires, true)
+	result.RefreshToken = s.generateToken(ctx, user, roleIds, result.RefreshExpire, true)
 	// 将用户相关信息保存到缓存
 	perms := baseSysMenuService.GetPerms(roleIds)
 	departments := baseSysDepartmentService.GetByRoleIds(roleIds, user.Username == "admin")

@@ -13,7 +13,7 @@ type BaseSysDepartmentService struct {
 }
 
 // GetByRoleIds 获取部门
-func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (res []uint) {
+func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []string, isAdmin bool) (res []uint) {
 	var (
 		result                gdb.Result
 		BaseSysRoleDepartment = model.NewBaseSysRoleDepartment()
@@ -44,7 +44,7 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []uint, isAdmin bool) (r
 	return
 }
 
-//Order 排序部门
+// Order 排序部门
 func (s *BaseSysDepartmentService) Order(ctx g.Ctx) (err error) {
 	r := g.RequestFromCtx(ctx).GetMap()
 

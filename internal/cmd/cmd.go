@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
+	i18n "github.com/cool-team-official/cool-admin-go/modules/base/middleware"
+
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"github.com/gogf/gf/v2/os/gfile"
@@ -26,7 +28,8 @@ var (
 			if gfile.IsDir("frontend/dist") {
 				s.SetServerRoot("frontend/dist")
 			}
-
+			// i18n 信息
+			s.BindHandler("/i18n", i18n.I18nInfo)
 			s.Run()
 			return nil
 		},

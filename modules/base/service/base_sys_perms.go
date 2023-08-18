@@ -16,7 +16,7 @@ func NewBaseSysPermsService() *BaseSysPermsService {
 }
 
 // permmenu 方法
-func (c *BaseSysPermsService) Permmenu(ctx context.Context, roleIds []uint) (res interface{}) {
+func (c *BaseSysPermsService) Permmenu(ctx context.Context, roleIds []string) (res interface{}) {
 	type permmenu struct {
 		Perms []string   `json:"perms"`
 		Menus gdb.Result `json:"menus"`

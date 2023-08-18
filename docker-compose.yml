@@ -1,7 +1,6 @@
-version: '3'
+version: "3"
 services:
-
-# mysql8 数据库
+  # mysql8 数据库
   mysql:
     image: mysql:8
     container_name: mysql8
@@ -17,8 +16,8 @@ services:
       - 3306:3306
     volumes:
       - ./data/mysql/:/var/lib/mysql/
-  
-# redis 数据库
+
+  # redis 数据库
   redis:
     image: redis
     # command: --requirepass "12345678" # redis库密码,不需要密码注释本行
@@ -30,7 +29,7 @@ services:
     ports:
       - 6379:6379
 
-# PostgreSQL 数据库
+  # PostgreSQL 数据库
   pgsql:
     image: postgres
     # restart: always
@@ -43,3 +42,22 @@ services:
       - ./data/pgsql/:/var/lib/postgresql/data/
     ports:
       - 5432:5432
+  etcd1:
+    image: bitnami/etcd:latest
+    restart: always
+    container_name: etcd1
+    environment:
+      - ETCD_NAME=etcd1
+      - ETCD_LISTEN_PEER_URLS=http://etcd1:12380
+      - ETCD_LISTEN_CLIENT_URLS=http://etcd1:12379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd1:12379
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd1:12380
+      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-cluster
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:12380,etcd2=http://etcd2:22380,etcd3=http://etcd3:32380
+      - ETCD_INITIAL_CLUSTER_TIMEOUT=5000
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ALLOW_NONE_AUTHENTICATION=yes
+    volumes:
+      - ./data/etcd1/:/bitnami/etcd
+    ports:
+      - 12379:12379
