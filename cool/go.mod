@@ -8,6 +8,8 @@ require (
 	gorm.io/gorm v1.25.4
 )
 
+require github.com/clbanning/mxj v1.8.5-0.20200714211355-ff02cfb8ea28 // indirect
+
 require (
 	github.com/clbanning/mxj v1.8.5-0.20200714211355-ff02cfb8ea28 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect

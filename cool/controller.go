@@ -22,7 +22,7 @@ type IController interface {
 	Page(ctx context.Context, req *PageReq) (res *BaseRes, err error)
 }
 type Controller struct {
-	Perfix  string     `json:"perfix"`
+	Prefix  string     `json:"prefix"`
 	Api     g.ArrayStr `json:"api"`
 	Service IService   `json:"service"`
 }
@@ -152,11 +152,11 @@ func RegisterController(c IController) {
 	gconv.Struct(c, &sController)
 	if coolconfig.Config.Eps {
 		model := sController.Service.GetModel()
-		columns := getModelInfo(ctx, sController.Perfix, model)
-		ModelInfo[sController.Perfix] = columns
+		columns := getModelInfo(ctx, sController.Prefix, model)
+		ModelInfo[sController.Prefix] = columns
 	}
 	g.Server().Group(
-		sController.Perfix, func(group *ghttp.RouterGroup) {
+		sController.Prefix, func(group *ghttp.RouterGroup) {
 			group.Middleware(MiddlewareHandlerResponse)
 			group.Bind(
 				c,
@@ -173,11 +173,11 @@ type ColumnInfo struct {
 	Type         string `json:"type"`
 }
 
-// ModelInfo 路由perfix	对应的model信息
+// ModelInfo 路由prefix	对应的model信息
 var ModelInfo = make(map[string][]*ColumnInfo)
 
 // getModelInfo 获取模型信息
-func getModelInfo(ctx g.Ctx, perfix string, model IModel) (columns []*ColumnInfo) {
+func getModelInfo(ctx g.Ctx, prefix string, model IModel) (columns []*ColumnInfo) {
 	fields, err := g.DB(model.GroupName()).TableFields(ctx, model.TableName())
 	if err != nil {
 		panic(err)
