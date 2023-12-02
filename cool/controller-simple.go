@@ -9,7 +9,7 @@ import (
 type IControllerSimple interface {
 }
 type ControllerSimple struct {
-	Perfix string
+	Prefix string
 }
 
 // 注册不带crud的路由
@@ -18,7 +18,7 @@ func RegisterControllerSimple(c IControllerSimple) {
 	// var sService = &Service{}
 	gconv.Struct(c, &sController)
 	g.Server().Group(
-		sController.Perfix, func(group *ghttp.RouterGroup) {
+		sController.Prefix, func(group *ghttp.RouterGroup) {
 			group.Middleware(MiddlewareHandlerResponse)
 			group.Bind(
 				c,
