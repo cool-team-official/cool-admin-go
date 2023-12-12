@@ -2,11 +2,12 @@
 package mysql
 
 import (
+	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
+
 	"fmt"
 	"net/url"
 
 	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
-	_ "github.com/gogf/gf/contrib/drivers/mysql/v2"
 	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/text/gregex"
