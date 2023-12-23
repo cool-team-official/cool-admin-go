@@ -4,8 +4,8 @@ go 1.18
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.1+incompatible
-	github.com/cool-team-official/cool-admin-go/cool v1.5.3
-	github.com/gogf/gf/v2 v2.5.7
+	github.com/cool-team-official/cool-admin-go/cool v1.5.4
+	github.com/gogf/gf/v2 v2.6.1
 )
 
 require (
@@ -14,7 +14,7 @@ require (
 	github.com/clbanning/mxj/v2 v2.7.0 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/go-logr/logr v1.3.0 // indirect
+	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/gogf/gf v1.16.9 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
