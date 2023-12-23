@@ -14,7 +14,7 @@ type BaseSysParamController struct {
 func init() {
 	var base_sys_param_controller = &BaseSysParamController{
 		&cool.Controller{
-			Perfix:  "/admin/base/sys/param",
+			Prefix:  "/admin/base/sys/param",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewBaseSysParamService(),
 		},

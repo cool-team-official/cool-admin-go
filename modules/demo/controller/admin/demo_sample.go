@@ -17,7 +17,7 @@ type DemoSampleController struct {
 func init() {
 	var demo_sample_controller = &DemoSampleController{
 		&cool.Controller{
-			Perfix:  "/admin/demo/demo_sample",
+			Prefix:  "/admin/demo/demo_sample",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewDemoSampleService(),
 		},

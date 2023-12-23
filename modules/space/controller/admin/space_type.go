@@ -12,7 +12,7 @@ type SpaceTypeController struct {
 func init() {
 	var space_type_controller = &SpaceTypeController{
 		&cool.Controller{
-			Perfix:  "/admin/space/type",
+			Prefix:  "/admin/space/type",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewSpaceTypeService(),
 		},

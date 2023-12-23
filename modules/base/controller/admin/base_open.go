@@ -17,7 +17,7 @@ type BaseOpen struct {
 
 func init() {
 	var open = &BaseOpen{
-		ControllerSimple:    &cool.ControllerSimple{Perfix: "/admin/base/open"},
+		ControllerSimple:    &cool.ControllerSimple{Prefix: "/admin/base/open"},
 		baseSysLoginService: service.NewBaseSysLoginService(),
 		baseOpenService:     service.NewBaseOpenService(),
 	}

@@ -12,7 +12,7 @@ type BaseSysMenuController struct {
 func init() {
 	var base_sys_menu_controller = &BaseSysMenuController{
 		&cool.Controller{
-			Perfix:  "/admin/base/sys/menu",
+			Prefix:  "/admin/base/sys/menu",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewBaseSysMenuService(),
 		},

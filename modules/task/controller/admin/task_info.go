@@ -15,7 +15,7 @@ type TaskInfoController struct {
 func init() {
 	var task_info_controller = &TaskInfoController{
 		&cool.Controller{
-			Perfix:  "/admin/task/info",
+			Prefix:  "/admin/task/info",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page", "Start", "Stop"},
 			Service: service.NewTaskInfoService(),
 		},

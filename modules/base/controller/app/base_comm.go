@@ -16,7 +16,7 @@ type BaseCommController struct {
 func init() {
 	var base_comm_controller = &BaseCommController{
 		&cool.ControllerSimple{
-			Perfix: "/app/base/comm",
+			Prefix: "/app/base/comm",
 			//    Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			//    Service: service.NewBaseCommService(),
 		},
