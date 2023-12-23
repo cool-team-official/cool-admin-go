@@ -38,7 +38,7 @@
       "func init() {",
       "       var ${TM_FILENAME_BASE/(.*)/${1:/downcase}/}_controller = &${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Controller{",
       "               &cool.Controller{",
-      "                       Perfix:  \"/admin/demo/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\",",
+      "                       Prefix:  \"/admin/demo/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\",",
       "                       Api:     []string{\"Add\", \"Delete\", \"Update\", \"Info\", \"List\", \"Page\"},",
       "                       Service: service.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service(),",
       "               },",

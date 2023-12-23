@@ -15,7 +15,7 @@ type BaseCommController struct {
 func init() {
 	var base_comm_controller = &BaseCommController{
 		ControllerSimple: &cool.ControllerSimple{
-			Perfix: "/admin/base/comm",
+			Prefix: "/admin/base/comm",
 		},
 	}
 	// 注册路由

@@ -12,7 +12,7 @@ type DictTypeController struct {
 func init() {
 	var dict_type_controller = &DictTypeController{
 		&cool.Controller{
-			Perfix:  "/admin/dict/type",
+			Prefix:  "/admin/dict/type",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewDictTypeService(),
 		},
