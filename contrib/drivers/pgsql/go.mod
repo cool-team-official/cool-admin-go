@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.5.4
+	github.com/cool-team-official/cool-admin-go/cool v1.5.5
 	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.6.1
 	github.com/gogf/gf/v2 v2.6.1
 	gorm.io/driver/postgres v1.5.4
@@ -40,8 +40,8 @@ require (
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sync v0.6.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
