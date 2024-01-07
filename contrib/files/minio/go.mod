@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/files/minio
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.5.4
+	github.com/cool-team-official/cool-admin-go/cool v1.5.5
 	github.com/gogf/gf/v2 v2.6.1
 	github.com/minio/minio-go/v7 v7.0.66
 )
@@ -47,7 +47,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

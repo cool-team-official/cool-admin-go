@@ -3,7 +3,7 @@ module github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/cool v1.5.4
+	github.com/cool-team-official/cool-admin-go/cool v1.5.5
 	github.com/glebarez/sqlite v1.10.0
 	github.com/gogf/gf/v2 v2.6.1
 	gorm.io/gorm v1.25.5
@@ -15,7 +15,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/glebarez/go-sqlite v1.21.2 // indirect
+	github.com/glebarez/go-sqlite v1.22.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/google/uuid v1.5.0 // indirect
@@ -37,10 +37,10 @@ require (
 	go.opentelemetry.io/otel/sdk v1.21.0 // indirect
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
 	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	modernc.org/libc v1.38.0 // indirect
+	modernc.org/libc v1.38.1 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.7.2 // indirect
 	modernc.org/sqlite v1.28.0 // indirect
