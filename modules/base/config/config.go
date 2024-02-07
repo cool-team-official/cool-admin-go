@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 // sConfig 配置
@@ -67,6 +68,8 @@ var Config = NewConfig()
 
 func init() {
 	// 初始化配置 修正弱口令
+	ctx := gctx.GetInitCtx()
+
 	jwtSecret := Config.Jwt.Secret
 	if jwtSecret == "" {
 		Config.Jwt.Secret = cool.ProcessFlag
@@ -77,4 +80,5 @@ func init() {
 	if jwtSecret == "cool-admin-go" {
 		Config.Jwt.Secret = cool.ProcessFlag
 	}
+	g.Log().Info(ctx, "jwt secret:", Config.Jwt.Secret)
 }
