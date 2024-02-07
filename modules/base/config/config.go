@@ -64,3 +64,17 @@ func NewConfig() *sConfig {
 
 // Config config
 var Config = NewConfig()
+
+func init() {
+	// 初始化配置 修正弱口令
+	jwtSecret := Config.Jwt.Secret
+	if jwtSecret == "" {
+		Config.Jwt.Secret = cool.ProcessFlag
+	}
+	if jwtSecret == "chatgpt-share-server" {
+		Config.Jwt.Secret = cool.ProcessFlag
+	}
+	if jwtSecret == "cool-admin-go" {
+		Config.Jwt.Secret = cool.ProcessFlag
+	}
+}
