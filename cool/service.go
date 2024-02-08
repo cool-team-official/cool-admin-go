@@ -203,7 +203,7 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 			if len(s.ListQueryOp.KeyWordField) > 0 {
 				builder := m.Builder()
 				for _, field := range s.ListQueryOp.KeyWordField {
-					g.DumpWithType(field)
+					// g.DumpWithType(field)
 					// builder.WhereLike(field, "%"+r.Get("keyWord").String()+"%")
 					builder = builder.WhereOrLike(field, "%"+r.Get("keyWord").String()+"%")
 				}
@@ -305,7 +305,7 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 			if len(s.PageQueryOp.KeyWordField) > 0 {
 				builder := m.Builder()
 				for _, field := range s.PageQueryOp.KeyWordField {
-					g.DumpWithType(field)
+					// g.DumpWithType(field)
 					// builder.WhereLike(field, "%"+r.Get("keyWord").String()+"%")
 					builder = builder.WhereOrLike(field, "%"+r.Get("keyWord").String()+"%")
 				}

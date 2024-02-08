@@ -3,15 +3,15 @@ module github.com/cool-team-official/cool-admin-go
 go 1.18
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.5.7
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql v1.5.7
-	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.5.7
-	github.com/cool-team-official/cool-admin-go/cool v1.5.7
-	github.com/cool-team-official/cool-admin-go/modules/base v1.5.7
-	github.com/cool-team-official/cool-admin-go/modules/demo v1.5.7
-	github.com/cool-team-official/cool-admin-go/modules/dict v1.5.7
-	github.com/cool-team-official/cool-admin-go/modules/space v1.5.7
-	github.com/cool-team-official/cool-admin-go/modules/task v1.5.7
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.5.8
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql v1.5.8
+	github.com/cool-team-official/cool-admin-go/contrib/files/local v1.5.8
+	github.com/cool-team-official/cool-admin-go/cool v1.5.8
+	github.com/cool-team-official/cool-admin-go/modules/base v1.5.8
+	github.com/cool-team-official/cool-admin-go/modules/demo v1.5.8
+	github.com/cool-team-official/cool-admin-go/modules/dict v1.5.8
+	github.com/cool-team-official/cool-admin-go/modules/space v1.5.8
+	github.com/cool-team-official/cool-admin-go/modules/task v1.5.8
 	github.com/gogf/gf/v2 v2.6.3
 )
 
@@ -20,7 +20,7 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/redis/go-redis/v9 v9.4.0 // indirect
-	go.opentelemetry.io/otel/metric v1.23.0 // indirect
+	go.opentelemetry.io/otel/metric v1.23.1 // indirect
 	golang.org/x/sync v0.6.0 // indirect
 )
 
@@ -49,14 +49,14 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/rivo/uniseg v0.4.6 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
-	go.opentelemetry.io/otel v1.23.0 // indirect
-	go.opentelemetry.io/otel/sdk v1.23.0 // indirect
-	go.opentelemetry.io/otel/trace v1.23.0 // indirect
-	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/net v0.20.0 // indirect
-	golang.org/x/sys v0.16.0 // indirect
+	go.opentelemetry.io/otel v1.23.1 // indirect
+	go.opentelemetry.io/otel/sdk v1.23.1 // indirect
+	go.opentelemetry.io/otel/trace v1.23.1 // indirect
+	golang.org/x/crypto v0.19.0 // indirect
+	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/sys v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.4 // indirect
