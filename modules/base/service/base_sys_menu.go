@@ -71,7 +71,7 @@ func (s *BaseSysMenuService) ServiceAdd(ctx context.Context, req *cool.AddReq) (
 	if err != nil {
 		return
 	}
-	g.DumpWithType(rjson)
+	// g.DumpWithType(rjson)
 	m := cool.DBM(s.Model)
 	lastInsertId, err := m.Data(rjson).InsertAndGetId()
 	if err != nil {
