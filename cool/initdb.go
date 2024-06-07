@@ -1,6 +1,12 @@
 package cool
 
 import (
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite"
+
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql"
+
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
+
 	"github.com/cool-team-official/cool-admin-go/cool/cooldb"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
