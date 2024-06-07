@@ -13,12 +13,6 @@ import (
 	// 阿里云OSS，按需启用
 	// _ "github.com/cool-team-official/cool-admin-go/contrib/files/oss"
 
-	// _ "github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite"
-
-	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql"
-
-	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql"
-
 	_ "github.com/cool-team-official/cool-admin-go/modules"
 
 	"github.com/gogf/gf/v2/os/gctx"
