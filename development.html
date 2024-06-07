@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>开发环境 | CoolAdminGo文档</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="CoolAdminGo文档">
+    
+    <link rel="preload" href="/cool-admin-go/assets/css/0.styles.3be1b0cf.css" as="style"><link rel="preload" href="/cool-admin-go/assets/js/app.20eace83.js" as="script"><link rel="preload" href="/cool-admin-go/assets/js/2.eeb24f79.js" as="script"><link rel="preload" href="/cool-admin-go/assets/js/11.f22c2996.js" as="script"><link rel="prefetch" href="/cool-admin-go/assets/js/10.4944d941.js"><link rel="prefetch" href="/cool-admin-go/assets/js/12.01d299c7.js"><link rel="prefetch" href="/cool-admin-go/assets/js/13.ed1eb9fb.js"><link rel="prefetch" href="/cool-admin-go/assets/js/14.ffdeb540.js"><link rel="prefetch" href="/cool-admin-go/assets/js/15.686ab089.js"><link rel="prefetch" href="/cool-admin-go/assets/js/3.b155d814.js"><link rel="prefetch" href="/cool-admin-go/assets/js/4.f876ad59.js"><link rel="prefetch" href="/cool-admin-go/assets/js/5.18c5236f.js"><link rel="prefetch" href="/cool-admin-go/assets/js/6.e86df8f9.js"><link rel="prefetch" href="/cool-admin-go/assets/js/7.403c61da.js"><link rel="prefetch" href="/cool-admin-go/assets/js/8.f5b2fd60.js"><link rel="prefetch" href="/cool-admin-go/assets/js/9.7bb020fe.js">
+    <link rel="stylesheet" href="/cool-admin-go/assets/css/0.styles.3be1b0cf.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/cool-admin-go/" class="home-link router-link-active"><img src="/cool-admin-go/logo-admin-new.png" alt="CoolAdminGo文档" class="logo"> <span class="site-name can-hide">CoolAdminGo文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/cool-admin-go/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="https://cool-js.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CoolAdmin官网
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://goframe.org" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GoFrame官网
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/cool-team-official/cool-admin-go" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/cool-admin-go/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="https://cool-js.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  CoolAdmin官网
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://goframe.org" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GoFrame官网
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <a href="https://github.com/cool-team-official/cool-admin-go" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/cool-admin-go/" aria-current="page" class="sidebar-link">CoolAdminGo 文档</a></li><li><a href="/cool-admin-go/introduction.html" class="sidebar-link">项目介绍</a></li><li><a href="/cool-admin-go/feedback.html" class="sidebar-link">问题反馈</a></li><li><a href="/cool-admin-go/development.html" aria-current="page" class="active sidebar-link">开发环境</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/cool-admin-go/development.html#node-js-环境" class="sidebar-link">Node.js 环境</a></li><li class="sidebar-sub-header"><a href="/cool-admin-go/development.html#go-环境" class="sidebar-link">Go 环境</a></li><li class="sidebar-sub-header"><a href="/cool-admin-go/development.html#vscode" class="sidebar-link">VSCode</a></li><li class="sidebar-sub-header"><a href="/cool-admin-go/development.html#docker" class="sidebar-link">Docker</a></li></ul></li><li><a href="/cool-admin-go/cli.html" class="sidebar-link">开发工具</a></li><li><a href="/cool-admin-go/quick_start.html" class="sidebar-link">快速开始</a></li><li><a href="/cool-admin-go/config.html" class="sidebar-link">配置</a></li><li><a href="/cool-admin-go/changelog.html" class="sidebar-link">更新日志</a></li><li><a href="/cool-admin-go/known_issues.html" class="sidebar-link">已知问题</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="开发环境"><a href="#开发环境" class="header-anchor">#</a> 开发环境</h1> <p><a href="/cool-admin-go/" class="router-link-active">返回目录</a></p> <div class="custom-block warning"><p class="custom-block-title">注意</p> <p>推荐使用 Linux 或 MacOS 进行开发，Windows 下可使用 WSL2。</p> <p>Linux 及 WSL2 下推荐使用 root 用户进行开发.</p></div> <h2 id="node-js-环境"><a href="#node-js-环境" class="header-anchor">#</a> Node.js 环境</h2> <p>官网下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener noreferrer">https://nodejs.org/en/download/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>一般选择 LTS 版本即可。</p> <p>MacOS 下可使用 Homebrew 进行安装 nvm：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>brew <span class="token function">install</span> nvm
+</code></pre></div><p>nvm 是 node 版本管理工具，可以通过<code>nvm install &lt;version&gt;</code> 安装指定版本，使用 <code>nvm use &lt;version&gt;</code> 切换版本。</p> <p>或者直接下载 pkg 安装包进行安装。</p> <p>Linux 下可使用以下脚本进行安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">wget</span> <span class="token parameter variable">-O</span> nodejs-install.sh https://cool-team-official.github.io/cool-admin-go/scripts/nodejs-install.sh <span class="token punctuation">\</span>
+<span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> +x nodejs-install.sh <span class="token punctuation">\</span>
+<span class="token operator">&amp;&amp;</span> ./nodejs-install.sh <span class="token number">18.12</span>.0
+</code></pre></div><p>脚本文件内容如下:</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment"># Install Node.js on linux x86_64</span>
+
+<span class="token comment"># 出错时停止</span>
+<span class="token builtin class-name">set</span> <span class="token parameter variable">-e</span>
+
+<span class="token comment"># 判断当前操作系统是否为Linux,如果不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span><span class="token variable">)</span></span>&quot;</span> <span class="token operator">!=</span> <span class="token string">&quot;Linux&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: This script only supports Linux.&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 获取当前CPU架构</span>
+<span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-m</span><span class="token variable">)</span></span>
+
+<span class="token comment"># 判断当前CPU架构是否为x86_64,如果不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$ARCH</span>&quot;</span> <span class="token operator">!=</span> <span class="token string">&quot;x86_64&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: This script only supports x86_64.&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 判断当前是否为root,如果不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> <span class="token parameter variable">-u</span><span class="token variable">)</span></span>&quot;</span> <span class="token operator">!=</span> <span class="token string">&quot;0&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: This script must be run as root.&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;You can use 'sudo su' command switch to root &quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 获取第一个参数为版本号</span>
+<span class="token assign-left variable">VERSION</span><span class="token operator">=</span><span class="token variable">$1</span>
+
+<span class="token comment"># 校验版本号</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">&quot;<span class="token variable">$VERSION</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Usage: <span class="token variable">$0</span> VERSION&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Example: <span class="token variable">$0</span> 18.12.0&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;You can visit https://nodejs.org/en/download/ to find version&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 校验版本号格式</span>
+<span class="token keyword">if</span> <span class="token operator">!</span> <span class="token builtin class-name">echo</span> <span class="token string">&quot;<span class="token variable">$VERSION</span>&quot;</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-qE</span> <span class="token string">'^[0-9]+\.[0-9]+\.[0-9]+$'</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Invalid version: <span class="token variable">$VERSION</span>, should be like 1.2.3&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 下载安装包</span>
+<span class="token function">wget</span> https://nodejs.org/dist/v<span class="token variable">$VERSION</span>/node-v<span class="token variable">$VERSION</span>-linux-x64.tar.xz
+
+<span class="token comment"># 解压</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> node-v<span class="token variable">$VERSION</span>-linux-x64.tar.xz
+
+<span class="token comment"># 移动到 /usr/local</span>
+<span class="token function">mv</span> node-v<span class="token variable">$VERSION</span>-linux-x64 /usr/local/node
+
+<span class="token comment"># 添加到环境变量</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=$PATH:/usr/local/node/bin'</span> <span class="token operator">&gt;&gt;</span>/etc/profile
+
+<span class="token comment"># 使环境变量生效</span>
+<span class="token builtin class-name">source</span> /etc/profile
+<span class="token comment"># 删除安装包</span>
+<span class="token function">rm</span> node-v<span class="token variable">$VERSION</span>-linux-x64.tar.xz
+<span class="token comment"># 查看版本</span>
+<span class="token function">node</span> <span class="token parameter variable">-v</span>
+<span class="token function">npm</span> <span class="token parameter variable">-v</span>
+<span class="token comment"># 激活yarn</span>
+corepack <span class="token builtin class-name">enable</span>
+<span class="token comment"># 配置淘宝镜像</span>
+<span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmmirror.com
+<span class="token comment"># 查看配置</span>
+<span class="token function">npm</span> config list
+<span class="token comment"># 提示安装成功</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Node.js <span class="token variable">$VERSION</span> installed successfully.&quot;</span>
+<span class="token comment"># 提示用户重启终端</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Please restart your terminal to make the PATH changes effective.&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;You can use 'source /etc/profile' command to make the PATH changes effective immediately.&quot;</span>
+</code></pre></div><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>安装完成后，可使用<code>node -v</code>查看版本号，使用<code>npm -v</code>查看 npm 版本号。
+为提高依赖包下载速度，可使用<code>npm config set registry https://registry.npmmirror.com</code>切换到淘宝镜像。
+新版本的 node 已经集成了 yarn,需激活<code>corepack</code>,可使用 <code>corepack enable</code>命令激活。激活后可使用<code>yarn -v</code>查看版本号。</p> <p>Linux 安装脚本已完成镜像切换及 corepack 激活。</p></div> <h2 id="go-环境"><a href="#go-环境" class="header-anchor">#</a> Go 环境</h2> <p>官网下载地址：<a href="https://go.dev/dl/" target="_blank" rel="noopener noreferrer">https://go.dev/dl/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>一般选择最新版本即可。</p> <p>MacOS 下可使用 Homebrew 进行安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>brew <span class="token function">install</span> go
+</code></pre></div><p>或者直接下载 pkg 安装包进行安装。</p> <p>Linux 下可使用以下脚本进行安装：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">wget</span> <span class="token parameter variable">-O</span> golang-install.sh https://cool-team-official.github.io/cool-admin-go/scripts/golang-install.sh <span class="token punctuation">\</span>
+<span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> +x golang-install.sh <span class="token punctuation">\</span>
+<span class="token operator">&amp;&amp;</span> ./golang-install.sh <span class="token number">1.19</span>.3
+</code></pre></div><p>脚本文件内容如下:</p> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment">###############################################################################</span>
+<span class="token comment"># Install Golang 安装Golang,仅限linux系统.                                      #</span>
+<span class="token comment"># Author: LiDong                                                              #</span>
+<span class="token comment"># Email: cnlidong@live.cn                                                     #</span>
+<span class="token comment"># Date: 2022-08-15                                                            #</span>
+<span class="token comment">###############################################################################</span>
+<span class="token comment"># 出错退出</span>
+<span class="token builtin class-name">set</span> <span class="token parameter variable">-e</span>
+<span class="token comment"># 进入脚本所在目录</span>
+
+<span class="token comment"># 获取第一个参数设为版本号</span>
+<span class="token assign-left variable">VERSION</span><span class="token operator">=</span><span class="token variable">$1</span>
+<span class="token comment"># 判断版本号参数是否为空</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">&quot;<span class="token variable">$VERSION</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Usage: <span class="token variable">$0</span> VERSION [mirror]&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Example: <span class="token variable">$0</span> 1.19.2 https://mirrors.aliyun.com/golang&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;You can visit https://go.dev/dl/ to find version&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;version: <span class="token variable">$VERSION</span>&quot;</span>
+<span class="token comment"># 获取第二个参数为镜像地址前缀</span>
+<span class="token assign-left variable">PREFIX</span><span class="token operator">=</span><span class="token variable">$2</span>
+<span class="token comment"># 判断镜像地址前缀参数是否为空</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">&quot;<span class="token variable">$PREFIX</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">PREFIX</span><span class="token operator">=</span><span class="token string">&quot;https://go.dev/dl&quot;</span>
+<span class="token keyword">fi</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;prefix: <span class="token variable">$PREFIX</span>&quot;</span>
+<span class="token comment"># 判断当前用户是否为root，不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> <span class="token parameter variable">-u</span><span class="token variable">)</span></span>&quot;</span> <span class="token operator">!=</span> <span class="token string">&quot;0&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: This script must be run as root.&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;You can use 'sudo su' command switch to root &quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token comment"># 安装Golang</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Install Golang...&quot;</span>
+<span class="token comment"># 获取当前操作系统</span>
+<span class="token assign-left variable">OS</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span><span class="token variable">)</span></span>
+<span class="token comment"># 判断是否是Linux系统,如果不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$OS</span> <span class="token operator">!=</span> <span class="token string">&quot;Linux&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Not Linux system, exit...&quot;</span>
+    <span class="token builtin class-name">exit</span>
+<span class="token keyword">else</span>
+    <span class="token assign-left variable">OS</span><span class="token operator">=</span><span class="token string">&quot;linux&quot;</span>
+<span class="token keyword">fi</span>
+<span class="token comment"># 获取CPU类型</span>
+<span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> <span class="token parameter variable">-m</span><span class="token variable">)</span></span>
+<span class="token comment"># 转换CPU类型为go env arch格式</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$ARCH</span> <span class="token operator">=</span> <span class="token string">&quot;x86_64&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token string">&quot;amd64&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$ARCH</span> <span class="token operator">=</span> <span class="token string">&quot;i686&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token string">&quot;386&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$ARCH</span> <span class="token operator">=</span> <span class="token string">&quot;armv6l&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token string">&quot;armv6l&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token variable">$ARCH</span> <span class="token operator">=</span> <span class="token string">&quot;aarch64&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">ARCH</span><span class="token operator">=</span><span class="token string">&quot;arm64&quot;</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Not support CPU, exit...&quot;</span>
+    <span class="token builtin class-name">exit</span>
+<span class="token keyword">fi</span>
+<span class="token comment"># 安装Golang</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Download Golang...&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token variable">$PREFIX</span>/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">$OS</span>-<span class="token variable">$ARCH</span>.tar.gz
+<span class="token function">curl</span> <span class="token parameter variable">-L</span> <span class="token variable">$PREFIX</span>/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">$OS</span>-<span class="token variable">$ARCH</span>.tar.gz <span class="token parameter variable">-o</span> /tmp/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">$OS</span>-<span class="token variable">$ARCH</span>.tar.gz
+<span class="token function">tar</span> <span class="token parameter variable">-C</span> /usr/local <span class="token parameter variable">-xzf</span> /tmp/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">$OS</span>-<span class="token variable">$ARCH</span>.tar.gz
+<span class="token comment"># 删除临时文件</span>
+<span class="token function">rm</span> <span class="token parameter variable">-f</span> /tmp/go<span class="token variable">${VERSION}</span><span class="token builtin class-name">.</span><span class="token variable">$OS</span>-<span class="token variable">$ARCH</span>.tar.gz
+<span class="token comment"># 配置环境变量</span>
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=$PATH:/usr/local/node/bin'</span> <span class="token operator">&gt;&gt;</span>/etc/profile
+
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=$PATH:/usr/local/go/bin'</span> <span class="token operator">&gt;&gt;</span>/etc/profile
+
+<span class="token builtin class-name">source</span> /etc/profile
+
+<span class="token builtin class-name">echo</span> <span class="token string">'export PATH=$PATH:$(go env GOPATH)/bin'</span> <span class="token operator">&gt;&gt;</span>/etc/profile
+go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GO111MODULE</span><span class="token operator">=</span>on
+go <span class="token function">env</span> <span class="token parameter variable">-w</span> <span class="token assign-left variable">GOPROXY</span><span class="token operator">=</span>https://goproxy.cn,direct
+
+<span class="token builtin class-name">source</span> /etc/profile
+
+<span class="token comment"># 安装成功</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Install Golang success!&quot;</span>
+<span class="token comment"># 查看Golang版本</span>
+go version
+<span class="token comment"># 提示重启终端</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;Please restart the terminal to take effect!&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;安装成功,请重启终端使其生效!&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;You can use 'source /etc/profile' command to make the PATH changes effective immediately.&quot;</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;你可以使用 'source /etc/profile' 命令使其立即生效.&quot;</span></code></pre></div><div class="custom-block tip"><p class="custom-block-title">TIP</p> <p>安装完成后，可使用<code>go version</code>查看版本号。
+为提高依赖下载速度，推荐配置<code>goproxy</code>，可使用<code>go env -w GOPROXY=https://goproxy.cn,direct</code>切换到 goproxy.cn 镜像。</p></div> <h2 id="vscode"><a href="#vscode" class="header-anchor">#</a> VSCode</h2> <p>官网下载地址：<a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">https://code.visualstudio.com/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>一般选择最新版本即可。</p> <p>推荐安装以下插件：</p> <ul><li><a href="https://marketplace.visualstudio.com/items?itemName=golang.go" target="_blank" rel="noopener noreferrer">Go<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=octref.vetur" target="_blank" rel="noopener noreferrer">Vetur<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank" rel="noopener noreferrer">ESLint<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" target="_blank" rel="noopener noreferrer">Prettier<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig" target="_blank" rel="noopener noreferrer">EditorConfig<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" target="_blank" rel="noopener noreferrer">GitLens<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="docker"><a href="#docker" class="header-anchor">#</a> Docker</h2> <p>云原生时代，Docker 已经成为开发者必备的工具之一。</p> <p>开发过程中，我们将使用 Docker 进行数据库管理，以及打包测试。</p> <p>官网下载地址：<a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreferrer">https://www.docker.com/products/docker-desktop<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>一般选择最新版本即可。</p> <p>配置 Docker 镜像加速器：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># Linux</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker
+<span class="token function">sudo</span> <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+{
+  &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;]
+}
+EOF</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart <span class="token function">docker</span>
+
+</code></pre></div><p>MacOS 及 Windows 下可在 Docker Desktop 的设置中配置。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/cool-team-official/cool-admin-go/edit/master/docs/development.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2023/8/18 16:00:07</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/cool-admin-go/feedback.html" class="prev">
+        问题反馈
+      </a></span> <span class="next"><a href="/cool-admin-go/cli.html">
+        开发工具
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/cool-admin-go/assets/js/app.20eace83.js" defer></script><script src="/cool-admin-go/assets/js/2.eeb24f79.js" defer></script><script src="/cool-admin-go/assets/js/11.f22c2996.js" defer></script>
+  </body>
+</html>
