@@ -11,8 +11,7 @@ services:
       MYSQL_DATABASE: "cooltest" # 业务库名
       MYSQL_USER: "cooltest" # 业务库用户名
       MTSQL_PASSWORD: "123123" # 业务库密码
-    ports:
-      - 3306:3306
+    network_mode: host
     volumes:
       - ./data/mysql/:/var/lib/mysql/
 
@@ -25,8 +24,7 @@ services:
       TZ: Asia/Shanghai # 指定时区
     volumes:
       - ./data/redis/:/data/
-    ports:
-      - 6379:6379
+    network_mode: host
 
   # PostgreSQL 数据库
   pgsql:
@@ -39,8 +37,7 @@ services:
       POSTGRES_USER: "cooltest" # 业务库用户名
     volumes:
       - ./data/pgsql/:/var/lib/postgresql/data/
-    ports:
-      - 5432:5432
+    network_mode: host
   etcd1:
     image: bitnami/etcd:latest
     restart: always
@@ -58,5 +55,4 @@ services:
       - ALLOW_NONE_AUTHENTICATION=yes
     volumes:
       - ./data/etcd1/:/bitnami/etcd
-    ports:
-      - 12379:12379
+    network_mode: host

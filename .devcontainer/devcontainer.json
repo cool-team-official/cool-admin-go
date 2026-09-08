@@ -1,32 +1,25 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
-  "image": "cnlidong/cool-admin-codespace:dev",
-  "mounts": [
-    {
-      "source": "${localWorkspaceFolder}/scripts/daemon.json",
-      "target": "/etc/docker/daemon.json",
-      "type": "bind"
-    },
-    {
-      "source": "dind-var-lib-docker-${devcontainerId}",
-      "target": "/var/lib/docker",
-      "type": "volume"
-    }
-  ],
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-ceintl.vscode-language-pack-zh-hans",
-        "GitHub.vscode-pull-request-github",
-        "github.copilot",
-        "esbenp.prettier-vscode",
-        "vue.volar",
-        "cweijan.vscode-database-client2"
-      ]
-    }
-  },
-  "containerEnv": {
-    "TZ": "Asia/Shanghai"
-  },
-  "postCreateCommand": "make init",
-  "remoteUser": "root"
+	"name": "Cool-Admin-Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/cloudflared:1": {}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "wget -O gf https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) && chmod +x gf && ./gf install -y && rm ./gf",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
 }

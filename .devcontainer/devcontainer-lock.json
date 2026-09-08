@@ -1,0 +1,9 @@
+{
+  "features": {
+    "ghcr.io/devcontainers-extra/features/cloudflared:1": {
+      "version": "1.0.8",
+      "resolved": "ghcr.io/devcontainers-extra/features/cloudflared@sha256:18b7db2cd2e84ce93716c465bebc4b5944b8309bdfe6fbf8c49b9129f3cc8253",
+      "integrity": "sha256:18b7db2cd2e84ce93716c465bebc4b5944b8309bdfe6fbf8c49b9129f3cc8253"
+    }
+  }
+}
