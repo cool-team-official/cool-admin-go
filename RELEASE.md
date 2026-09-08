@@ -1,7 +1,8 @@
 # 发布流程与注意事项
 
 > 适用于 **多模块 Monorepo** 形态:主模块 + `cool` + `modules/*` + `contrib/*` + `cool-tools` + `docs` 共 15 个 Go 模块(`docs`/`frontend` 为 go1.18 辅助模块)。
-> 目标:一次 `vX.Y.Z` 主标签触发,**自动**完成子模块打标、`cool-tools` 多平台二进制构建、GitHub Release 发布,并受 CI 质量门禁保护。
+> 目标:一次 `vX.Y.Z` 主标签触发,**自动**完成子模块打标、`cool-tools` 多平台二进制构建、GitHub Release 发布。
+> 质量检查(`ci.yml`)已改为**手动触发**,不再作为自动门禁阻塞发版(原因见 §五.15)。
 
 ---
 
@@ -10,8 +11,8 @@
 ```mermaid
 flowchart LR
     A[本地 bump-version.sh<br/>+ changelog + commit] --> B[git push master]
-    B --> C[ci.yml 门禁<br/>go.work 下逐模块 build + vet]
-    A --> D[release.sh / git tag v1.5.12]
+    B --> D[release.sh / git tag v1.5.12]
+    C[ci.yml 质量检查<br/>workflow_dispatch 手动] -. 需要时 .-> B
     D --> E[release.yml 流水线]
     E --> E1[Job1 tag-submodules<br/>打 14 个子模块标签]
     E1 --> E2[Job2 build<br/>gf 多平台二进制]
@@ -20,7 +21,7 @@ flowchart LR
 
 | 文件 | 作用 | 何时运行 |
 |---|---|---|
-| `.github/workflows/ci.yml` | 质量门禁:go.work 下**逐模块** `go build` + `go vet` | push `master` / 每个 PR |
+| `.github/workflows/ci.yml` | 质量检查:go.work 下**逐模块** `go build` + `go vet`(内容不变,仅触发方式调整) | 手动 `workflow_dispatch`(自动触发已停用,见 §五.15) |
 | `.github/workflows/release.yml` | 发版流水线(3 个 Job,见下) | 推送 `v*` 标签 |
 | `scripts/bump-version.sh` | 发布前统一版本号(见 §四.1) | 本地,发布前 |
 | `release.sh` | 检查分支/工作区后 `git push origin master` + 打主标签 | 本地,发布时 |
@@ -56,7 +57,7 @@ bash scripts/bump-version.sh v1.5.12
 git diff
 git add -A
 git commit -m "v1.5.12: ...变更说明..."
-git push origin master   # 触发 ci.yml 门禁
+git push origin master   # 推送提交(ci.yml 已改手动触发,不会自动执行)
 
 # 4) 打主标签触发发版(会再次 push master 并创建 v1.5.12)
 ./release.sh v1.5.12
@@ -64,7 +65,7 @@ git push origin master   # 触发 ci.yml 门禁
 
 ### 推送标签后 Actions 自动完成
 
-1. **ci.yml**(master push 再次执行):全部模块编译 + vet 通过后才算安全;PR 阶段同样受检。
+1. **ci.yml**:已改为手动触发——master push / PR 不再自动执行(见 §五.15);需要全量 build+vet 时在 Actions 页手动 Run workflow。
 2. **release.yml Job1 `tag-submodules`**:为每个含 `go.mod` 的目录打子模块标签,例如
    `cool/v1.5.12`、`modules/base/v1.5.12`、`contrib/drivers/mysql/v1.5.12`、`cool-tools/v1.5.12`、`docs/v1.5.12`…(已存在的标签自动跳过,幂等)。
 3. **Job2 `build`**:安装固定版 `gf` CLI(`go install github.com/gogf/gf/cmd/gf/v2@<GF_VERSION>`),初始化 `go.work`,执行 `make pack.template-simple` + `make pack.docs` 内嵌脚手架/文档资源,`gf build` 产出多平台二进制并统一命名。
@@ -79,9 +80,9 @@ git push origin master   # 触发 ci.yml 门禁
 | 场景 | 要做什么 |
 |---|---|
 | 常规发版(代码 + 二进制 + Release) | 走 §二 完整流程 |
-| **附带文档站更新**(vuepress gh-pages) | 在 push 前额外执行 `bash pre-release.sh v1.5.12`(它同步 `binVersion` 并 `yarn docs:deploy` 推送 gh-pages,供 CI 的 `pack.docs` 抓取) |
+| **附带文档站更新**(vuepress gh-pages) | 在 push 前额外执行 `bash pre-release.sh v1.5.12`(它同步 `binVersion` 并 `yarn docs:deploy` 推送 gh-pages,供 release.yml Job2 的 `pack.docs` 抓取) |
 | 仅安全修复、不发 `cool-tools` | 同样打主标签即可;若某子模块本次无任何变更仍会被打标(所有含 go.mod 的目录都打),属预期行为 |
-| PR 阶段 | 无需任何操作,`ci.yml` 自动跑门禁 |
+| PR 阶段 | 无自动门禁;需要检查时在 Actions 页手动 Run `ci.yml`(workflow_dispatch) |
 
 > `cool-tools` 的资源打包(`pack.template-simple` / `pack.docs`)与 `docs:deploy` 需要**联网**克隆 `cool-team-official/cool-admin-go` 的 `simple` / `gh-pages` 分支;CI 内用 https,本地脚本默认 ssh(Codespace 自动切 https)。
 
@@ -131,3 +132,4 @@ bash scripts/bump-version.sh v1.5.12   # 版本必须满足 vMAJOR.MINOR.PATCH
 12. **并发**:`ci.yml` 按 ref 设 `concurrency` 取消旧运行;同一次 `release.yml` 的 Job 按依赖链串行(打标 → 构建 → 发布),顺序保证子模块标签先于 Release 存在。
 13. **产物命名**:`cool-tools_<os>`,Windows 为 `cool-tools_<os>.exe`,归一化在 `cool-tools/temp` 下完成;`fail_on_unmatched_files: true` 保证一个产物都不缺才发布。
 14. **发布即最终**:GitHub Release 一旦创建即公开可见。先确认 Job1/Job2 全绿(可在 Actions 页查看 tag 对应运行)再放心;若构建失败可修正后**重打标签**再推(见第 3 条)。
+15. **`ci.yml` 自 v1.5.12 起改为手动触发**:历史教训是 bump 提交把内部依赖升到新版本(如 v1.5.12)时,子模块同名 tag 要等 release.yml Job1 打主标签后才创建——若 master push / PR 自动跑构建,必然 `unknown revision .../v1.5.12` 而红,门禁既挡不住发布还制造噪音。现仅保留 `workflow_dispatch` 手动入口(jobs 内容不变):需要全量 build+vet 时在 Actions 页手动 Run(子模块 tag 就绪后即可全绿);若想恢复自动门禁,把 `on:` 加回 `push`(`master`)/`pull_request` 即可。

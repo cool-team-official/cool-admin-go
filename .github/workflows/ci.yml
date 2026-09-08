@@ -1,11 +1,13 @@
 name: CI
 
-# 发布前的质量门禁:push 到 master 及所有 PR 自动执行
+# 质量检查(手动触发):已停用 master push / PR 自动执行。
+# 原因:多模块 Monorepo 发版时,bump 提交会把根 go.mod 内部依赖升到新版本(如 v1.5.12),
+# 而各子模块同名 tag 要等 release.yml 的 Job1(打主标签后)才创建 —— push master 即自动
+# 构建必然报 unknown revision 而红,门禁失去意义并阻碍发版。
+# 需要全量 build + vet 时,在 Actions 页手动 Run workflow(子模块 tag 就绪后即可全绿);
+# 想恢复自动门禁,把 on: 段加回 push / pull_request 即可。
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
