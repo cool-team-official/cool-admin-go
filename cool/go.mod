@@ -3,9 +3,9 @@ module github.com/cool-team-official/cool-admin-go/cool
 go 1.23.0
 
 require (
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.5.12
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql v1.5.12
-	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v1.5.12
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql v1.5.13
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/pgsql v1.5.13
+	github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite v1.5.13
 	github.com/gogf/gf/v2 v2.10.3
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	gorm.io/gorm v1.31.2

@@ -1,5 +1,10 @@
 # 更新日志
 
+## 1.5.13
+
+- 修复 GitHub Actions 发布流程:cool-tools 多平台产物目录与收集步骤不匹配导致 Release 构建失败,已修正 gf build 输出路径并加固产物收集脚本
+- 文档补齐:新增 CRUD/数据库/文件上传/表单验证/系统模块/分布式函数/定时任务/部署/日志/常见问题/贡献代码 11 个页面,文档站侧边栏重组为五组
+
 ## 1.5.12
 
 - 依赖升级:GoFrame 升级至 v2.10.3(含 contrib 驱动/nosql-redis 同步升级),gorm 升级至 v1.31.2、gorm mysql/postgres 驱动、minio-go、jwt 同步升级;模块 go 指令提升至 go 1.23.0
