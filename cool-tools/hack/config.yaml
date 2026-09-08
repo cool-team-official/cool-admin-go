@@ -6,6 +6,9 @@ gfcli:
     name: "cool-tools"
     arch: "all"
     system: "linux,darwin,windows"
+    # 产物输出到 temp/<system>_<arch>/cool-tools,release.yml 的
+    # "Normalize binary names" 步骤基于该布局做重命名与收集
+    path: "temp"
     
 
 

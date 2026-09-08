@@ -102,15 +102,25 @@ jobs:
         working-directory: cool-tools/temp
         run: |
           set -euo pipefail
-          for OS in *; do
-            for FILE in "$OS"/*; do
+          # 遍历 gf build 输出的 <system>_<arch>/ 目录,重命名为 cool-tools_<system>_<arch>(.exe)
+          # 仅处理目录;空目录(某平台构建失败未产出)跳过,避免 mv 失败导致整个 job 失败
+          shopt -s nullglob
+          for OS in */; do
+            OS="${OS%/}"
+            files=("$OS"/*)
+            if [[ ${#files[@]} -eq 0 ]]; then
+              echo "skip empty dir: $OS"
+              rmdir "$OS"
+              continue
+            fi
+            for FILE in "${files[@]}"; do
               if [[ "$OS" == *windows* ]]; then
                 mv "$FILE" "cool-tools_${OS}.exe"
               else
                 mv "$FILE" "cool-tools_${OS}"
               fi
             done
-            rm -rf "$OS"
+            rmdir "$OS"
           done
           ls -la
 
