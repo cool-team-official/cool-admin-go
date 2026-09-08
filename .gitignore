@@ -28,4 +28,5 @@ data/mysql/
 data/redis/
 go.work.sum
 data/
+default.etcd/
 __debug_*
