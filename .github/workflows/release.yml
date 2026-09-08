@@ -1,65 +1,156 @@
-name: Build Release
+name: Release
+
+# 发布流程:推 vX.Y.Z 标签(如 v1.5.12)触发
+#   1. 为仓库内所有子模块自动打 <模块路径>/<版本> 标签(供 Go Modules 按版本拉取)
+#   2. 构建 cool-tools 多平台二进制(模板/docs 资源随版本打包)
+#   3. 创建 GitHub Release 并上传产物,Release Notes 取 docs/changelog.md 最新小节
 on:
   push:
     tags:
-      - v* 
+      - 'v*'
+
 env:
   TZ: Asia/Shanghai
+  # 与 go.mod 中 gogf/gf 版本保持一致,依赖升级时同步修改
+  GF_VERSION: v2.10.3
+
+permissions:
+  contents: write
 
 jobs:
-  build:
-    name: Build And Release
+  # ---------------------------------------------------------------
+  # Job 1: 自动生成子模块标签
+  # 主模块使用原始标签 v1.5.12;子模块按目录前缀打标签,例如:
+  #   cool/v1.5.12、modules/base/v1.5.12、contrib/drivers/mysql/v1.5.12、
+  #   cool-tools/v1.5.12、docs/v1.5.12 ...
+  # 注意:形如 modules/base/... 的标签不匹配本工作流的 v* 触发器,不会循环触发
+  # ---------------------------------------------------------------
+  tag-submodules:
+    name: Tag sub-modules
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
+      - uses: actions/checkout@v4
         with:
-          go-version-file: './go.mod'
-      - name: install dependencies and set env.BIN_NAME
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate semver tag
         run: |
-          go version
-          make cli 
+          if [[ ! "${{ github.ref_name }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Non-semver tag(${{ github.ref_name }}), skip sub-module tagging."
+            exit 0
+          fi
+
+      - name: Create & push sub-module tags
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          pushed=0
+          for f in $(find contrib modules cool cool-tools docs -name go.mod); do
+            d=$(dirname "$f")
+            tag="$d/${{ github.ref_name }}"
+            if git rev-parse -q --verify "refs/tags/$tag" >/dev/null 2>&1; then
+              echo "tag exists, skip: $tag"
+            else
+              echo "create tag: $tag"
+              git tag "$tag" "$GITHUB_SHA"
+              git push origin "refs/tags/$tag"
+              pushed=$((pushed+1))
+            fi
+          done
+          echo "Pushed $pushed sub-module tag(s)."
+
+  # ---------------------------------------------------------------
+  # Job 2: 构建 cool-tools 多平台二进制
+  # ---------------------------------------------------------------
+  build:
+    name: Build cool-tools binaries
+    needs: tag-submodules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # gf build 需要读取 git 提交信息写入二进制
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # 使用 go install 安装固定版本的 gf CLI,避免依赖 GitHub Release 下载链接
+      - name: Install gf CLI (pinned)
+        run: |
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          go install github.com/gogf/gf/cmd/gf/v2@${{ env.GF_VERSION }}
           gf version
-          echo ${{github.ref}}
-          pwd
-      - name: Build CLI Binary For All Platform
+
+      - name: Init workspace & pack resources
         run: |
-          pwd
           go work init
           go work use -r .
-
           cd cool-tools
-          go mod tidy
           make pack.template-simple
           make pack.docs
-          gf build
-      - name: Move Files Before Release
-        run: |
-          pwd
-          cd cool-tools/temp
-          for OS in *;do for FILE in $OS/*;\
-          do if [[ ${OS} =~ 'windows' ]];\
-          then mv $FILE cool-tools_${OS}.exe && rm -rf $OS;\
-          else mv $FILE cool-tools_$OS && rm -rf $OS;\
-          fi;done;done
-          pwd
-          ls
 
-      - name: Create Github Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build CLI binaries for all platforms
+        run: |
+          cd cool-tools
+          gf build
+
+      - name: Normalize binary names
+        working-directory: cool-tools/temp
+        run: |
+          set -euo pipefail
+          for OS in *; do
+            for FILE in "$OS"/*; do
+              if [[ "$OS" == *windows* ]]; then
+                mv "$FILE" "cool-tools_${OS}.exe"
+              else
+                mv "$FILE" "cool-tools_${OS}"
+              fi
+            done
+            rm -rf "$OS"
+          done
+          ls -la
+
+      - name: Upload binaries as artifact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name:     ${{ github.ref }}
-          release_name: cool-tools Release ${{ github.ref }}
-          draft:        false
-          prerelease:   false
-      
-      - name: Upload Release Asset
-        id:   upload-release-asset
-        uses: alexellis/upload-assets@0.4.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: cool-tools-binaries
+          path: cool-tools/temp/cool-tools_*
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------
+  # Job 3: 创建 GitHub Release 并上传产物
+  # ---------------------------------------------------------------
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download binaries
+        uses: actions/download-artifact@v4
         with:
-          asset_paths: '["cool-tools/temp/cool-tools_*"]'
+          name: cool-tools-binaries
+          path: cool-tools/temp
+
+      # 截取 docs/changelog.md 中最新的一个 "## x.y.z" 小节作为 Release Notes
+      - name: Prepare release notes
+        run: |
+          awk 'BEGIN{p=0} /^## /{if(p)exit; p=1} p{print}' docs/changelog.md > /tmp/release-notes.md
+          echo "----- release notes -----"
+          cat /tmp/release-notes.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: cool-tools Release ${{ github.ref_name }}
+          body_path: /tmp/release-notes.md
+          files: cool-tools/temp/cool-tools_*
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true

@@ -39,21 +39,45 @@ func (s *BaseSysLoginService) Login(ctx context.Context, req *v1.BaseOpenLoginRe
 		password    = req.Password
 		username    = req.Username
 		baseSysUser = model.NewBaseSysUser()
+		// 同一账号+IP在10分钟内连续失败5次后临时锁定,降低口令爆破风险
+		failKey = "admin:loginFail:" + username + ":" + g.RequestFromCtx(ctx).GetClientIp()
 	)
 
+	// 检查登录失败次数是否达到阈值
+	failCount, _ := cool.CacheManager.Get(ctx, failKey)
+	if failCount.Int() >= 5 {
+		err = gerror.New("登录失败次数过多,请10分钟后再试~")
+		return
+	}
+
 	vcode, _ := cool.CacheManager.Get(ctx, captchaId)
-	if vcode.String() != verifyCode {
+	// 验证码校验:不存在或错误均返回同一提示,防枚举;验证码一次性使用
+	if vcode.IsNil() || vcode.String() != verifyCode {
 		err = gerror.New("验证码错误")
 		return
 	}
+	// 验证码校验成功后立即作废,防止同一验证码重放爆破
+	cool.CacheManager.Remove(ctx, captchaId)
+
 	md5password, _ := gmd5.Encrypt(password)
 
 	var user *model.BaseSysUser
-	cool.DBM(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user)
+	if err = cool.DBM(baseSysUser).Where("username=?", username).Where("password=?", md5password).Where("status=?", 1).Scan(&user); err != nil {
+		// 数据库异常与“密码错误”区分,避免掩盖真实故障
+		g.Log().Error(ctx, "登录查询用户失败", err)
+		err = gerror.New("系统繁忙,请稍后再试~")
+		return
+	}
 	if user == nil {
+		// 密码错误时累计失败次数(仅当验证码正确时累计,避免验证码问题误伤正常用户)
+		cool.CacheManager.Set(ctx, failKey, failCount.Int()+1, 600*time.Second)
+		// 统一错误提示,避免用户名枚举
 		err = gerror.New("账户或密码不正确~")
 		return
 	}
+
+	// 登录成功后清除失败计数
+	cool.CacheManager.Remove(ctx, failKey)
 
 	result, err = s.generateTokenByUser(ctx, user)
 	if err != nil {
@@ -81,8 +105,8 @@ func (*BaseSysLoginService) Captcha(req *v1.BaseOpenCaptchaReq) (interface{}, er
 
 	result.Data = `data:image/svg+xml;base64,` + svgbase64
 	result.CaptchaId = guid.S()
-	cool.CacheManager.Set(ctx, result.CaptchaId, captchaText, 1800*time.Second)
-	g.Log().Debug(ctx, "验证码", result.CaptchaId, captchaText)
+	// 验证码有效期缩短为5分钟,明文仅用于服务端比对,不再输出到日志,避免验证码泄露
+	cool.CacheManager.Set(ctx, result.CaptchaId, captchaText, 300*time.Second)
 	return result, err
 }
 
@@ -124,13 +148,31 @@ func (s *BaseSysLoginService) RefreshToken(ctx context.Context, token string) (r
 		return
 	}
 
+	// 校验提交的refreshToken与签发时缓存的一致,防止旧refreshToken复用/盗用
+	cached, _ := cool.CacheManager.Get(ctx, "admin:token:refresh:"+gconv.String(claims.UserId))
+	if cached.IsNil() || cached.String() != token {
+		err = gerror.New("refreshToken已失效,请重新登录~")
+		return
+	}
+
 	var (
 		user        *model.BaseSysUser
 		baseSysUser = model.NewBaseSysUser()
 	)
-	cool.DBM(baseSysUser).Where("id=?", claims.UserId).Where("status=?", 1).Scan(&user)
+	if err = cool.DBM(baseSysUser).Where("id=?", claims.UserId).Where("status=?", 1).Scan(&user); err != nil {
+		g.Log().Error(ctx, "刷新Token查询用户失败", err)
+		err = gerror.New("系统繁忙,请稍后再试~")
+		return
+	}
 	if user == nil {
 		err = gerror.New("用户不存在")
+		return
+	}
+
+	// 确认用户密码版本与当前一致,防止改密后的旧refreshToken继续换取token
+	passwordV, _ := cool.CacheManager.Get(ctx, "admin:passwordVersion:"+gconv.String(claims.UserId))
+	if passwordV.IsNil() || user.PasswordV == nil || passwordV.Int32() != *user.PasswordV {
+		err = gerror.New("refreshToken已失效,请重新登录~")
 		return
 	}
 

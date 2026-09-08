@@ -107,8 +107,15 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 	r := g.RequestFromCtx(ctx)
 	rMap := r.GetMap()
 
+	// 是否来自"个人中心更新"(comm/personUpdate),该入口仅允许修改当前登录用户本人
+	isPersonUpdate := r.GetCtxVar("isPersonUpdate", false).Bool()
+
 	// 如果不传入ID代表更新当前用户
 	userId := r.Get("id", admin.UserId).Uint()
+	if isPersonUpdate {
+		// 强制更新对象为当前登录用户,防止通过个人中心接口传入他人ID越权修改
+		userId = admin.UserId
+	}
 	userInfo, err := m.Where("id = ?", userId).One()
 
 	if err != nil {
@@ -131,8 +138,29 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 		rMap["password"], _ = gmd5.Encrypt(rPassword)
 		rMap["passwordV"] = userInfo["passwordV"].Int() + 1
 		cool.CacheManager.Set(ctx, fmt.Sprintf("admin:passwordVersion:%d", userId), rMap["passwordV"], 0)
+		// 密码变更后立即吊销该用户已签发的accessToken与refreshToken
+		cool.CacheManager.Remove(ctx, "admin:token:"+gconv.String(userId))
+		cool.CacheManager.Remove(ctx, "admin:token:refresh:"+gconv.String(userId))
 	} else {
 		delete(rMap, "password")
+	}
+
+	// 个人中心更新仅允许修改个人资料字段,禁止携带角色/部门/状态等管理字段,防止越权提权
+	if isPersonUpdate {
+		allowSelfFields := map[string]bool{
+			"name":     true,
+			"nickName": true,
+			"headImg":  true,
+			"phone":    true,
+			"email":    true,
+			"remark":   true,
+			"password": true,
+		}
+		for k := range rMap {
+			if !allowSelfFields[k] {
+				delete(rMap, k)
+			}
+		}
 	}
 
 	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) (err error) {
@@ -142,8 +170,10 @@ func (s *BaseSysUserService) ServiceUpdate(ctx context.Context, req *cool.Update
 			return
 		}
 
-		// 如果请求参数中不包含roleIdList说明不修改角色信息
-		if !r.Get("roleIdList").IsNil() {
+		// 个人中心更新不允许修改角色,防止普通用户给自己分配超管等高权限角色
+		if isPersonUpdate {
+			delete(rMap, "roleIdList")
+		} else if !r.Get("roleIdList").IsNil() {
 			inRoleIdSet := gset.NewFrom(r.Get("roleIdList").Ints())
 			roleIdsSet := gset.NewFrom(gconv.Ints(roleIds))
 
@@ -223,13 +253,51 @@ func NewBaseSysUserService() *BaseSysUserService {
 					},
 				},
 				Where: func(ctx context.Context) []g.Array {
-					r := g.RequestFromCtx(ctx).GetMap()
-					return []g.Array{
-						{"(departmentId IN (?))", gconv.SliceStr(r["departmentIds"])},
+					r := g.RequestFromCtx(ctx)
+					admin := cool.GetAdmin(ctx)
+					// 请求中的部门范围(前端按选中部门节点下发)
+					reqIds := gconv.SliceUint(r.Get("departmentIds").Val())
+					// 当前管理员被授权的部门范围(登录/刷新权限时缓存,超管为全部部门)
+					allowedVar, _ := cool.CacheManager.Get(ctx, "admin:department:"+gconv.String(admin.UserId))
+					allowedIds := gconv.SliceUint(allowedVar.Val())
+					// 授权范围缺失(缓存未命中/未配置数据权限)时,退化为仅按请求部门过滤,保证可用性
+					if len(allowedIds) == 0 {
+						if len(reqIds) == 0 {
+							return []g.Array{{"0=1"}}
+						}
+						return []g.Array{{"(departmentId IN (?))", reqIds}}
 					}
+					// 未指定部门时,默认查询全部授权部门
+					if len(reqIds) == 0 {
+						return []g.Array{{"(departmentId IN (?))", allowedIds}}
+					}
+					// 仅允许查询“请求部门∩授权部门”,防止跨部门越权拉取用户数据
+					allowedSet := gset.NewFrom(allowedIds)
+					intersectIds := make([]uint, 0, len(reqIds))
+					for _, id := range reqIds {
+						if allowedSet.Contains(id) {
+							intersectIds = append(intersectIds, id)
+						}
+					}
+					if len(intersectIds) == 0 {
+						return []g.Array{{"0=1"}}
+					}
+					return []g.Array{{"(departmentId IN (?))", intersectIds}}
 				},
 				Extend: func(ctx g.Ctx, m *gdb.Model) *gdb.Model {
 					return m.Group("`base_sys_user`.`id`")
+				},
+				// 分页/导出结果剔除密码等敏感字段,防止密码哈希泄露
+				ModifyResult: func(ctx g.Ctx, data interface{}) interface{} {
+					if resultMap, ok := data.(g.Map); ok {
+						if list, ok := resultMap["list"].(gdb.Result); ok {
+							for _, record := range list {
+								delete(record, "password")
+								delete(record, "passwordV")
+							}
+						}
+					}
+					return data
 				},
 				KeyWordField: []string{"name", "username", "nickName"},
 			},

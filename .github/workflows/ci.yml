@@ -1,0 +1,54 @@
+name: CI
+
+# 发布前的质量门禁:push 到 master 及所有 PR 自动执行
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: Go build & vet (all modules)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # 多模块仓库使用 go.work 把本地子模块串起来,否则各模块会去远端拉旧版本依赖
+      - name: Init Go workspace
+        run: |
+          go work init
+          go work use -r .
+
+      # 遍历所有含 go.mod 的目录逐一编译(仓库根模块由 go build ./... 覆盖)
+      - name: Build all modules
+        run: |
+          set -euo pipefail
+          go build ./...
+          mods=$(find . -name go.mod -not -path './.devcontainer/*' -printf '%h\n' | sort)
+          for d in $mods; do
+            echo "==> go build ./... ($d)"
+            go -C "$d" build ./...
+          done
+
+      - name: Vet all modules
+        run: |
+          set -euo pipefail
+          go vet ./...
+          mods=$(find . -name go.mod -not -path './.devcontainer/*' -printf '%h\n' | sort)
+          for d in $mods; do
+            echo "==> go vet ./... ($d)"
+            go -C "$d" vet ./...
+          done

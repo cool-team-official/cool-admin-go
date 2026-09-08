@@ -2,6 +2,8 @@ package cool
 
 import (
 	"context"
+	"regexp"
+	"strings"
 
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/database/gdb"
@@ -54,6 +56,22 @@ type JoinOp struct {
 
 // JoinType 关联类型
 type JoinType string
+
+// 排序字段白名单:仅允许 字母/数字/下划线/点(支持 a.b 及多字段英文逗号分隔),避免 ORDER BY 注入
+var orderFieldPattern = regexp.MustCompile(`^[A-Za-z0-9_.]+(,[A-Za-z0-9_.]+)*$`)
+
+// safeOrderBy 校验并生成安全的排序语句,order/sort 不合法时返回 false,调用方应忽略该排序条件
+func safeOrderBy(order, sort string) (string, bool) {
+	order = strings.Trim(strings.ReplaceAll(order, "`", ""), " ")
+	sort = strings.ToLower(strings.TrimSpace(sort))
+	if order == "" || (sort != "asc" && sort != "desc") {
+		return "", false
+	}
+	if !orderFieldPattern.MatchString(order) {
+		return "", false
+	}
+	return order + " " + sort, true
+}
 
 // ServiceAdd 新增
 func (s *Service) ServiceAdd(ctx context.Context, req *AddReq) (data interface{}, err error) {
@@ -166,10 +184,11 @@ func (s *Service) ServiceList(ctx context.Context, req *ListReq) (data interface
 	r := g.RequestFromCtx(ctx)
 	m := g.DB(s.Model.GroupName()).Model(s.Model.TableName())
 
-	// 如果 req.Order 和 req.Sort 均不为空 则添加排序
+	// 如果 req.Order 和 req.Sort 均不为空 则添加排序(白名单校验,防止SQL注入)
 	if !r.Get("order").IsEmpty() && !r.Get("sort").IsEmpty() {
-		m.Order(r.Get("order").String() + " " + r.Get("sort").String())
-		// m.OrderDesc("orderNum")
+		if orderSql, ok := safeOrderBy(r.Get("order").String(), r.Get("sort").String()); ok {
+			m.Order(orderSql)
+		}
 	}
 	// 如果 ListQueryOp 不为空 则使用 ListQueryOp 进行查询
 	if s.ListQueryOp != nil {
@@ -352,9 +371,11 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 			m.Fields(Select)
 		}
 	}
-	// 如果 req.Order 和 req.Sort 均不为空 则添加排序
+	// 如果 req.Order 和 req.Sort 均不为空 则添加排序(白名单校验,防止SQL注入)
 	if !r.Get("order").IsEmpty() && !r.Get("sort").IsEmpty() {
-		m.Order(r.Get("order").String() + " " + r.Get("sort").String())
+		if orderSql, ok := safeOrderBy(r.Get("order").String(), r.Get("sort").String()); ok {
+			m.Order(orderSql)
+		}
 	}
 
 	// 如果req.IsExport为true 则导出数据
@@ -370,6 +391,10 @@ func (s *Service) ServicePage(ctx context.Context, req *PageReq) (data interface
 		data = g.Map{
 			"list":  result,
 			"total": total,
+		}
+		// 导出同样应用 ModifyResult,确保敏感字段(如密码哈希)不被导出
+		if s.PageQueryOp != nil && s.PageQueryOp.ModifyResult != nil {
+			data = s.PageQueryOp.ModifyResult(ctx, data)
 		}
 		return data, nil
 	}

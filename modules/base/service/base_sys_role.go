@@ -28,7 +28,9 @@ func (s *BaseSysRoleService) ModifyAfter(ctx context.Context, method string, par
 // updatePerms(roleId, menuIdList?, departmentIds = [])
 func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuIdList, departmentIds []uint) (err error) {
 	// 更新菜单权限
-	cool.DBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", roleId).Delete()
+	if _, err = cool.DBM(model.NewBaseSysRoleMenu()).Where("roleId = ?", roleId).Delete(); err != nil {
+		return
+	}
 	if len(menuIdList) > 0 {
 		roleMenuList := make([]g.MapStrAny, len(menuIdList))
 		for i, menuId := range menuIdList {
@@ -37,10 +39,14 @@ func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuI
 				"menuId": menuId,
 			}
 		}
-		cool.DBM(model.NewBaseSysRoleMenu()).Data(roleMenuList).Insert()
+		if _, err = cool.DBM(model.NewBaseSysRoleMenu()).Data(roleMenuList).Insert(); err != nil {
+			return
+		}
 	}
 	// 更新部门权限
-	cool.DBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", roleId).Delete()
+	if _, err = cool.DBM(model.NewBaseSysRoleDepartment()).Where("roleId = ?", roleId).Delete(); err != nil {
+		return
+	}
 	if len(departmentIds) > 0 {
 		roleDepartmentList := make([]g.MapStrAny, len(departmentIds))
 		for i, departmentId := range departmentIds {
@@ -49,7 +55,9 @@ func (s *BaseSysRoleService) updatePerms(ctx context.Context, roleId uint, menuI
 				"departmentId": departmentId,
 			}
 		}
-		cool.DBM(model.NewBaseSysRoleDepartment()).Data(roleDepartmentList).Insert()
+		if _, err = cool.DBM(model.NewBaseSysRoleDepartment()).Data(roleDepartmentList).Insert(); err != nil {
+			return
+		}
 	}
 	// 刷新权限
 	userRoles, err := cool.DBM(model.NewBaseSysUserRole()).Where("roleId = ?", roleId).All()
@@ -73,7 +81,11 @@ func (s *BaseSysRoleService) GetByUser(userId uint) []string {
 	var (
 		roles []string
 	)
-	res, _ := cool.DBM(baseSysUserRole).Where("userId = ?", userId).Array("roleId")
+	res, err := cool.DBM(baseSysUserRole).Where("userId = ?", userId).Array("roleId")
+	if err != nil {
+		g.Log().Error(context.Background(), "查询用户角色失败", err)
+		return roles
+	}
 	for _, v := range res {
 		roles = append(roles, gconv.String(v))
 	}

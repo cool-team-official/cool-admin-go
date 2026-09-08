@@ -1,6 +1,8 @@
 package service
 
 import (
+	"context"
+
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
 	"github.com/gogf/gf/v2/database/gdb"
@@ -22,7 +24,12 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []string, isAdmin bool) 
 	if len(roleIds) > 0 {
 		// 如果是超级管理员，则返回所有部门
 		if isAdmin {
-			result, _ = cool.DBM(s.Model).Fields("id").All()
+			r, err := cool.DBM(s.Model).Fields("id").All()
+			if err != nil {
+				g.Log().Error(context.Background(), "GetByRoleIds 查询全部部门失败", err)
+				return res
+			}
+			result = r
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["id"] != nil {
@@ -31,7 +38,12 @@ func (s *BaseSysDepartmentService) GetByRoleIds(roleIds []string, isAdmin bool) 
 			}
 		} else {
 			// 如果不是超级管理员，则返回角色所在部门
-			result, _ = cool.DBM(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
+			r, err := cool.DBM(BaseSysRoleDepartment).Where("roleId IN (?)", roleIds).Fields("departmentId").All()
+			if err != nil {
+				g.Log().Error(context.Background(), "GetByRoleIds 查询角色部门失败", err)
+				return res
+			}
+			result = r
 			for _, v := range result {
 				vmap := v.Map()
 				if vmap["departmentId"] != nil {

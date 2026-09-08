@@ -104,7 +104,14 @@ type PersonUpdateReq struct {
 func (c *BaseCommController) PersonUpdate(ctx g.Ctx, req *PersonUpdateReq) (res *cool.BaseRes, err error) {
 	var (
 		baseSysUserService = service.NewBaseSysUserService()
+		admin              = cool.GetAdmin(ctx)
+		r                  = g.RequestFromCtx(ctx)
 	)
+
+	// 个人中心更新:强制更新对象为当前登录用户,防止通过传入他人ID越权修改;
+	// 同时标记该请求为个人更新,Service层将拒绝修改角色/部门/状态等管理字段,防止垂直提权
+	r.SetParam("id", admin.UserId)
+	r.SetCtxVar("isPersonUpdate", true)
 
 	_, err = baseSysUserService.ServiceUpdate(ctx, &cool.UpdateReq{})
 	if err != nil {

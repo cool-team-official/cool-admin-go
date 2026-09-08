@@ -1,8 +1,11 @@
 package service
 
 import (
+	"context"
+
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/cool-team-official/cool-admin-go/modules/base/model"
+	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -53,9 +56,9 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 		Prefix  string             `json:"prefix"`
 	}
 	admineps := make(map[string][]*Module)
-	// 获取所有路由并更新到数据库表 base_eps_admin
-	cool.DBM(baseEpsAdmin).Where("1=1").Delete()
+	// 先收集全部路由,再在事务中重建路由信息表,避免半途失败/并发重建造成数据不一致
 	routers := g.Server().GetRoutes()
+	epsApis := make([]*Api, 0)
 	for _, router := range routers {
 		if router.Type == ghttp.HandlerTypeMiddleware || router.Type == ghttp.HandlerTypeHook {
 			continue
@@ -78,7 +81,7 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 		prefix := gstr.Join(routeSplite[0:len(routeSplite)-1], "/")
 		// 获取最后一个元素为summary
 		summary := routeSplite[len(routeSplite)-1]
-		cool.DBM(baseEpsAdmin).Insert(&Api{
+		epsApis = append(epsApis, &Api{
 			Module:  module,
 			Method:  method,
 			Path:    path,
@@ -88,13 +91,34 @@ func (s *BaseOpenService) creatAdminEPS(ctx g.Ctx) (adminEPS interface{}, err er
 			Dts:     "",
 		})
 	}
+	// 事务内重建:先清空再批量写入,任一步失败即回滚,错误向上返回
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		m := cool.DBM(baseEpsAdmin).TX(tx)
+		if _, err := m.Where("1=1").Delete(); err != nil {
+			return err
+		}
+		if len(epsApis) > 0 {
+			if _, err := m.Data(epsApis).Insert(); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
 	// 读取数据库表生成eps
-	// var modules []*Module
-	items, _ := cool.DBM(baseEpsAdmin).Fields("DISTINCT module,prefix").All()
+	items, err := cool.DBM(baseEpsAdmin).Fields("DISTINCT module,prefix").All()
+	if err != nil {
+		return nil, err
+	}
 	for _, item := range items {
 		module := item["module"].String()
 		prefix := item["prefix"].String()
-		apis, _ := cool.DBM(baseEpsAdmin).Where("module=? AND prefix=?", module, prefix).All()
+		apis, err := cool.DBM(baseEpsAdmin).Where("module=? AND prefix=?", module, prefix).All()
+		if err != nil {
+			return nil, err
+		}
 		var apiList []*Api
 		for _, api := range apis {
 			apiList = append(apiList, &Api{
@@ -155,9 +179,9 @@ func (s *BaseOpenService) creatAppEPS(ctx g.Ctx) (appEPS interface{}, err error)
 		Prefix  string             `json:"prefix"`
 	}
 	appeps := make(map[string][]*Module)
-	// 获取所有路由并更新到数据库表 base_eps_admin
-	cool.DBM(baseEpsApp).Where("1=1").Delete()
+	// 先收集全部路由,再在事务中重建路由信息表,避免半途失败/并发重建造成数据不一致
 	routers := g.Server().GetRoutes()
+	epsApis := make([]*Api, 0)
 	for _, router := range routers {
 		if router.Type == ghttp.HandlerTypeMiddleware || router.Type == ghttp.HandlerTypeHook {
 			continue
@@ -180,7 +204,7 @@ func (s *BaseOpenService) creatAppEPS(ctx g.Ctx) (appEPS interface{}, err error)
 		prefix := gstr.Join(routeSplite[0:len(routeSplite)-1], "/")
 		// 获取最后一个元素为summary
 		summary := routeSplite[len(routeSplite)-1]
-		cool.DBM(baseEpsApp).Insert(&Api{
+		epsApis = append(epsApis, &Api{
 			Module:  module,
 			Method:  method,
 			Path:    path,
@@ -190,13 +214,34 @@ func (s *BaseOpenService) creatAppEPS(ctx g.Ctx) (appEPS interface{}, err error)
 			Dts:     "",
 		})
 	}
+	// 事务内重建:先清空再批量写入,任一步失败即回滚,错误向上返回
+	err = g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		m := cool.DBM(baseEpsApp).TX(tx)
+		if _, err := m.Where("1=1").Delete(); err != nil {
+			return err
+		}
+		if len(epsApis) > 0 {
+			if _, err := m.Data(epsApis).Insert(); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
 	// 读取数据库表生成eps
-	// var modules []*Module
-	items, _ := cool.DBM(baseEpsApp).Fields("DISTINCT module,prefix").All()
+	items, err := cool.DBM(baseEpsApp).Fields("DISTINCT module,prefix").All()
+	if err != nil {
+		return nil, err
+	}
 	for _, item := range items {
 		module := item["module"].String()
 		prefix := item["prefix"].String()
-		apis, _ := cool.DBM(baseEpsApp).Where("module=? AND prefix=?", module, prefix).All()
+		apis, err := cool.DBM(baseEpsApp).Where("module=? AND prefix=?", module, prefix).All()
+		if err != nil {
+			return nil, err
+		}
 		var apiList []*Api
 		for _, api := range apis {
 			apiList = append(apiList, &Api{
